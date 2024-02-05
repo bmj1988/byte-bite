@@ -11,9 +11,9 @@ Bytebite is an attempt to build Ubereats as faithfully as possible using a Flask
 
 ### TEAM
 
-[Gerrod](TBD.url)
-[Daniel](TBD.url)
-[Brian](TBD.url)
+[Gerrod](https://github.com/gerrodww)
+[Daniel](https://github.com/dlegendre1)
+[Brian](https://github.com/bmj1988)
 
 ### Dockerimage
 
