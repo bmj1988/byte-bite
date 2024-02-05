@@ -3,7 +3,7 @@
 ## LINKS
 
 [Bytebite](TBD.url)
-[API Docs](TBD.url)
+[API Docs](https://github.com/bmj1988/byte-bite/wiki)
 
 ## ABOUT
 
