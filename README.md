@@ -3,9 +3,9 @@
 ## LINKS
 
 [Bytebite](TBD.url)
-\n
+<br/>
 [API Docs](https://github.com/bmj1988/byte-bite/wiki)
-\n
+<br/>
 ## ABOUT
 
 Bytebite is an attempt to build Ubereats as faithfully as possible using a Flask backend and React frontend, for educational purposes.
@@ -13,15 +13,15 @@ Bytebite is an attempt to build Ubereats as faithfully as possible using a Flask
 ### TEAM
 
 [Gerrod](https://github.com/gerrodww)
-\n
+<br/>
 [Daniel](https://github.com/dlegendre1)
-\n
+<br/>
 [Brian](https://github.com/bmj1988)
 
 ### Dockerimage
 
 [API](TBD.url)
-\n
+<br/>
 [Deployed](TBD.url)
 
 ### TECH
