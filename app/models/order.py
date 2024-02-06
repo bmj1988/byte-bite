@@ -16,7 +16,7 @@ class Order(db.Model):
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'), nullable=False)
     status = db.Column(db.String(25), nullable=False)
     driver = db.Column(db.String(25), nullable=False)
-    price = db.Column(db.Float(scale=2), nullable=False, default=0.00)
+    price = db.Column(db.Float(2), nullable=False, default=0.00)
 
     restaurant = db.relationship('Restaurant')
     items = db.relationship('MenuItem', secondary=order_items, lazy=False)

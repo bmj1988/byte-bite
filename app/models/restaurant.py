@@ -17,7 +17,7 @@ class Restaurant(db.Model):
     phone = db.Column(db.String, nullable=False)
     delivery = db.Column(db.Boolean, nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    category_id = db.Column(db.Intger, db.ForeignKey('categories.id'), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
 
     menu = db.relationship('MenuItem', back_populates="restaurant")
     reviews = db.relationship('Review', back_populates="restaurant")
