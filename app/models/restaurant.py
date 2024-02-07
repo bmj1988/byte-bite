@@ -11,6 +11,7 @@ class Restaurant(db.Model):
     address = db.Column(db.String(255), nullable=False, unique=True)
     city = db.Column(db.String(40), nullable=False)
     state = db.Column(db.String(20), nullable=False)
+    image = db.Column(db.String(255), nullable=False)
     lat = db.Column(db.Float, nullable=False)
     lng = db.Column(db.Float, nullable=False)
     delivery = db.Column(db.Boolean, nullable=False)

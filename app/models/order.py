@@ -12,7 +12,7 @@ class Order(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    customer = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'), nullable=False)
     status = db.Column(db.String(25), nullable=False)
     driver = db.Column(db.String(25), nullable=False)
@@ -35,7 +35,7 @@ class Order(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'customer': self.customer,
+            'userId': self.user_id,
             'restaurantId': self.restaurant_id,
             'status': self.status,
             'driver': self.driver,
