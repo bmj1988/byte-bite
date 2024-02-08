@@ -20,6 +20,7 @@ class Restaurant(db.Model):
 
     menu = db.relationship('MenuItem', back_populates="restaurant")
     reviews = db.relationship('Review', back_populates="restaurant")
+    owner = db.relationship('User')
     category = db.relationship('Category')
 
     def to_dict(self):
@@ -30,5 +31,8 @@ class Restaurant(db.Model):
             'city': self.city,
             'state': self.state,
             'delivery': self.delivery,
-            'category_id': self.category_id
+            'categoryId': self.category_id,
+            'ownerId': self.owner_id,
+            'owner': self.owner.to_dict(),
+            'MenuItems': [x.to_dict() for x in self.menu]
         }

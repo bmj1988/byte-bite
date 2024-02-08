@@ -14,3 +14,11 @@ class MenuItem(db.Model):
     restaurant_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('restaurants.id')))
 
     restaurant = db.relationship("Restaurant", back_populates="menu")
+
+    def to_dict(self):
+        return{
+            'id': self.id,
+            'name': self.name,
+            'price': self.price,
+
+        }
