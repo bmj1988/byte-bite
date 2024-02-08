@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 class Restaurant(db.Model):
     __tablename__ = 'restaurants'
@@ -15,11 +15,12 @@ class Restaurant(db.Model):
     lat = db.Column(db.Float, nullable=False)
     lng = db.Column(db.Float, nullable=False)
     delivery = db.Column(db.Boolean, nullable=False)
-    owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('categories.id')), nullable=False)
 
     menu = db.relationship('MenuItem', back_populates="restaurant")
     reviews = db.relationship('Review', back_populates="restaurant")
+    owner = db.relationship('User')
     category = db.relationship('Category')
 
     def to_dict(self):
@@ -30,5 +31,8 @@ class Restaurant(db.Model):
             'city': self.city,
             'state': self.state,
             'delivery': self.delivery,
-            'category_id': self.category_id
+            'categoryId': self.category_id,
+            'ownerId': self.owner_id,
+            'owner': self.owner.to_dict(),
+            'MenuItems': [x.to_dict() for x in self.menu]
         }
