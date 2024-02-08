@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from app.models import Restaurant, db
 from app.forms import RestaurantForm
@@ -41,3 +41,14 @@ def new():
         db.session.commit()
         return new_restaurant.to_dict()
     return form.errors, 401
+
+@restaurant_routes.route('/<string:name>')
+def get_restaurant_details(name):
+    restaurant = db.session.query(Restaurant).filter_by(name=name).first()
+
+    if not restaurant:
+        return {
+            "message": "restaurant couldn't be found"
+            }
+
+    return restaurant.to_dict()
