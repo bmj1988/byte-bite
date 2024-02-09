@@ -1,59 +1,44 @@
-FROM --platform=amd64 node:18-alpine as frontend
+FROM python:3.11-slim as builder
+ENV PYTHONUNBUFFERED=1
 
-WORKDIR /react-vite
-
-COPY ./react-vite/package*.json .
-
-RUN npm install
-
-COPY ./react-vite .
-
-RUN npm run build
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    netcat-openbsd && \
+    rm -rf /var/lib/apt/lists/*
 
 
-FROM --platform=amd64 python:3.9.18-alpine3.18
+# Second Stage: Python Dependencies
+FROM python:3.11-slim as py-dependencies-builder
 
-RUN apk add build-base
-
-RUN apk add postgresql-dev gcc python3-dev musl-dev
-
-
-
-ARG FLASK_APP=app
-ENV FLASK_APP=${FLASK_APP}
-
-ARG FLASK_ENV=production
-ENV FLASK_ENV=${FLASK_ENV}
+WORKDIR /var/www
+COPY --from=builder /usr/local /usr/local
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt psycopg2-binary
+COPY ./.flaskenv .
 
 
-ARG DATABASE_URL
-ENV DATABASE_URL=${DATABASE_URL}
-
-ARG SCHEMA=
-ENV SCHEMA=${SCHEMA}
-
-
-ARG SECRET_KEY=
-ENV SECRET_KEY=${SECRET_KEY}
+# Final Stage: Application Runtime
+FROM python:3.11-slim
+ENV PYTHONUNBUFFERED=1
 
 WORKDIR /var/www
 
-COPY requirements.txt .
+# Copy Python environment from py-dependencies-builder stage
+COPY --from=py-dependencies-builder /usr/local /usr/local
 
-RUN pip install -r requirements.txt
-RUN pip install psycopg2
 
-COPY requirements.txt .
-
-RUN pip install -r requirements.txt
-
-COPY ./app ./app
 COPY ./migrations ./migrations
+COPY ./app ./app
+# This will be the ./react-app/builds folder for legacy builds using CRA
+COPY ./react-vite/dist ./react-vite/dist
+COPY entrypoint.sh /entrypoint.sh
 
-COPY --from=frontend /react-vite/dist ./react-vite/dist
 
-# RUN flask db upgrade
-# RUN flask seed all
-EXPOSE 8000
+RUN chmod +x /entrypoint.sh && \
+    useradd -m myuser
+USER myuser
+RUN chmod +x /entrypoint.sh
 
+
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["gunicorn", "app:app"]
