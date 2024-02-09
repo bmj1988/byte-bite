@@ -1,12 +1,12 @@
 FROM --platform=amd64 node:18-alpine as frontend
 
-WORKDIR /frontend
+WORKDIR /react-vite
 
-COPY ./frontend/package*.json .
+COPY ./react-vite/package*.json .
 
 RUN npm install
 
-COPY ./frontend .
+COPY ./react-vite .
 
 RUN npm run build
 
@@ -50,7 +50,7 @@ RUN pip install -r requirements.txt
 COPY ./app ./app
 COPY ./migrations ./migrations
 
-COPY --from=frontend /frontend/dist ./react-vite/dist
+COPY --from=frontend /react-vite/dist ./react-vite/dist
 
 # RUN flask db upgrade
 # RUN flask seed all
