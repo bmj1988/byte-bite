@@ -28,6 +28,7 @@ def post_new_menu_item_to_restaurant(restaurant_id):
     response = {}
     form['csrf_token'].data = request.cookies['csrf_token']
 
+
     if form.validate_on_submit():
         data = form.data
         new_menu_item = MenuItem(
@@ -42,3 +43,25 @@ def post_new_menu_item_to_restaurant(restaurant_id):
         return new_menu_item.to_dict()
     response['formErrors'] = form.errors
     return response, 400
+
+@menu_item_routes.route('/edit/<int:menu_item_id>', methods=['PUT'])
+@login_required
+def update_menu_item(menu_item_id):
+    form = MenuItemForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    menu_item = db.session.query(MenuItem).get(menu_item_id)
+
+    if form.validate_on_submit():
+        data = form.data
+        menu_item.name = data['name']
+        menu_item.price = data['price']
+        menu_item.image = data['image']
+        menu_item.description = data['description']
+        menu_item.name = data['name']
+
+        db.session.commit()
+        return menu_item.to_dict()
+
+
+    return form.errors, 401
