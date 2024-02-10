@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 09b4edb78ab1
+Revision ID: 352b16fe14fe
 Revises: 
-Create Date: 2024-02-06 20:26:54.740804
+Create Date: 2024-02-10 12:34:06.616231
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '09b4edb78ab1'
+revision = '352b16fe14fe'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -26,14 +26,12 @@ def upgrade():
     )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('username', sa.String(length=40), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
     sa.Column('first_name', sa.String(length=40), nullable=False),
     sa.Column('last_name', sa.String(length=40), nullable=False),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('email'),
-    sa.UniqueConstraint('username')
+    sa.UniqueConstraint('email')
     )
     op.create_table('restaurants',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -41,6 +39,7 @@ def upgrade():
     sa.Column('address', sa.String(length=255), nullable=False),
     sa.Column('city', sa.String(length=40), nullable=False),
     sa.Column('state', sa.String(length=20), nullable=False),
+    sa.Column('image', sa.String(length=255), nullable=False),
     sa.Column('lat', sa.Float(), nullable=False),
     sa.Column('lng', sa.Float(), nullable=False),
     sa.Column('delivery', sa.Boolean(), nullable=False),
@@ -64,13 +63,13 @@ def upgrade():
     )
     op.create_table('orders',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('customer', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('restaurant_id', sa.Integer(), nullable=False),
     sa.Column('status', sa.String(length=25), nullable=False),
     sa.Column('driver', sa.String(length=25), nullable=False),
     sa.Column('price', sa.Float(precision=2), nullable=False),
-    sa.ForeignKeyConstraint(['customer'], ['users.id'], ),
     sa.ForeignKeyConstraint(['restaurant_id'], ['restaurants.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('reviews',
