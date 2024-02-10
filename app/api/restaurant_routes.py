@@ -51,7 +51,7 @@ def new():
             )
             db.session.add(new_restaurant)
             db.session.commit()
-            return new_restaurant.to_dict()
+            return new_restaurant.to_dict(), 201
         response['formErrors'] = form.errors
         return response, 400
 
