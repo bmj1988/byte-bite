@@ -8,15 +8,18 @@ menu_item_routes = Blueprint('menu_item', __name__)
 #GET MENU ITEMS BY RESTAURANT ID
 @menu_item_routes.route('/<int:restaurant_id>')
 def get_menu_items_by_restaurant(restaurant_id):
-    restaurant = db.session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
+    menu_item = db.session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
+    restaurant = db.session.query(Restaurant).get(restaurant_id)
 
     if not restaurant:
-        return {
-            "message": "restaurant couldn't be found"
-            }
+        return {"message": "Restaurant couldn`t found"}
+
+    if not menu_item:
+        return {"message": "Menu item couldn't be found"}
+    
     lst = list()
     dic = {"MenuItems": lst}
-    for menu_item in restaurant:
+    for menu_item in menu_item:
         entry = menu_item.to_dict()
         lst.append(entry)
 
@@ -31,6 +34,9 @@ def post_new_menu_item_to_restaurant(restaurant_id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     restaurant = db.session.query(Restaurant).get(restaurant_id)
+
+    if restaurant is None:
+        return {'error': 'Restaurant not found'}, 404
 
     if restaurant.owner_id is not current_user.id:
         return {'message': 'Forbidden'}, 403
@@ -59,6 +65,10 @@ def update_menu_item(menu_item_id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     menu_item = db.session.query(MenuItem).get(menu_item_id)
+
+    if menu_item is None:
+        return {'error': 'Menu item not found'}, 404
+    
     restaurant = db.session.query(Restaurant).get(menu_item.restaurant_id)
 
     if restaurant.owner_id is not current_user.id:
