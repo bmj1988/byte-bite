@@ -27,8 +27,8 @@ def new():
     if form.validate_on_submit():
         data = form.data
 
-        existing_name = Restaurant.query.filter_by(name=data['name']).first()
-        existing_add = Restaurant.query.filter_by(address=data['address']).first()
+        existing_name = db.session.query(Restaurant).filter_by(name=data['name']).first()
+        existing_add = db.session.query(Restaurant).filter_by(address=data['address']).first()
 
         if existing_name:
             response['nameError'] = 'Restaurant name already exists'
@@ -51,7 +51,7 @@ def new():
             )
             db.session.add(new_restaurant)
             db.session.commit()
-            return new_restaurant.to_dict()
+            return new_restaurant.to_dict(), 201
         response['formErrors'] = form.errors
         return response, 400
 
@@ -69,7 +69,7 @@ def get_restaurant_details(name):
 @restaurant_routes.route('/<int:restaurant_id>', methods=['PUT'])
 @login_required
 def edit(restaurant_id):
-    target = Restaurant.query.get(restaurant_id)
+    target = db.session.query(Restaurant).get(restaurant_id)
 
     if target is None:
         return {'error': 'Restaurant not found'}, 404
@@ -99,7 +99,7 @@ def edit(restaurant_id):
 @restaurant_routes.route('/<int:restaurant_id>', methods=['DELETE'])
 @login_required
 def delete(restaurant_id):
-    target = Restaurant.query.get(restaurant_id)
+    target = db.session.query(Restaurant).get(restaurant_id)
 
     if target is None:
         return {'error': 'Restaurant not found'}, 404
