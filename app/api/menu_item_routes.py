@@ -5,6 +5,7 @@ from app.forms import MenuItemForm
 
 menu_item_routes = Blueprint('menu_item', __name__)
 
+#GET MENU ITEMS BY RESTAURANT ID
 @menu_item_routes.route('/<int:restaurant_id>')
 def get_menu_items_by_restaurant(restaurant_id):
     restaurant = db.session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
@@ -21,6 +22,7 @@ def get_menu_items_by_restaurant(restaurant_id):
 
     return dic
 
+#POST NEW MENU ITEM ROUTE
 @menu_item_routes.route('/<int:restaurant_id>/new', methods=['POST'])
 @login_required
 def post_new_menu_item_to_restaurant(restaurant_id):
@@ -44,6 +46,8 @@ def post_new_menu_item_to_restaurant(restaurant_id):
     response['formErrors'] = form.errors
     return response, 400
 
+
+#EDIT MENU ITEM ROUTE
 @menu_item_routes.route('/edit/<int:menu_item_id>', methods=['PUT'])
 @login_required
 def update_menu_item(menu_item_id):
@@ -65,3 +69,21 @@ def update_menu_item(menu_item_id):
 
 
     return form.errors, 401
+
+#DELETE MENU ITEM ROUTE
+@menu_item_routes.route('/delete/<int:menu_item_id>', methods=['DELETE'])
+@login_required
+def delete_menu_item(menu_item_id):
+    menu_item = db.session.query(MenuItem).get(menu_item_id)
+
+    if menu_item is None:
+        return {'error': 'Menu item not found'}, 404
+
+    restaurant = db.session.query(Restaurant).get(menu_item.restaurant_id)
+    if restaurant.owner_id is not current_user.id:
+        return {'message': 'Forbidden'}, 403
+
+    db.session.delete(menu_item)
+    db.session.commit()
+
+    return {'message': 'Menu item deleted successfully'}, 200
