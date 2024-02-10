@@ -30,6 +30,10 @@ def post_new_menu_item_to_restaurant(restaurant_id):
     response = {}
     form['csrf_token'].data = request.cookies['csrf_token']
 
+    restaurant = db.session.query(Restaurant).get(restaurant_id)
+
+    if restaurant.owner_id is not current_user.id:
+        return {'message': 'Forbidden'}, 403
 
     if form.validate_on_submit():
         data = form.data
@@ -55,6 +59,10 @@ def update_menu_item(menu_item_id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     menu_item = db.session.query(MenuItem).get(menu_item_id)
+    restaurant = db.session.query(Restaurant).get(menu_item.restaurant_id)
+
+    if restaurant.owner_id is not current_user.id:
+        return {'message': 'Forbidden'}, 403
 
     if form.validate_on_submit():
         data = form.data
@@ -80,6 +88,7 @@ def delete_menu_item(menu_item_id):
         return {'error': 'Menu item not found'}, 404
 
     restaurant = db.session.query(Restaurant).get(menu_item.restaurant_id)
+
     if restaurant.owner_id is not current_user.id:
         return {'message': 'Forbidden'}, 403
 
