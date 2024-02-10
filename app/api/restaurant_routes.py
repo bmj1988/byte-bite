@@ -72,7 +72,7 @@ def edit(restaurant_id):
     target = db.session.query(Restaurant).get(restaurant_id)
 
     if target is None:
-        return {'error': 'Restaurant not found'}, 404
+        return {'message': 'Restaurant not found'}, 404
     
     if target.owner_id is not current_user.id:
         return {'message': 'Forbidden'}, 403
@@ -102,7 +102,7 @@ def delete(restaurant_id):
     target = db.session.query(Restaurant).get(restaurant_id)
 
     if target is None:
-        return {'error': 'Restaurant not found'}, 404
+        return {'message': 'Restaurant not found'}, 404
     
     if target.owner_id is not current_user.id:
         return {'message': 'Forbidden'}, 403

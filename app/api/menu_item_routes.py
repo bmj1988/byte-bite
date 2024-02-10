@@ -36,7 +36,7 @@ def post_new_menu_item_to_restaurant(restaurant_id):
     restaurant = db.session.query(Restaurant).get(restaurant_id)
 
     if restaurant is None:
-        return {'error': 'Restaurant not found'}, 404
+        return {'message': 'Restaurant not found'}, 404
 
     if restaurant.owner_id is not current_user.id:
         return {'message': 'Forbidden'}, 403
@@ -67,7 +67,7 @@ def update_menu_item(menu_item_id):
     menu_item = db.session.query(MenuItem).get(menu_item_id)
 
     if menu_item is None:
-        return {'error': 'Menu item not found'}, 404
+        return {'message': 'Menu item not found'}, 404
     
     restaurant = db.session.query(Restaurant).get(menu_item.restaurant_id)
 
@@ -95,7 +95,7 @@ def delete_menu_item(menu_item_id):
     menu_item = db.session.query(MenuItem).get(menu_item_id)
 
     if menu_item is None:
-        return {'error': 'Menu item not found'}, 404
+        return {'message': 'Menu item not found'}, 404
 
     restaurant = db.session.query(Restaurant).get(menu_item.restaurant_id)
 

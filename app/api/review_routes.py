@@ -8,9 +8,12 @@ review_routes = Blueprint('review', __name__)
 # GET REVIEWS BY RESTAURANT ID /api/reviews/restaurant_id
 @review_routes.route('/<int:restaurant_id>')
 def reviews_by_rest(restaurant_id):
+  restaurant = db.session.query(Restaurant).get(restaurant_id)
+  if not restaurant:
+    return {"message": "Restaurant could not be found"}
   reviews_by_restaurant = db.session.query(Review).filter_by(restaurant_id=restaurant_id).all()
   if not reviews_by_restaurant:
-    return {"message": "Restaurant couldn't be found"}
+    return {"message": "Restaurant has no reviews"}
   lst = list()
   dic = {"reviews": lst}
   for review in reviews_by_restaurant:
@@ -71,7 +74,7 @@ def edit_review(restaurant_id):
   form = ReviewForm()
   form['csrf_token'].data = request.cookies['csrf_token']
 
-  target = db.session.query(Review).filter_by(restaurant_id=restaurant_id).first()
+  target = db.session.query(Review).filter_by(restaurant_id=restaurant_id, user_id=current_user.id).first()
 
   if target is None:
     return {'message': 'User has not reviewed this restaurant'}
@@ -92,10 +95,14 @@ def edit_review(restaurant_id):
 @review_routes.route('/<int:restaurant_id>', methods=['DELETE'])
 @login_required
 def delete_review(restaurant_id):
-  target = db.session.query(Review).filter_by(restaurant_id=restaurant_id).first()
+  target = db.session.query(Review).filter_by(restaurant_id=restaurant_id, user_id=current_user.id).first()
+  restaurant = db.session.query(Restaurant).get(restaurant_id)
+
+  if restaurant is None:
+    return {"message": "Restaurant couldn't be found"}
 
   if target is None:
-    return {'error': 'Review not found'}, 404
+    return {'message': 'Review not found'}, 404
     
   if target.user_id is not current_user.id:
     return {'message': 'Forbidden'}, 403
