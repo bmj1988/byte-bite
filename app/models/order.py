@@ -36,8 +36,9 @@ class Order(db.Model):
         return {
             'id': self.id,
             'userId': self.user_id,
-            'restaurantId': self.restaurant_id,
             'status': self.status,
             'driver': self.driver,
             'price': self.price,
+            'items': self.items,
+            'restaurant': self.restaurant
         }
