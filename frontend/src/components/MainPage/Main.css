@@ -1,0 +1,19 @@
+.main_page_primary {
+    max-width: 1280px;
+    padding: 0 40px;
+    min-width: 1024px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.category_scroller {
+    width: 100%;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    overflow-x: scroll;
+}
+
+.category_item {
+    height: 87px;
+    width: 72px;
+}
