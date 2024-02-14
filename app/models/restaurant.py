@@ -56,4 +56,5 @@ class Restaurant(db.Model):
             'state': self.state,
             'categoryId': self.category_id,
             'starRating': self.star_rating,
+            'image': self.image
         }

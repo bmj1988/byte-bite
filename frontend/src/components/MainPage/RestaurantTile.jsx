@@ -13,9 +13,8 @@ const RestaurantTile = ({ restaurantInfo }) => {
             <div className="restaurant_details">
                 <p className="restaurant_name">{`${restaurantInfo.name} (${restaurantInfo.address})`}</p>
                 <div className="restaurant_rating">
-                    <div className="ratingText">
-                        {restaurantInfo.starRating}
-                    </div>
+                    {restaurantInfo.starRating && <div className="ratingText">{restaurantInfo.starRating}</div>}
+                    {!restaurantInfo.starRating && <div className="ratingText">{'NEW'}</div>}
                 </div>
             </div>
         </div>
