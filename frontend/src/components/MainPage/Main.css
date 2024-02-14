@@ -1,9 +1,11 @@
 .main_page_primary {
+    display: flex;
     max-width: 1280px;
     padding: 0 40px;
     min-width: 1024px;
     margin: 0 auto;
     box-sizing: border-box;
+    gap: 12px;
 }
 
 .category_scroller {
@@ -16,4 +18,88 @@
 .category_item {
     height: 87px;
     width: 72px;
+}
+
+.spinner {
+    display: flex;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+
+.restaurant_div {
+    display: flex;
+    flex-flow: column;
+    overflow: hidden;
+    font-family: 'Rubik', sans-serif;
+    color: black;
+    width: 288px;
+    height: 190px;
+    cursor:pointer;
+}
+
+.restaurant_image {
+    border-radius: 12px;
+    background: white;
+    height: 130px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.restaurant_details {
+    align-items: center;
+    display: flex;
+    width: 288px;
+    height: 28px;
+    margin-top: 12px;
+    gap: 4px;
+    justify-content: space-between;
+}
+
+.restaurant_name {
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 500;
+    text-overflow: ellipsis;
+}
+
+.restaurant_rating {
+    flex: 0 0 28px;
+    font-size: 12px;
+    border-radius: 50%;
+    height: 28px;
+    width: 28px;
+    background: #EEEEEE;
+    line-height: 16px;
+    font-weight: 500;
+    align-items: center;
+}
+
+.ratingText {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;
+}
+
+.categoryScroller {
+    width: 1200px;
+    height: 87px;
+    display: inline;
+}
+
+.categoryIcon {
+    height: 87px;
+    width: 64px;
+}
+
+.categoryImage {
+    height: 64;
+    width: inherit;
+}
+
+.categoryName {
+    font-size: 12px;
+    font-family: 'Rubik', sans-serif;
 }

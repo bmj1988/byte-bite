@@ -46,3 +46,14 @@ class Restaurant(db.Model):
             'owner': self.owner.to_dict(),
             'MenuItems': [x.to_dict() for x in self.menu]
         }
+
+    def to_dict_main_page(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'address': self.address,
+            'city': self.city,
+            'state': self.state,
+            'categoryId': self.category_id,
+            'starRating': self.star_rating,
+        }
