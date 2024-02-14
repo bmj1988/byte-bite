@@ -3,6 +3,7 @@ import { restaurantsArray, thunkAllRestaurants } from "../../redux/restaurants"
 import { useDispatch, useSelector } from 'react-redux'
 import Spinner from "../Spinner"
 import RestaurantTile from "./RestaurantTile"
+import CategoryScroller from "./CategoryScroller"
 
 const MainPage = () => {
     const [loaded, setLoaded] = useState(false)
@@ -20,6 +21,8 @@ const MainPage = () => {
     }
 
     return (
+        <>
+        <CategoryScroller />
         <div className="main_page_primary">
         {restaurants.map((restaurant) => {
             return (
@@ -27,6 +30,7 @@ const MainPage = () => {
             )
         })}
         </div>
+        </>
     )
 }
 

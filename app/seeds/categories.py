@@ -3,49 +3,64 @@ from sqlalchemy.sql import text
 
 def seed_categories():
     thai = Category(
-        name="Thai"
+        name="Thai",
+        image="/FRONTENDICONthai-food.png"
     )
     fast_food = Category(
-        name="Fast Food"
+        name="Fast Food",
+        image="/FRONTENDICONfast-food.png"
     )
     mexican = Category(
-        name="Mexican"
+        name="Mexican",
+        image="/FRONTENDICONmexican-food.png"
     )
     poke = Category(
-        name="Poke"
+        name="Poke",
+        image="/FRONTENDICONpoke.png"
     )
     chinese = Category(
-        name="Chinese"
+        name="Chinese",
+        image="/FRONTENDICONchinese-food.png"
     )
     indian = Category(
-        name="Indian"
+        name="Indian",
+        image="/FRONTENDICONindian-food.png"
     )
     sushi = Category(
-        name="Sushi"
+        name="Sushi",
+        image="/FRONTENDICONsushi.png"
     )
     wings = Category(
-        name="Wings"
+        name="Wings",
+        image="/FRONTENDICONfried-chicken.png"
     )
     alcohol = Category(
-        name="Alcohol"
+        name="Alcohol",
+        image="/FRONTENDICONalcohol.png"
     )
     pizza = Category(
-        name="Pizza"
+        name="Pizza",
+        image="/FRONTENDICONpizza.png"
     )
     italian = Category(
-        name="Italian"
+        name="Italian",
+        image="/FRONTENDICONspaghetti.png"
     )
     greek = Category(
-        name="Greek"
+        name="Greek",
+        image="/FRONTENDICONgreek.png"
     )
     breakfast = Category(
-        name="Breakfast"
+        name="Breakfast",
+        image="/FRONTENDICONbreakfast.png"
     )
     ice_cream = Category(
-        name="Ice Cream"
+        name="Ice Cream",
+        image="/FRONTENDICONice-cream.png"
     )
     vegan = Category(
-        name="Vegan"
+        name="Vegan",
+        image="/FRONTENDICONvegan.png"
     )
 
 

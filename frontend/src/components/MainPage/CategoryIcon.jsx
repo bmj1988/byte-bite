@@ -1,4 +1,4 @@
-const CategoryIcon = (category) => {
+const CategoryIcon = ({ category }) => {
     return (
         <div className="categoryIcon">
             <img className="categoryImage" src={category.image}/>

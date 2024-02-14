@@ -42,7 +42,7 @@ export const categoriesArray = createSelector((state) => state.categories, (cate
 export const categoryReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_CATEGORIES: {
-            categoryState = { state };
+            let categoryState = { ...state };
             action.payload.categories.forEach((category) => {
                 categoryState[category.id] = category
             })
