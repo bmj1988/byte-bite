@@ -1,4 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from sqlalchemy.orm import column_property
+from sqlalchemy import select, func
+from .review import Review
 
 class Restaurant(db.Model):
     __tablename__ = 'restaurants'
@@ -17,6 +20,12 @@ class Restaurant(db.Model):
     delivery = db.Column(db.Boolean, nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('categories.id')), nullable=False)
+    star_rating = column_property(
+        select(func.avg(Review.id))
+        .where(Review.user_id == id)
+        .correlate_except(Review)
+        .scalar_subquery()
+    )
 
     menu = db.relationship('MenuItem', back_populates="restaurant")
     reviews = db.relationship('Review', back_populates="restaurant")
@@ -32,6 +41,7 @@ class Restaurant(db.Model):
             'state': self.state,
             'delivery': self.delivery,
             'categoryId': self.category_id,
+            'starRating': self.star_rating,
             'ownerId': self.owner_id,
             'owner': self.owner.to_dict(),
             'MenuItems': [x.to_dict() for x in self.menu]

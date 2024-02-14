@@ -1,8 +1,9 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 order_items = db.Table('order_items',
-    db.Column('order_id', db.Integer, db.ForeignKey('orders.id'), primary_key=True),
-    db.Column('menu_item_id', db.Integer, db.ForeignKey('menu_items.id'), primary_key=True))
+    db.Column('order_id', db.Integer, db.ForeignKey(add_prefix_for_prod('orders.id')), primary_key=True),
+    db.Column('menu_item_id', db.Integer, db.ForeignKey(add_prefix_for_prod('menu_items.id')), primary_key=True),
+    db.Column('quantity', db.Integer))
 
 
 class Order(db.Model):
@@ -36,8 +37,8 @@ class Order(db.Model):
         return {
             'id': self.id,
             'userId': self.user_id,
-            'restaurantId': self.restaurant_id,
             'status': self.status,
             'driver': self.driver,
             'price': self.price,
+            'restaurant': {'name': self.restaurant.name, 'id': self.restaurant.id}
         }
