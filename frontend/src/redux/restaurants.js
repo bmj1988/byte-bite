@@ -48,10 +48,10 @@ export const thunkAllRestaurants = () => async (dispatch) => {
     }
 }
 
-export const thunkRestaurantById = (id) => async (dispatch) => {
-    const response = await fetch(`/api/restaurants/${id}`)
+export const thunkRestaurantById = (name) => async (dispatch) => {
+    const response = await fetch(`/api/restaurants/${name}`)
     if (response.ok) {
-        const restaurant_details = response.json()
+        const restaurant_details = await response.json()
         dispatch(loadRestaurantDetails(restaurant_details))
     }
     else {
@@ -118,6 +118,13 @@ export const thunkDeleteRestaurant = (id) => async (dispatch) => {
 export const restaurantsArray = createSelector((state) => state.restaurants, (restaurants) => {
     return Object.values(restaurants)
 })
+
+export const restaurantByName = createSelector(
+    (state) => state.restaurants, 
+    (_, name) => name,
+    (restaurants, name) => {
+        return Object.values(restaurants).find(restaurant => restaurant.name === name)
+    })
 
 /// REDUCER
 
