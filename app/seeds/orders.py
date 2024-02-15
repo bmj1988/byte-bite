@@ -3,13 +3,13 @@ from sqlalchemy.sql import text
 
 def seed_orders():
     order_1 = Order(
-        user_id=2, restaurant_id=1, status="Out for Delivery", driver="Ted", price="15.00"
+        user_id=2, restaurant_id=1, status="Out for Delivery", driver="Ted", price=15.00
     )
     order_2 = Order(
-        user_id=3, restaurant_id=2, status="Being Prepared", driver="Angie", price="28.00"
+        user_id=3, restaurant_id=2, status="Being Prepared", driver="Angie", price=28.00
     )
     order_3 = Order(
-        user_id=3, restaurant_id=3, status="Delivered", driver="Jerry", price="55.00"
+        user_id=3, restaurant_id=3, status="Delivered", driver="Jerry", price=55.00
     )
 
     db.session.add_all([order_1, order_2, order_3])

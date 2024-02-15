@@ -21,7 +21,7 @@ class Restaurant(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('categories.id')), nullable=False)
     star_rating = column_property(
-        select(func.avg(Review.id))
+        select(func.avg(Review.stars))
         .where(Review.user_id == id)
         .correlate_except(Review)
         .scalar_subquery()

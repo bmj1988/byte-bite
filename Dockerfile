@@ -52,8 +52,8 @@ COPY ./migrations ./migrations
 
 COPY --from=frontend /frontend/dist ./react-vite/dist
 
-RUN flask db upgrade
-RUN flask seed all
+# RUN flask db upgrade
+# RUN flask seed all
 EXPOSE 8000
 
 CMD ["gunicorn", "app:app"]
