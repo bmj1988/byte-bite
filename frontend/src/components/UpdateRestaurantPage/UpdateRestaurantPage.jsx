@@ -1,12 +1,14 @@
-import { useState } from "react"
-import { useDispatch } from "react-redux"
-import { thunkNewRestaurant } from "../../redux/restaurants"
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { thunkRestaurantById, thunkUpdateRestaurant } from "../../redux/restaurants";
+import Spinner from "../Spinner"
 
-const NewRestaurantPage = () => {
+const UpdateRestaurantPage = () => {
   const dispatch = useDispatch()
-
-  const [errors, setErrors] = useState({}) //need to figure this out
-
+  const navigate = useNavigate()
+  const { restaurantId } = useParams()
+  
   const [name, setName] = useState('')
   const [address, setAddress] = useState('')
   const [city, setCity] = useState('')
@@ -14,11 +16,25 @@ const NewRestaurantPage = () => {
   const [image, setImage] = useState('')
   const [delivery, setDelivery] = useState(true)
   const [categoryId, setCategoryId] = useState('')
+  
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    const id = restaurantId
+    dispatch(thunkRestaurantById(id)).then(() => setLoaded(true))
+  }, [dispatch, restaurantId]) 
+
+  if (!loaded) {
+    return (
+      <Spinner />
+    )
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const restaurantDetails = {
+      id: restaurantId,
       name,
       address,
       city,
@@ -29,42 +45,39 @@ const NewRestaurantPage = () => {
       delivery,
       category_id: categoryId
     }
-    
-    dispatch(thunkNewRestaurant(restaurantDetails))
+
+    dispatch(thunkUpdateRestaurant(restaurantDetails))
+    navigate('/') //switch to restaurant page when built
   }
 
   return (
     <>
-      <h2>Create New Restaurant</h2>
+      <h2>Update Restaurant</h2>
+      <div>{restaurantId}</div>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Name</label>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required/>
-          {errors && errors.name && <div className="error">{errors.name}</div>}
         </div>
 
         <div>
           <label>Address</label>
           <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" required/>
-          {errors && errors.address && <div className="error">{errors.address}</div>}
         </div>
 
         <div>
           <label>City</label>
           <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="City" required/>
-          {errors && errors.city && <div className="error">{errors.city}</div>}
         </div>
 
         <div>
           <label>State</label>
           <input type="text" value={state} onChange={(e) => setState(e.target.value)} placeholder="State" required/>
-          {errors && errors.state && <div className="error">{errors.state}</div>}
         </div>
 
         <div>
           <label>Image</label>
           <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" required/>
-          {errors && errors.image && <div className="error">{errors.image}</div>}
         </div>
 
         <div>
@@ -77,10 +90,10 @@ const NewRestaurantPage = () => {
           <input type="number" value={categoryId} onChange={(e) => setCategoryId(e.target.value)} placeholder="Category ID" required/>
         </div>
 
-        <button type="submit">Create Restaurant</button>
+        <button type="submit">Update restaurant.name (fix)</button>
       </form>
     </>
   )
 }
 
-export default NewRestaurantPage;
+export default UpdateRestaurantPage;
