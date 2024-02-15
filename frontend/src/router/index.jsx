@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
+import NewRestaurantPage from '../components/NewRestaurantPage/NewRestaurantPage';
 import Layout from './Layout';
 import MainPage from '../components/MainPage/MainPage';
 
@@ -11,6 +12,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <MainPage/>,
+      },
+      {
+        path: "/new",
+        element: <NewRestaurantPage />
       },
       {
         path: "login",
