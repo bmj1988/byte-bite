@@ -50,7 +50,7 @@ RUN pip install -r requirements.txt
 COPY ./app ./app
 COPY ./migrations ./migrations
 
-COPY --from=frontend /frontend/dist ./react-vite/dist
+COPY --from=frontend /frontend/dist ./frontend/dist
 
 # RUN flask db upgrade
 # RUN flask seed all
