@@ -1,8 +1,13 @@
+import OpenModalButton from '../OpenModalButton'
+import SignupFormModal from '../SignupFormModal'
 
 const SignUpButton = () => {
     return (
         <div className='loginIcon'>
-            {`Sign up`}
+            <OpenModalButton 
+            modalComponent={<SignupFormModal />}
+            buttonText='Sign Up'
+            />
         </div>
     )
 }
