@@ -32,10 +32,10 @@ def new():
         existing_add = db.session.query(Restaurant).filter_by(address=data['address']).first()
 
         if existing_name:
-            response['nameError'] = 'Restaurant name already exists'
+            form.name.errors.append('Restaurant name already exists')
 
         if existing_add:
-            response['addressError'] = 'Restaurant address already exists'
+            form.name.errors.append('Restaurant address already exists')
 
         if not existing_add and not existing_name:
             new_restaurant = Restaurant(
@@ -53,8 +53,10 @@ def new():
             db.session.add(new_restaurant)
             db.session.commit()
             return new_restaurant.to_dict(), 201
-        response['formErrors'] = form.errors
-        return response, 400
+    errors = {}
+    for field, error in form.errors.items():
+        errors[field] = error[0]
+    return {'error': errors}, 400
 
 @restaurant_routes.route('/<int:id>')
 def get_restaurant_details(id):
