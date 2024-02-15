@@ -22,6 +22,8 @@ const NewRestaurantPage = () => {
       city,
       state,
       image,
+      lat: 90,
+      lng: 90,
       delivery,
       category_id: categoryId
     }
@@ -60,7 +62,7 @@ const NewRestaurantPage = () => {
 
         <div>
           <label>Delivery</label>
-          <input type="checkbox" value={delivery} onChange={(e) => setDelivery(e.target.value)}/>
+          <input type="checkbox" value={delivery} onChange={(e) => setDelivery(e.target.checked)}/>
         </div>
 
         <div>
