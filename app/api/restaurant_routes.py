@@ -12,8 +12,9 @@ def home():
     lst = list()
     dic = {"restaurants": lst}
     for restaurant in all_restaurants:
-        rest_entry = restaurant.to_dict()
-        lst.append(rest_entry)
+        if restaurant.delivery:
+            rest_entry = restaurant.to_dict_main_page()
+            lst.append(rest_entry)
 
     return dic
 
@@ -31,10 +32,10 @@ def new():
         existing_add = db.session.query(Restaurant).filter_by(address=data['address']).first()
 
         if existing_name:
-            response['nameError'] = 'Restaurant name already exists'
-    
+            form.name.errors.append('Restaurant name already exists')
+
         if existing_add:
-            response['addressError'] = 'Restaurant address already exists'
+            form.name.errors.append('Restaurant address already exists')
 
         if not existing_add and not existing_name:
             new_restaurant = Restaurant(
@@ -52,17 +53,14 @@ def new():
             db.session.add(new_restaurant)
             db.session.commit()
             return new_restaurant.to_dict(), 201
-        response['formErrors'] = form.errors
-        return response, 400
+    errors = {}
+    for field, error in form.errors.items():
+        errors[field] = error[0]
+    return {'error': errors}, 400
 
-@restaurant_routes.route('/<string:name>')
-def get_restaurant_details(name):
-    restaurant = db.session.query(Restaurant).filter_by(name=name).first()
-
-    if not restaurant:
-        return {
-            "message": "restaurant couldn't be found"
-            }
+@restaurant_routes.route('/<int:id>')
+def get_restaurant_details(id):
+    restaurant = db.get_or_404(Restaurant, id)
 
     return restaurant.to_dict()
 
@@ -73,10 +71,10 @@ def edit(restaurant_id):
 
     if target is None:
         return {'message': 'Restaurant not found'}, 404
-    
+
     if target.owner_id is not current_user.id:
         return {'message': 'Forbidden'}, 403
-    
+
     form = RestaurantForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -103,10 +101,10 @@ def delete(restaurant_id):
 
     if target is None:
         return {'message': 'Restaurant not found'}, 404
-    
+
     if target.owner_id is not current_user.id:
         return {'message': 'Forbidden'}, 403
-    
+
     db.session.delete(target)
     db.session.commit()
 

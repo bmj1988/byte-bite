@@ -21,7 +21,7 @@ class Restaurant(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('categories.id')), nullable=False)
     star_rating = column_property(
-        select(func.avg(Review.id))
+        select(func.avg(Review.stars))
         .where(Review.user_id == id)
         .correlate_except(Review)
         .scalar_subquery()
@@ -45,4 +45,16 @@ class Restaurant(db.Model):
             'ownerId': self.owner_id,
             'owner': self.owner.to_dict(),
             'MenuItems': [x.to_dict() for x in self.menu]
+        }
+
+    def to_dict_main_page(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'address': self.address,
+            'city': self.city,
+            'state': self.state,
+            'categoryId': self.category_id,
+            'starRating': self.star_rating,
+            'image': self.image
         }
