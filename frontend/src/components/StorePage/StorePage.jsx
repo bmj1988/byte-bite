@@ -11,7 +11,7 @@ const StorePage = () => {
 
   useEffect(() => {
     dispatch(thunkRestaurantById(name))
-  }, [dispatch])
+  }, [dispatch, name])
 
   return (
     <>
