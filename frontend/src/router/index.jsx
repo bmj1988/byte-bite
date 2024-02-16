@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
         path: "/update",
         children: [
           {
-            path: ':restaurantId',
+            path: ':restaurantName',
             element: <UpdateRestaurantPage />
           }
         ]
