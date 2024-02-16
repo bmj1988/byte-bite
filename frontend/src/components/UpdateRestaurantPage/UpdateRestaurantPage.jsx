@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { thunkRestaurantById, thunkUpdateRestaurant } from "../../redux/restaurants";
+import { thunkRestaurantByName, thunkUpdateRestaurant, restaurantByName } from "../../redux/restaurants";
 import Spinner from "../Spinner"
 
 const UpdateRestaurantPage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { restaurantId } = useParams()
-  
+  const { restaurantName } = useParams()
+
   const [name, setName] = useState('')
   const [address, setAddress] = useState('')
   const [city, setCity] = useState('')
@@ -16,13 +16,14 @@ const UpdateRestaurantPage = () => {
   const [image, setImage] = useState('')
   const [delivery, setDelivery] = useState(true)
   const [categoryId, setCategoryId] = useState('')
-  
+
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    const id = restaurantId
-    dispatch(thunkRestaurantById(id)).then(() => setLoaded(true))
-  }, [dispatch, restaurantId]) 
+    dispatch(thunkRestaurantByName(restaurantName)).then(() => setLoaded(true))
+  }, [dispatch, restaurantName])
+
+  const restaurant = useSelector((state) => restaurantByName(state, restaurantName))
 
   if (!loaded) {
     return (
@@ -34,7 +35,7 @@ const UpdateRestaurantPage = () => {
     e.preventDefault();
 
     const restaurantDetails = {
-      id: restaurantId,
+      id: restaurant.id,
       name,
       address,
       city,
@@ -53,7 +54,6 @@ const UpdateRestaurantPage = () => {
   return (
     <>
       <h2>Update Restaurant</h2>
-      <div>{restaurantId}</div>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Name</label>
