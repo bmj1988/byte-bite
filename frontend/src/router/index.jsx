@@ -6,7 +6,7 @@ import Layout from './Layout';
 import NewRestaurantPage from '../components/NewRestaurantPage/NewRestaurantPage';
 import UpdateRestaurantPage from '../components/UpdateRestaurantPage/UpdateRestaurantPage';
 import MainPage from '../components/MainPage/MainPage';
-import CurrentReviewsPage from '../components/CurrentReviewsPage/CurrentReviewsPage';
+import StorePage from '../components/StorePage/StorePage';
 
 export const router = createBrowserRouter([
   {
@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <MainPage/>,
+        element: <MainPage />,
       },
       {
         path: "/new",
@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
         element: <SignupFormPage />,
       },
       {
-        path: "/update", 
+        path: "/update",
         children: [
           {
             path: ':restaurantId',
