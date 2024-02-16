@@ -6,6 +6,7 @@ import Layout from './Layout';
 import NewRestaurantPage from '../components/NewRestaurantPage/NewRestaurantPage';
 import UpdateRestaurantPage from '../components/UpdateRestaurantPage/UpdateRestaurantPage';
 import MainPage from '../components/MainPage/MainPage';
+import CurrentReviewsPage from '../components/CurrentReviewsPage/CurrentReviewsPage';
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +25,7 @@ export const router = createBrowserRouter([
         element: <LoginFormPage />,
       },
       {
-        path: "signup",
+        path: "/signup",
         element: <SignupFormPage />,
       },
       {
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
             element: <StorePage/>
           }
         ]
+      },
+      {
+        path: "/reviews/current",
+        element: <CurrentReviewsPage />
       }
     ],
   },
