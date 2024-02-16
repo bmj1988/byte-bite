@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
-import StorePage from '../components/StorePage';
 import Layout from './Layout';
 import NewRestaurantPage from '../components/NewRestaurantPage/NewRestaurantPage';
 import UpdateRestaurantPage from '../components/UpdateRestaurantPage/UpdateRestaurantPage';
