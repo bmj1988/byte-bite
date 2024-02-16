@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import '../MainPage/Main.css'
-import { thunkRestaurantById } from '../../redux/restaurants'
+import { thunkRestaurantByName } from '../../redux/restaurants'
 import { useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Spinner from '../Spinner'
@@ -12,7 +12,7 @@ const StorePage = () => {
 
     useEffect(() => {
         const thunkSender = async () => {
-            await dispatch(thunkRestaurantById(location.state.id))
+            await dispatch(thunkRestaurantByName(location.state.id))
         }
         thunkSender()
         setrestaurantDetailsLoaded(true)
