@@ -1,13 +1,19 @@
-import { useEffect, useState } from 'react'
-import '../MainPage/Main.css'
-import { thunkRestaurantByName } from '../../redux/restaurants'
-import { useLocation, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import './StorePage.css'
+import { restaurantByName, thunkRestaurantByName } from '../../redux/restaurants'
+import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Spinner from '../Spinner'
+import MenuItems from './MenuItems'
+import { FaStar } from 'react-icons/fa'
+import SeeSimilarButton from './SeeSimilarButton'
+import GroupOrderButton from './GroupByOrderButton'
+import ScheduleButton from './ScheduleButton'
+import DeliveryOrPickupButton from './DeliveryOrPickupButton'
+import PaginatedReviewScroller from './PaginatedReviewScroller'
 
 const StorePage = () => {
     const { name } = useParams();
-    const [restaurantDetailsLoaded, setrestaurantDetailsLoaded] = useState(false)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -15,57 +21,52 @@ const StorePage = () => {
             await dispatch(thunkRestaurantByName(name))
         }
         thunkSender()
-        setrestaurantDetailsLoaded(true)
-    }, [dispatch])
+    }, [dispatch, name])
 
-    const restaurantDetails = useSelector((state) => state.restaurants[name])
-    console.log(restaurantDetails)
-    if (!restaurantDetailsLoaded) {
+    const restaurantDetails = useSelector((state) => restaurantByName(state, name))
+
+    console.log(`!!!!`, restaurantDetails)
+    if (!restaurantDetails) {
         return (
             <Spinner />
         )
     }
 
+    const reviews = restaurantDetails.Reviews
+
     return (
-        <div>
+        <div className='storePageMainDiv'>
             {/* {restaurantDetails.header && <div>
                 <img src={restaurantDetails.header} className="storePageHeader" />
             </div>} */}
             <div className="storePageName">
                 {restaurantDetails.name}
             </div>
-            <div class="ratingDistanceDiv">
-                <span>{restaurantDetails.starRating}</span>
+            <div className="ratingDistanceDiv">
+                <span>{`${restaurantDetails.starRating}`}</span>
+                <FaStar style={{ fontSize: '12px', marginRight: '5px' }} />
+                <span style={{ color: 'gray', fontSize: '14px' }}>{`(${restaurantDetails.numReviews})`}</span>
                 <span>{restaurantDetails?.distance}</span>
             </div>
-            <div className="storePageButtonDiv">
-                {/* <SeeSimilarButton /> */}
-                {/* <GroupOrderButton/>
-                <ScheduleButton/> */}
-                {/* <DeliveryOrPickupButton /> */}
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div className="storePageButtonDiv">
+                    <SeeSimilarButton />
+                    <GroupOrderButton />
+                    <ScheduleButton />
+                </div>
+                <DeliveryOrPickupButton />
             </div>
             <div className="storePageReviews">
                 <div className="reviewHeader">
-                    <h3>From Customers</h3>
+                    <h2>From customers</h2>
                     <span>Reviews from people who've ordered here</span>
                 </div>
                 <div className="reviewScrollbar">
-                    {/* { restaurantDetails.reviews && restaurantDetails.reviews.map((review) => {
-                    return (
-                        <ReviewCell review=review/>
-                    )
-                })} */}
+                    <PaginatedReviewScroller reviews={reviews} />
                 </div>
             </div>
-            <div className="MenuItemsScroller">
-                {/* {restaurantDetails.menuItems && restaurantDetails.menuItems.map((menuItem) => {
-                return (
-                    <MenuItemCell item=menuItem/>
-                )
-            })} */}
-
-            </div>
-
+            <h2>Menu items</h2>
+            <MenuItems menuItemsArray={restaurantDetails.MenuItems} />
 
         </div>
     )

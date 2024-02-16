@@ -41,7 +41,7 @@ export const thunkRestaurantsReviews = (id) => async (dispatch) => {
   if (res.ok) {
     const reviews = await res.json();
     dispatch(loadReviews(reviews))
-    return reviews 
+    return reviews
   } else {
     const error = res.json()
     console.log(error)
@@ -100,6 +100,13 @@ export const thunkUpdateReview = (reviewDetails) => async (dispatch) => {
     return error
   }
 }
+
+// export const thunkPaginatedReviews = (restaurantId) => async (dispatch) => {
+//   const response = await fetch(`/api/reviews/${restaurantId}/scroller`)
+//   if (response.ok) {
+
+//   }
+// }
 
 ///SELECTORS
 

@@ -6,6 +6,7 @@ import NewRestaurantPage from '../components/NewRestaurantPage/NewRestaurantPage
 import UpdateRestaurantPage from '../components/UpdateRestaurantPage/UpdateRestaurantPage';
 import MainPage from '../components/MainPage/MainPage';
 import StorePage from '../components/StorePage/StorePage';
+import CurrentReviewsPage from '../components/CurrentReviewsPage/CurrentReviewsPage';
 
 export const router = createBrowserRouter([
   {

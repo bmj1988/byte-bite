@@ -47,10 +47,10 @@ def post_review_by_user(restaurant_id):
 
   if not restaurant:
     return {'message': 'Restaurant could not be found'}
-  
+
   if already_reviewed:
     return {'message': 'User already submitted review for this restaurant'}
-  
+
   if restaurant.owner_id == current_user.id:
     return {'message': 'Cannot review your own restaurant'}
 
@@ -103,10 +103,21 @@ def delete_review(restaurant_id):
 
   if target is None:
     return {'message': 'Review not found'}, 404
-    
+
   if target.user_id is not current_user.id:
     return {'message': 'Forbidden'}, 403
-  
+
   db.session.delete(target)
   db.session.commit()
   return {'message': 'Review deleted successfully'}, 200
+
+@review_routes.route('/<int:restaurant_id>/scroller')
+def paginate_reviews(restaurant_id):
+  review_scroller = db.paginate(db.select(Review).where(Review.restaurant_id == restaurant_id), page=1, per_page=3)
+  paginated_by_3_reviews = list()
+  if not review_scroller:
+    return {"msg": "error"}
+  else:
+    for review in review_scroller:
+      paginated_by_3_reviews.append(review.to_dict())
+    return {"reviews": paginated_by_3_reviews}

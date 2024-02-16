@@ -68,7 +68,6 @@ def new():
 @restaurant_routes.route('/<string:name>')
 def get_restaurant_details(name):
     restaurant = db.session.query(Restaurant).filter_by(name=name).first()
-
     return restaurant.to_dict()
 
 @restaurant_routes.route('/<int:restaurant_id>', methods=['PUT'])

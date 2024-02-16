@@ -21,5 +21,6 @@ class Review(db.Model):
             'review': self.review,
             'stars': self.stars,
             'user_id': self.user_id,
-            'restaurant_id': self.restaurant_id
+            'restaurant_id': self.restaurant_id,
+            'user': self.user.to_dict(),
         }
