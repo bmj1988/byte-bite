@@ -1,28 +1,75 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { restaurantByName, thunkRestaurantById } from "../../redux/restaurants";
+import { useEffect, useState } from 'react'
+import '../MainPage/Main.css'
+import { thunkRestaurantById } from '../../redux/restaurants'
+import { useLocation } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import Spinner from '../Spinner'
 
 const StorePage = () => {
-  const dispatch = useDispatch();
-  const { name } = useParams();
+    const [restaurantDetailsLoaded, setrestaurantDetailsLoaded] = useState(false)
+    const location = useLocation();
+    const dispatch = useDispatch();
 
-  const restaurant = useSelector((state) => restaurantByName(state, name))
+    useEffect(() => {
+        const thunkSender = async () => {
+            await dispatch(thunkRestaurantById(location.state.id))
+        }
+        thunkSender()
+        setrestaurantDetailsLoaded(true)
+    }, [dispatch])
 
-  useEffect(() => {
-    dispatch(thunkRestaurantById(name))
-  }, [dispatch, name])
+    const restaurantDetails = useSelector((state) => state.restaurants[location.state.id])
+    console.log(restaurantDetails)
+    console.log()
+    if (!restaurantDetailsLoaded) {
+        return (
+            <Spinner/>
+        )
+    }
 
-  return (
-    <>
-      <h2>StorePage</h2>
-      <img src={restaurant.image}/>
-      <div>{restaurant.name}</div>
-      <div>{restaurant.address}</div>
-      <div>{restaurant.city}</div>
-      <div>{restaurant.state}</div>
-    </>
-  )
+    return (
+        <div>
+            {/* {restaurantDetails.header && <div>
+                <img src={restaurantDetails.header} className="storePageHeader" />
+            </div>} */}
+            <div className="storePageName">
+                {restaurantDetails.name}
+            </div>
+            <div class="ratingDistanceDiv">
+                <span>{restaurantDetails.starRating}</span>
+                <span>{restaurantDetails?.distance}</span>
+            </div>
+            <div className="storePageButtonDiv">
+                {/* <SeeSimilarButton /> */}
+                {/* <GroupOrderButton/>
+                <ScheduleButton/> */}
+                {/* <DeliveryOrPickupButton /> */}
+            </div>
+            <div className="storePageReviews">
+                <div className="reviewHeader">
+                    <h3>From Customers</h3>
+                    <span>Reviews from people who've ordered here</span>
+                </div>
+                <div className="reviewScrollbar">
+                {/* { restaurantDetails.reviews && restaurantDetails.reviews.map((review) => {
+                    return (
+                        <ReviewCell review=review/>
+                    )
+                })} */}
+                </div>
+            </div>
+            <div className="MenuItemsScroller">
+            {/* {restaurantDetails.menuItems && restaurantDetails.menuItems.map((menuItem) => {
+                return (
+                    <MenuItemCell item=menuItem/>
+                )
+            })} */}
+
+            </div>
+
+
+        </div>
+    )
 }
 
 export default StorePage

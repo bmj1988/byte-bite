@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
         element: <SignupFormPage />,
       },
       {
-        path: "/update", 
+        path: "/update",
         children: [
           {
             path: ':restaurantId',
