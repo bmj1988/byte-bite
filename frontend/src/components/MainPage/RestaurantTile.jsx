@@ -5,7 +5,7 @@ const RestaurantTile = ({ restaurantInfo }) => {
 
     const navigate = useNavigate();
     const handleClick = async () => {
-        navigate(`/store/${restaurantInfo.name}`, {state: { id: restaurantInfo.id}})
+        navigate(`/store/${restaurantInfo.name}`, {state: { name: restaurantInfo.name}})
     }
 
     return (

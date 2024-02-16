@@ -12,7 +12,7 @@ const StorePage = () => {
 
     useEffect(() => {
         const thunkSender = async () => {
-            await dispatch(thunkRestaurantByName(location.state.id))
+            await dispatch(thunkRestaurantByName(location.state.name))
         }
         thunkSender()
         setrestaurantDetailsLoaded(true)
