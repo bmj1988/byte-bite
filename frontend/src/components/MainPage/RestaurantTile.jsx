@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom"
+import { thunkRestaurantById } from "../../redux/restaurants";
 
 const RestaurantTile = ({ restaurantInfo }) => {
 
     const navigate = useNavigate();
     const handleClick = async () => {
-        navigate(`/store/${restaurantInfo.name}`)
+        navigate(`/store/${restaurantInfo.name}`, {state: { id: restaurantInfo.id}})
     }
 
     return (

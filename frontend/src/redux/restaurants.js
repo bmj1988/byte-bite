@@ -8,7 +8,6 @@ const LOAD_RESTAURANT_DETAILS = 'restaurants/details'
 const DELETE_RESTAURANT = 'restaurant/delete'
 
 
-
 ///ACTION CREATORS
 
 
@@ -33,7 +32,6 @@ const deleteRestaurant = (id) => {
     }
 }
 
-
 /// THUNKS
 
 export const thunkAllRestaurants = () => async (dispatch) => {
@@ -55,7 +53,7 @@ export const thunkRestaurantById = (name) => async (dispatch) => {
         dispatch(loadRestaurantDetails(restaurant_details))
     }
     else {
-        const error = response.json()
+        const error = await response.json()
         console.log(error)
         return error
     }
@@ -113,6 +111,58 @@ export const thunkDeleteRestaurant = (id) => async (dispatch) => {
     }
 }
 
+/// MENU ITEMS THUNKS
+
+export const thunkAddMenuItem = (menuItem) => async (dispatch) => {
+    const response = await fetch(`/api/menu_items/${menuItem.restaurant_id}/new`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(menuItem)
+    })
+    if (response.ok) {
+        dispatch(thunkRestaurantById(menuItem.restaurant_id))
+    }
+    else {
+        const error = await response.json()
+        console.log('ADD MENU ITEM THUNK', error)
+        return error
+    }
+}
+
+export const thunkDeleteMenuItem = (id, restaurantId) => async (dispatch) => {
+    const response = await fetch(`/api/menu_items/delete/${id}`, {
+        method: 'DELETE'
+    })
+    if (response.ok) {
+        dispatch(thunkRestaurantById(restaurantId))
+    }
+    else {
+        const error = await response.json()
+        console.log('DELETE MENU ITEM THUNK', error)
+        return error
+    }
+}
+
+export const thunkUpdateMenuItem = (menuItemDetails) => async (dispatch) => {
+    const response = await fetch(`api/menu_items/edit/${menuItemDetails.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(menuItemDetails)
+    })
+    if (response.ok) {
+        dispatch(thunkRestaurantById(menuItemDetails.restaurant_id))
+    }
+    else {
+        const error = await response.json()
+        console.log('DELETE MENU ITEM THUNK', error)
+        return error
+    }
+}
+
 /// SELECTORS
 
 export const restaurantsArray = createSelector((state) => state.restaurants, (restaurants) => {
@@ -147,6 +197,7 @@ export const restaurantsReducer = (state = {}, action) => {
             delete restaurantState[action.payload]
             return restaurantState
         }
+
         default: {
             return restaurantState
         }
