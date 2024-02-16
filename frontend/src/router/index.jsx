@@ -30,7 +30,6 @@ export const router = createBrowserRouter([
       },
       {
         path: "/update",
-        path: "/update",
         children: [
           {
             path: ':restaurantId',
