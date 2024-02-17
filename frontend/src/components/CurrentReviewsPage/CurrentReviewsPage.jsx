@@ -4,8 +4,8 @@ import { thunkUsersReviews, reviewsArray } from "../../redux/reviews";
 import DeleteReviewModal from "./DeleteReviewModal";
 import OpenModalButton from '../OpenModalButton'
 import ReviewBox from "../StorePage/ReviewBox";
-import './CurrentReviewsPage.css' 
 import UpdateReviewModal from "./UpdateReviewModal";
+import './CurrentReviewsPage.css' 
 
 const CurrentReviewsPage = () => {
   const dispatch = useDispatch();
