@@ -1,20 +1,27 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react";
 import { thunkUsersReviews, reviewsArray } from "../../redux/reviews";
+import { thunkAllRestaurants } from "../../redux/restaurants";
 import DeleteReviewModal from "./DeleteReviewModal";
 import OpenModalButton from '../OpenModalButton'
-import ReviewBox from "../StorePage/ReviewBox";
-import './CurrentReviewsPage.css' 
+import CurrentReviewBox from "./CurrentReviewsBox";
 import UpdateReviewModal from "./UpdateReviewModal";
+import Spinner from "../Spinner";
+import './CurrentReviewsPage.css' 
 
 const CurrentReviewsPage = () => {
   const dispatch = useDispatch();
 
-  const reviews = useSelector(reviewsArray)
-
   useEffect(() => {
     dispatch(thunkUsersReviews())
+    dispatch(thunkAllRestaurants())
   }, [dispatch])
+
+  const reviews = useSelector(reviewsArray)
+
+  if (!reviews) {
+    return <Spinner />
+  }
 
   return (
     <>
@@ -23,7 +30,7 @@ const CurrentReviewsPage = () => {
           return (
             <>
               <div className="review-box">
-                <ReviewBox review={review} key={review.id} />
+                <CurrentReviewBox review={review} key={review.id} />
                 <div className="review-buttons">
                   < OpenModalButton 
                   modalComponent={<DeleteReviewModal restaurant_id={review.restaurant_id}/>}
