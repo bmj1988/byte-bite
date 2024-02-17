@@ -15,7 +15,7 @@ function DeleteReviewModal({restaurant_id}) {
 
   return (
     <div className='delete-modal'>
-      <h2>Confirm Delete</h2>
+      <h2 className='confirm-delete'>Confirm Delete</h2>
       <label> Are you sure you want to delete this review?
         <div>
           <button className="yes-delete" onClick={(e) => confirmDelete(restaurant_id, e)}>Yes (Delete Review)</button>
