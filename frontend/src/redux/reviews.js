@@ -49,15 +49,15 @@ export const thunkRestaurantsReviews = (id) => async (dispatch) => {
   }
 }
 
-export const thunkDeleteReview = (id) => async (dispatch) => {
-  const res  = await fetch(`/api/reviews/${id}`, {
+export const thunkDeleteReview = (restaurant_id) => async (dispatch) => {
+  const res  = await fetch(`/api/reviews/${restaurant_id}`, {
     method: "DELETE"
   })
   if (res.ok) {
-    dispatch(deleteReview(id))
+    await dispatch(deleteReview(restaurant_id))
     return {"msg": "Review successfully deleted"}
   } else {
-    const error = res.json()
+    const error = await res.json()
     console.log(error)
     return error
   }

@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react";
 import { thunkUsersReviews, reviewsArray } from "../../redux/reviews";
+import DeleteReviewModal from "./DeleteReviewModal";
+import OpenModalButton from '../OpenModalButton'
 import ReviewBox from "../StorePage/ReviewBox";
 import './CurrentReviewsPage.css' 
 
@@ -22,7 +24,9 @@ useEffect(() => {
               <div className="review-box">
                 <ReviewBox review={review} key={review.id} />
                 <div className="review-buttons">
-                  <button>DELETE</button>
+                  < OpenModalButton 
+                  modalComponent={<DeleteReviewModal restaurant_id={review.restaurant_id}/>}
+                  buttonText="Delete" />
                   <button>UPDATE</button>
                 </div>
               </div>
