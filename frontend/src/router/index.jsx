@@ -3,7 +3,6 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import NewRestaurantPage from '../components/NewRestaurantPage/NewRestaurantPage';
-import UpdateRestaurantPage from '../components/UpdateRestaurantPage/UpdateRestaurantPage';
 import MainPage from '../components/MainPage/MainPage';
 import StorePage from '../components/StorePage/StorePage';
 import CurrentReviewsPage from '../components/CurrentReviewsPage/CurrentReviewsPage';
@@ -28,15 +27,6 @@ export const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignupFormPage />,
-      },
-      {
-        path: "/update",
-        children: [
-          {
-            path: ':restaurantName',
-            element: <UpdateRestaurantPage />
-          }
-        ]
       },
       {
         path: "/store",
