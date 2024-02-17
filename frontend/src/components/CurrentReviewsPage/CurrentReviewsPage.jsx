@@ -32,10 +32,10 @@ const CurrentReviewsPage = () => {
               <div className="review-box">
                 <CurrentReviewBox review={review} key={review.id} />
                 <div className="review-buttons">
-                  < OpenModalButton 
+                  < OpenModalButton className="review-modal-button"
                   modalComponent={<DeleteReviewModal restaurant_id={review.restaurant_id}/>}
                   buttonText="Delete" />
-                  < OpenModalButton 
+                  < OpenModalButton className="review-modal-button"
                   modalComponent={ <UpdateReviewModal restaurant_id={review.restaurant_id} />}
                   buttonText="Update"
                   />

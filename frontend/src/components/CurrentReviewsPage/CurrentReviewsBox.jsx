@@ -23,17 +23,18 @@ const CurrentReviewBox = ({ review }) => {
   }
 
   return (
-    <div className="reviewBox">
+    <div className="current-reviewBox">
       <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
         <div style={{ display: 'flex', background: color, borderRadius: '50%', justifyContent: 'center', alignItems: 'center', padding: '6px', marginRight: '5px' }}>
           {randomIcon} 
           
         </div>
         <button className="currentReviewBoxName" onClick={() => navigate(`/store/${reviewedRestaurant.name}`)}>{reviewedRestaurant.name}</button>
-        <div>{review.stars}<FaStar style={{ fontSize: '12', color: 'black' }} /></div>
       </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <p className="reviewBoxText">{`${review.review}`}</p>
-      <div>{review.stars}<FaStar style={{ fontSize: '12', color: 'black' }} /></div>
+      <div className="review-stars">{review.stars}<FaStar style={{ fontSize: '12', color: 'black' }} /></div>
+      </div>
     </div>
   )
 }
