@@ -1,5 +1,48 @@
+.profile-bars {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333; 
+}
+
+.profile-sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px; 
+  width: 250px;
+  height: 100%;
+  background-color: #fff; 
+  padding: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+  transition: left 0.3s ease; 
+}
+
+.profile-sidebar.active {
+  left: 0; 
+}
+
 .profile-dropdown {
   position: absolute;
+}
+
+.profile-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.profile-sidebar li {
+  margin-bottom: 10px;
+}
+
+.profile-sidebar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333; 
+}
+
+.profile-sidebar button:hover {
+  text-decoration: underline;
 }
 
 .nav-bar {
