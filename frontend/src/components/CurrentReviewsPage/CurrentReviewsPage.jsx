@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux"
-import './CurrentReviewsPage.css'
 import { useEffect } from "react";
 import { thunkUsersReviews, reviewsArray } from "../../redux/reviews";
+import ReviewBox from "../StorePage/ReviewBox";
+import './CurrentReviewsPage.css' 
 
 const CurrentReviewsPage = () => {
 const dispatch = useDispatch();
@@ -14,13 +15,17 @@ useEffect(() => {
 
   return (
     <>
-      <h2>Your Reviews</h2>
-      <div>
+      <div className="reviews">
         {reviews.map((review) => {
           return (
             <>
-            <div>{review.review}</div>
-            <div>{review.stars}</div>
+              <div className="review-box">
+                <ReviewBox review={review} key={review.id} />
+                <div className="review-buttons">
+                  <button>DELETE</button>
+                  <button>UPDATE</button>
+                </div>
+              </div>
             </>
           )
         })}
