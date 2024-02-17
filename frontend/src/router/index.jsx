@@ -7,6 +7,7 @@ import UpdateRestaurantPage from '../components/UpdateRestaurantPage/UpdateResta
 import MainPage from '../components/MainPage/MainPage';
 import StorePage from '../components/StorePage/StorePage';
 import CurrentReviewsPage from '../components/CurrentReviewsPage/CurrentReviewsPage';
+import CurrentRestaurantsPage from '../components/CurrentRestaurantsPage'
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
           {
             path: ':name',
             element: <StorePage/>
+          },
+          {
+            path: 'my-stores',
+            element: <CurrentRestaurantsPage />
           }
         ]
       },

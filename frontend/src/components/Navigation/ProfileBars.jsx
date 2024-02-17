@@ -54,6 +54,12 @@ const ProfileBars = () => {
         closeMenu();
     }
 
+    const toMyRestaurants = (e) => {
+        e.preventDefault();
+        navigate('/store/my-stores');
+        closeMenu();
+    }
+
     return (
         <>
         <button className="profile-bars" onClick={toggleMenu}>
@@ -70,6 +76,7 @@ const ProfileBars = () => {
                 <li>{user.email}</li>
                 <li><button onClick={logout}>Log Out</button></li>
                 <li><button onClick={toMyReviews}>My Reviews</button></li>
+                <li><button onClick={toMyRestaurants}>My Restaurants</button></li>
             </>
         ) : (
             <>

@@ -46,6 +46,18 @@ export const thunkAllRestaurants = () => async (dispatch) => {
     }
 }
 
+export const thunkMyRestaurants = () => async (dispatch) => {
+    const response = await fetch("/api/restaurants/current")
+    if (response.ok) {
+        const myRestaurants = await response.json();
+        dispatch(loadRestaurants(myRestaurants))
+        return myRestaurants
+    } else {
+        const error = response
+        return {'error': error}
+    }
+}
+
 export const thunkRestaurantByName = (name) => async (dispatch) => {
     const response = await fetch(`/api/restaurants/${name}`)
     if (response.ok) {
