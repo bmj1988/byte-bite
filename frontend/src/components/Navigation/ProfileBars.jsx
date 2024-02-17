@@ -6,6 +6,7 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { useModal } from '../../context/Modal';
 
 /// on Click needs to open modal on left side of page, spans full height of page
 /// and about 300 pixels across, probably should shrink
@@ -20,17 +21,21 @@ const ProfileBars = () => {
     const user = useSelector((store) => store.session.user);
     const ulRef = useRef();
     const navigate = useNavigate()
-
+    const {setHideAddButton, hideAddButton} = useModal()
     const toggleMenu = (e) => {
         e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
+        setHideAddButton(!hideAddButton)
+        console.log('HIDE ADD BUTTON', hideAddButton)
         setShowMenu(!showMenu);
     };
-    
+
     useEffect(() => {
         if (!showMenu) return;
 
         const closeMenu = (e) => {
             if (ulRef.current && !ulRef.current.contains(e.target)) {
+                setHideAddButton(!hideAddButton)
+                console.log('HIDE ADD BUTTON', hideAddButton)
                 setShowMenu(false);
             }
         };
