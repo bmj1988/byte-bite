@@ -6,6 +6,7 @@ import UpdateRestaurantModal from "./UpdateRestaurantModal";
 import Spinner from "../Spinner";
 import RestaurantTile from "../MainPage/RestaurantTile";
 import CategoryScroller from "../MainPage/CategoryScroller"
+import DeleteRestaurantModal from "./DeleteRestaurantModal";
 
 const CurrentRestaurantsPage = () => {
   const [loaded, setLoaded] = useState(false)
@@ -34,7 +35,11 @@ const CurrentRestaurantsPage = () => {
               <OpenModalButton 
               modalComponent={<UpdateRestaurantModal restaurantName={restaurant.name}/>}
               buttonText="Update"/>
-              <button>Delete</button>
+              <div>
+                <OpenModalButton 
+                modalComponent={<DeleteRestaurantModal id={restaurant.id} name={restaurant.name}/>}
+                buttonText="Delete"/>
+              </div>
               <button>Menu</button>
             </div>
           </>
