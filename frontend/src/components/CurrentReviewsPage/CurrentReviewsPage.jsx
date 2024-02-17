@@ -5,15 +5,16 @@ import DeleteReviewModal from "./DeleteReviewModal";
 import OpenModalButton from '../OpenModalButton'
 import ReviewBox from "../StorePage/ReviewBox";
 import './CurrentReviewsPage.css' 
+import UpdateReviewModal from "./UpdateReviewModal";
 
 const CurrentReviewsPage = () => {
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-const reviews = useSelector(reviewsArray)
+  const reviews = useSelector(reviewsArray)
 
-useEffect(() => {
-  dispatch(thunkUsersReviews())
-}, [dispatch])
+  useEffect(() => {
+    dispatch(thunkUsersReviews())
+  }, [dispatch])
 
   return (
     <>
@@ -27,7 +28,10 @@ useEffect(() => {
                   < OpenModalButton 
                   modalComponent={<DeleteReviewModal restaurant_id={review.restaurant_id}/>}
                   buttonText="Delete" />
-                  <button>UPDATE</button>
+                  < OpenModalButton 
+                  modalComponent={ <UpdateReviewModal restaurant_id={review.restaurant_id} />}
+                  buttonText="Update"
+                  />
                 </div>
               </div>
             </>

@@ -4,6 +4,7 @@ import { createSelector } from "reselect";
 
 const LOAD_REVIEWS = 'reviews/load'
 const DELETE_REVIEW = 'reviews/delete'
+const UPDATE_REVIEW = 'reviews/update'
 
 ///ACTION CREATORS
 
@@ -18,6 +19,13 @@ const deleteReview = (id) => {
   return {
     type: DELETE_REVIEW,
     payload: id
+  }
+}
+
+const updateReview = (review) => {
+  return {
+    type: UPDATE_REVIEW,
+    payload: review
   }
 }
 
@@ -83,7 +91,7 @@ export const thunkNewReview = (reviewDetails) => async (dispatch) => {
 }
 
 export const thunkUpdateReview = (reviewDetails) => async (dispatch) => {
-  const res = await fetch(`/api/reviews/${reviewDetails.id}`, {
+  const res = await fetch(`/api/reviews/${reviewDetails.restaurant_id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
@@ -92,7 +100,7 @@ export const thunkUpdateReview = (reviewDetails) => async (dispatch) => {
   })
   if (res.ok) {
     const newReview = await res.json()
-    dispatch(loadReviews(newReview))
+    dispatch(updateReview(newReview))
     return newReview
   } else {
     const error = res.json()
@@ -125,6 +133,13 @@ export const reviewsReducer = (state = {}, action) => {
         reviewState[review.id] = review
       })
       return reviewState
+    }
+    case UPDATE_REVIEW: {
+      const updatedReview = action.payload;
+      return {
+        ...reviewState,
+        [updatedReview.id]: updatedReview
+      }
     }
     case DELETE_REVIEW: {
       delete reviewState[action.payload]

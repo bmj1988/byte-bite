@@ -58,13 +58,12 @@ def new():
         errors[field] = error[0]
     return {'error': errors}, 400
 
-# @restaurant_routes.route('/<int:id>')
-# def get_restaurant_details(id):
-#     restaurant = db.get_or_404(Restaurant, id)
+@restaurant_routes.route('/<int:id>')
+def get_restaurant_by_id(id):
+    restaurant = db.get_or_404(Restaurant, id)
+    return restaurant.to_dict()
 
-#     return restaurant.to_dict()
 
-# changed to str:name to accommodate front end route without additional queries -GWW
 @restaurant_routes.route('/<string:name>')
 def get_restaurant_details(name):
     restaurant = db.session.query(Restaurant).filter_by(name=name).first()
