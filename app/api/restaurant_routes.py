@@ -18,6 +18,17 @@ def home():
 
     return dic
 
+@restaurant_routes.route('/current')
+@login_required
+def current_user_restaurants():
+    my_restaurants = db.session.query(Restaurant).filter(Restaurant.owner_id == current_user.id).all()
+    lst = list()
+    dic = {"restaurants": lst}
+    for restaurant in my_restaurants:
+        rest_entry = restaurant.to_dict()
+        lst.append(rest_entry)
+    return dic, 200
+
 @restaurant_routes.route('/new', methods=['POST'])
 @login_required
 def new():
