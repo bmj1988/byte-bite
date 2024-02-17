@@ -126,3 +126,14 @@
     width: 220px;
     height: 220px;
   }
+
+  .storePageMenuItemList {
+    width: 300px;
+    justify-content: flex-start;
+    text-align: start;
+    font-weight: 600;
+  }
+
+  ul {
+    list-style-type: none;
+  }
