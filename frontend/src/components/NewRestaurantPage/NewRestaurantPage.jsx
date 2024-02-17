@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { thunkNewRestaurant } from "../../redux/restaurants"
 import { useNavigate } from "react-router-dom";
+import './NewRestaurantPage.css'
 
 const NewRestaurantPage = () => {
   const dispatch = useDispatch()
@@ -38,7 +39,7 @@ const NewRestaurantPage = () => {
   return (
     <>
       <h2 className="new-restaurant-h2">Create New Restaurant</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="new-restaurant-form" onSubmit={handleSubmit}>
         <div>
           <label className="new-restaurant-label">Name</label>
           <input className="new-restaurant-input" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required/>

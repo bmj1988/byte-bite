@@ -1,6 +1,7 @@
 import { useModal } from '../../context/Modal'
 import { useDispatch } from 'react-redux'
 import { thunkDeleteRestaurant } from '../../redux/restaurants'
+import './DeleteRestaurantModal.css'
 
 function DeleteRestaurantModal({id, name}) {
   const { closeModal } = useModal();
@@ -14,13 +15,15 @@ function DeleteRestaurantModal({id, name}) {
 
   return (
     <>
-    <h2>Confirm Delete</h2>
-    <label>Are you sure you want to delete this restaurant?
+    <div className='delete-restaurant-modal'>
+    <h2 className='delete-restaurant-h2'>Confirm Delete</h2>
+    <label className='delete-restaurant-label'>Are you sure you want to delete this restaurant?
       <div>
-        <button onClick={(e) => confirmDelete(id, e)}>Yes (Delete {name})</button>
-        <button>No (Keep {name})</button>
+        <button className="delete-restaurant-button" onClick={(e) => confirmDelete(id, e)}>Yes (Delete {name})</button>
+        <button className='keep-restaurant' onClick={closeModal}>No (Keep {name})</button>
       </div>
     </label>
+    </div>
     </>
   )
 }

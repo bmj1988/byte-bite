@@ -7,6 +7,7 @@ import Spinner from "../Spinner";
 import RestaurantTile from "../MainPage/RestaurantTile";
 import CategoryScroller from "../MainPage/CategoryScroller"
 import DeleteRestaurantModal from "./DeleteRestaurantModal";
+import './CurrentRestaurantsPage.css'
 
 const CurrentRestaurantsPage = () => {
   const [loaded, setLoaded] = useState(false)
@@ -26,23 +27,29 @@ const CurrentRestaurantsPage = () => {
   return (
     <>
     <CategoryScroller />
-    <div className="main_page_primary">
+    <div className="current_restaurants_container">
     {restaurants.map((restaurant) => {
         return (
-          <>
+          <div className="my-restaurant-tile">
             <RestaurantTile restaurantInfo={restaurant} key={restaurant.id}/>
             <div className="my-restaurant-buttons">
+              <button className="restaurant-modal-button">
               <OpenModalButton 
               modalComponent={<UpdateRestaurantModal restaurantName={restaurant.name}/>}
               buttonText="Update"/>
-              <div>
+              </button>
+              <button className="restaurant-modal-button">
                 <OpenModalButton 
                 modalComponent={<DeleteRestaurantModal id={restaurant.id} name={restaurant.name}/>}
                 buttonText="Delete"/>
-              </div>
-              <button>Menu</button>
+              </button>
+              <button className="restaurant-modal-button">
+              <OpenModalButton 
+              // modalComponent={}
+              buttonText="Menu"/>
+              </button>
             </div>
-          </>
+          </div>
         )
     })}
     </div>

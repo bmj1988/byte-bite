@@ -1,0 +1,12 @@
+.currentReviewBoxName {
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 600;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+.currentReviewBoxName:hover {
+  color: grey;
+}

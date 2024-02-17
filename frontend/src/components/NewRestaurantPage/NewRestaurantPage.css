@@ -1,32 +1,32 @@
-.update-restaurant-form {
+.new-restaurant-form {
   padding: 20px;
   border-radius: 10px;
-  width: 300px;
+  width: 600px;
+  margin: 0 auto;
 }
 
-.update-res-h2 {
+.new-restaurant-h2 {
   text-align: center;
-  margin-bottom: -15px;
   font-family: 'Rubik', sans-serif;
   font-weight: 500;
 }
 
-.update-restaurant-label {
+.new-restaurant-label {
   display: block;
   margin-left: 10px;
   font-family: 'Rubik', sans-serif;
 }
 
-.update-restaurant-input {
+.new-restaurant-input {
   width: 100%;
   padding: 4px;
   margin-top: 4px;
   box-sizing: border-box;
   border-radius: 4px;
-  font-family: 'Rubik', sans-serif;
+  
 }
 
-.update-restaurant-button {
+.new-restaurant-submit {
   background: black;
   padding: 12px 16px;
   border-radius: 8px;
@@ -41,23 +41,5 @@
   display: flex;
   font-family: 'Rubik', sans-serif;
   align-items: center;
-  margin: 10px auto;
-}
-
-.update-restaurant-cancel {
-  background: rgba(0, 0, 0, 0.667);
-  padding: 12px 16px;
-  border-radius: 8px;
-  font-size: 15px;
-  color: white;
-  height: 36px;
-  line-height: 24px;
-  justify-content: center;
-  font-weight: 500;
-  cursor: pointer;
-  box-sizing: border-box;
-  display: flex;
-  font-family: 'Rubik', sans-serif;
-  align-items: center;
-  margin: 10px auto;
+  margin: 20px auto;
 }
