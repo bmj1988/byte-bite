@@ -1,0 +1,39 @@
+.update-restaurant-form {
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+.update-res-h2 {
+  text-align: center;
+  margin-bottom: -15px;
+}
+
+.update-restaurant-label {
+  display: block;
+  margin-left: 10px;
+}
+
+.update-restaurant-input {
+  width: 100%;
+  padding: 4px;
+  margin-top: 4px;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.update-restaurant-button {
+  display: flex;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 16px;
+  border-radius: 500px;
+  padding: 2px 12px;
+  height: 36px;
+  background-color: #EEEEEE;
+  color: black;
+  align-items: center;
+  margin-left: 70px;
+  margin-top: 10px;
+  margin-bottom: -10px;
+}

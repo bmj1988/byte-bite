@@ -50,6 +50,7 @@ const ProfileBars = () => {
     const logout = (e) => {
         e.preventDefault();
         dispatch(thunkLogout());
+        navigate('/')
         closeMenu();
     };
 
@@ -62,6 +63,12 @@ const ProfileBars = () => {
     const toMyRestaurants = (e) => {
         e.preventDefault();
         navigate('/store/my-stores');
+        closeMenu();
+    }
+
+    const toNewRestaurant = (e) => {
+        e.preventDefault();
+        navigate('/store/new');
         closeMenu();
     }
 
@@ -82,6 +89,7 @@ const ProfileBars = () => {
                 <li><button onClick={logout}>Log Out</button></li>
                 <li><button onClick={toMyReviews}>My Reviews</button></li>
                 <li><button onClick={toMyRestaurants}>My Restaurants</button></li>
+                <li><button onClick={toNewRestaurant}>Create New Restaurant</button></li>
             </>
         ) : (
             <>
