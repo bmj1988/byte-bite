@@ -5,7 +5,7 @@ const MenuItems = ({ menuItemsArray }) => {
 
     return (
         <div className="storePageMenuItems">
-            {menuItemsArray.map((item) => {
+            {menuItemsArray?.map((item) => {
                 return (
                     <MenuItemTile item={item} key={item.id} />
                 )

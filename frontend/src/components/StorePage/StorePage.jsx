@@ -5,12 +5,12 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Spinner from '../Spinner'
 import MenuItems from './MenuItems'
-import { FaStar } from 'react-icons/fa'
 import SeeSimilarButton from './SeeSimilarButton'
 import GroupOrderButton from './GroupByOrderButton'
 import ScheduleButton from './ScheduleButton'
 import DeliveryOrPickupButton from './DeliveryOrPickupButton'
 import PaginatedReviewScroller from './PaginatedReviewScroller'
+import RatingDistanceDiv from './RatingDistanceDiv'
 
 const StorePage = () => {
     const { name } = useParams();
@@ -42,12 +42,7 @@ const StorePage = () => {
             <div className="storePageName">
                 {restaurantDetails.name}
             </div>
-            <div className="ratingDistanceDiv">
-                <span>{`${restaurantDetails.starRating}`}</span>
-                <FaStar style={{ fontSize: '12px', marginRight: '5px' }} />
-                <span style={{ color: 'gray', fontSize: '14px' }}>{`(${restaurantDetails.numReviews})`}</span>
-                <span>{restaurantDetails?.distance}</span>
-            </div>
+            <RatingDistanceDiv restaurantDetails={restaurantDetails} />
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div className="storePageButtonDiv">
                     <SeeSimilarButton />

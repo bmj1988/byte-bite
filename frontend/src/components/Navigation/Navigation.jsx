@@ -7,22 +7,21 @@ import SearchBar from "./SearchBar";
 import ShoppingCart from "./Cart";
 import LoginIcon from "./LoginIcon";
 import SignUpButton from "./SignUpButton";
+import LogoDiv from "./LogoDiv";
 
 function Navigation() {
+
   return (
     <nav className="nav-bar">
-      <div>
-        <ProfileBars />
-      </div>
-      <div style={{ margin: '10px' }}>
-        <span className='logo-text'>Byte</span><span className='logo-text bold'>Bite</span>
-      </div>
+
+      <ProfileBars />
+      <LogoDiv />
       <DeliveryToggle />
       <Location />
       <SearchBar />
       <ShoppingCart />
       <LoginIcon />
-      <SignUpButton/>
+      <SignUpButton />
 
     </nav>
 

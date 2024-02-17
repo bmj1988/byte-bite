@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { FaAngleDown, FaAngleUp } from "react-icons/fa"
 
 const SeeSimilarButton = () => {
 
@@ -7,8 +8,15 @@ const SeeSimilarButton = () => {
         setClicked(!clicked)
     }
     return (
-        <div className={clicked ? "seeSimilarClicked" : "seeSimilar"} onClick={() => onClick()}>
-            {clicked ? "See similar ▴" : "See similar ▾"}
+        <div onClick={() => onClick()}>
+            {!clicked && <div className={"seeSimilar"}>
+                <p>See Similar</p>
+                <FaAngleDown />
+            </div>}
+            {clicked && <div className={"seeSimilarClicked"}>
+                <p>See Similar</p>
+                <FaAngleUp />
+            </div>}
         </div>
     )
 }
