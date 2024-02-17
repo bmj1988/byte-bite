@@ -53,7 +53,7 @@ const UpdateRestaurantModal = ({restaurantName}) => {
   return (
     <>
     <div className="update-restaurant-modal">
-      <h2 className="update-res-h2">Update Restaurant</h2>
+      <h2 className="update-res-h2">Update {name}</h2>
       <form className="update-restaurant-form" onSubmit={handleSubmit}>
         <div>
           <label className="update-restaurant-label">Name</label>
@@ -90,7 +90,8 @@ const UpdateRestaurantModal = ({restaurantName}) => {
           <input className="update-restaurant-input" type="number" value={categoryId} onChange={(e) => setCategoryId(e.target.value)} placeholder="Category ID" required/>
         </div>
 
-        <button className="update-restaurant-button" type="submit">Update {restaurantName}</button>
+        <button className="update-restaurant-button" type="submit">Submit Changes</button>
+        <button className="update-restaurant-cancel" onClick={closeModal}>Cancel</button>
       </form>
     </div>
     </>
