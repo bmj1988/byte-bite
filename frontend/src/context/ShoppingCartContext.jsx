@@ -1,24 +1,32 @@
-import { useRef, useState, useContext, createContext } from 'react';
+import { useState, useContext, createContext } from 'react';
 
 const CartContext = createContext();
 
-export function ModalProvider({ children }) {
-  const cartRef = useRef();
-  const [items, setItems] = useState([]);
+export function useCartContext() {
+  return useContext(CartContext);
+}
+
+export function CartProvider({ children }) {
+  const [menuItemId, setMenuItemId] = useState(null);
+  const [cart, setCart] = useState(null)
+  const [quantity, setQuantity] = useState(1)
+  const [price, setPrice] = useState(null)
+
 
   const contextValue = {
-    items,
-    setItems
+    menuItemId,
+    setMenuItemId,
+    cart,
+    setCart,
+    quantity,
+    setQuantity,
+    price,
+    setPrice
   };
 
   return (
-    <>
-      <ModalContext.Provider value={contextValue}>
+      <CartContext.Provider value={contextValue}>
         {children}
-      </ModalContext.Provider>
-      <div ref={cartRef} />
-    </>
+      </CartContext.Provider>
   );
 }
-
-export const useCartContext = () => useContext(CartContext);

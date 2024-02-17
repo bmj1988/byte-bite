@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import './StorePage.css'
 import { restaurantByName, thunkRestaurantByName } from '../../redux/restaurants'
 import { useParams } from 'react-router-dom'
@@ -15,7 +15,6 @@ import RatingDistanceDiv from './RatingDistanceDiv'
 const StorePage = () => {
     const { name } = useParams();
     const dispatch = useDispatch();
-    const inputRef = useRef(null)
 
     useEffect(() => {
         const thunkSender = async () => {
@@ -52,28 +51,18 @@ const StorePage = () => {
                 </div>
                 <DeliveryOrPickupButton />
             </div>
-            <div style={{display: 'flex'}}>
-                <div className="storePageMenuItemList">
-                    <ul>
-                        <li><p style={{textDecoration: 'underline'}}>Featured items</p></li>
-
-                    </ul>
-
+            <div className="storePageReviews">
+                <div className="reviewHeader">
+                    <h2>From customers</h2>
+                    <span>Reviews from people who've ordered here</span>
                 </div>
-                <div>
-                    <div className="storePageReviews">
-                        <div className="reviewHeader">
-                            <h2>From customers</h2>
-                            <span>Reviews from people who've ordered here</span>
-                        </div>
-                        <div className="reviewScrollbar">
-                            <PaginatedReviewScroller reviews={reviews} />
-                        </div>
-                    </div>
-                    <h2>Menu items</h2>
-                    <MenuItems menuItemsArray={restaurantDetails.MenuItems} />
+                <div className="reviewScrollbar">
+                    <PaginatedReviewScroller reviews={reviews} />
                 </div>
             </div>
+            <h2>Menu items</h2>
+            <MenuItems menuItemsArray={restaurantDetails.MenuItems} />
+
         </div>
     )
 }
