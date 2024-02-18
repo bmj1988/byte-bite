@@ -7,7 +7,7 @@ const LOAD_RESTAURANTS = 'restaurants/load';
 const LOAD_RESTAURANT_DETAILS = 'restaurants/details';
 const DELETE_RESTAURANT = 'restaurant/delete';
 const LOAD_MENU_ITEMS = 'restaurant/menu_items';
-
+const ADD_NEW_MENU_ITEM = 'restaurants/menu_item/new';
 ///ACTION CREATORS
 
 
@@ -36,6 +36,13 @@ const loadMenuItems = (menu_items, restaurantId) => {
     return {
         type: LOAD_MENU_ITEMS,
         payload: { menu_items, restaurantId }
+    };
+};
+
+const addMenuItem = (restaurant) => {
+    return {
+        type: ADD_NEW_MENU_ITEM,
+        payload: restaurant
     };
 };
 
@@ -156,16 +163,22 @@ export const thunkGetMenuItemsByRestaurantId = (restaurantId) => async (dispatch
     }
 };
 
-export const thunkAddMenuItem = (menuItem) => async (dispatch) => {
-    const response = await fetch(`/api/menu_items/${menuItem.details.restaurant_id}/new`, {
+export const thunkAddMenuItem = (menuItem, currentRestaurant) => async (dispatch) => {
+    const response = await fetch(`/api/menu_items/${menuItem.restaurant_id}/new`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(menuItem.details)
+        body: JSON.stringify(menuItem)
     });
     if (response.ok) {
-        dispatch(thunkRestaurantByName(menuItem.restaurantName));
+        const menuItemFromServer = await response.json();
+        const updatedRestaurant = {
+            ...currentRestaurant,
+            MenuItems: currentRestaurant.MenuItems.concat(menuItemFromServer),
+        };
+        dispatch(addMenuItem(updatedRestaurant));
+        return menuItemFromServer;
     }
     else {
         const error = await response.json();
@@ -174,12 +187,12 @@ export const thunkAddMenuItem = (menuItem) => async (dispatch) => {
     }
 };
 
-export const thunkDeleteMenuItem = (menuItem) => async (dispatch) => {
+export const thunkDeleteMenuItem = (menuItem, currentRestaurant) => async (dispatch) => {
     const response = await fetch(`/api/menu_items/delete/${menuItem.id}`, {
         method: 'DELETE'
     });
     if (response.ok) {
-        dispatch(thunkRestaurantByName(menuItem.restaurantName));
+        dispatch(loadRestaurantDetails(currentRestaurant));
     }
     else {
         const error = await response.json();
@@ -188,23 +201,25 @@ export const thunkDeleteMenuItem = (menuItem) => async (dispatch) => {
     }
 };
 
-export const thunkUpdateMenuItem = (menuItem) => async (dispatch) => {
-    const response = await fetch(`api/menu_items/edit/${menuItem.details.id}`, {
+export const thunkUpdateMenuItem = (menuItem, currentRestaurant) => async (dispatch) => {
+    const response = await fetch(`/api/menu_items/edit/${menuItem.id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(menuItemDetails)
+        body: JSON.stringify(menuItem)
     });
     if (response.ok) {
-        dispatch(thunkRestaurantByName(menuItem.restaurantName));
+        dispatch(loadRestaurantDetails(currentRestaurant));
     }
     else {
         const error = await response.json();
-        console.log('DELETE MENU ITEM THUNK', error);
+        console.log('UPDATE MENU ITEM THUNK', error);
         return error;
     }
 };
+
+
 
 /// SELECTORS
 
@@ -235,8 +250,8 @@ export const restaurantById = createSelector(
     (state) => state.restaurants,
     (_, id) => id,
     (restaurants, id) => {
-        return Object.values(restaurants).find(restaurant => restaurant.id === id)
-    })
+        return Object.values(restaurants).find(restaurant => restaurant.id === id);
+    });
 
 /// REDUCER
 
@@ -252,7 +267,12 @@ export const restaurantsReducer = (state = {}, action) => {
             return restaurantState;
         }
         case LOAD_RESTAURANT_DETAILS: {
-            restaurantState[action.payload.id] = action.payload;
+            if (restaurantState[action.payload.restaurant_id]) {
+                restaurantState[action.payload.restaurant_id] = action.payload;
+            }
+            if (restaurantState[action.payload.id]) {
+                restaurantState[action.payload.id] = action.payload;
+            }
             return restaurantState;
         }
         case DELETE_RESTAURANT: {
@@ -261,6 +281,10 @@ export const restaurantsReducer = (state = {}, action) => {
         }
         case LOAD_MENU_ITEMS: {
             restaurantState[action.payload.restaurantId].MenuItems = action.payload.menu_items;
+            return restaurantState;
+        }
+        case ADD_NEW_MENU_ITEM: {
+            restaurantState[action.payload.id] = action.payload;
             return restaurantState;
         }
 
