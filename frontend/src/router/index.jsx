@@ -7,7 +7,8 @@ import UpdateRestaurantPage from '../components/UpdateRestaurantPage/UpdateResta
 import MainPage from '../components/MainPage/MainPage';
 import StorePage from '../components/StorePage/StorePage';
 import CurrentReviewsPage from '../components/CurrentReviewsPage/CurrentReviewsPage';
-import CurrentRestaurantsPage from '../components/CurrentRestaurantsPage'
+import CurrentRestaurantsPage from '../components/CurrentRestaurantsPage';
+import CurrentMenuItemsPage from '../components/CurrentMenuItemsPage/CurrentMenuItemsPage';
 
 export const router = createBrowserRouter([
   {
@@ -43,7 +44,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ':name',
-            element: <StorePage/>
+            element: <StorePage />
           },
           {
             path: 'my-stores',
@@ -54,6 +55,15 @@ export const router = createBrowserRouter([
       {
         path: "/reviews/current",
         element: <CurrentReviewsPage />
+      },
+      {
+        path: "/menu_items",
+        children: [
+          {
+            path: ':restaurantId',
+            element: <CurrentMenuItemsPage />
+          }
+        ]
       }
     ],
   },
