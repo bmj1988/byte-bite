@@ -8,17 +8,16 @@ import { useParams } from "react-router-dom";
 
 
 
-const CurrentMenuItemsPage = () => {
+const CurrentMenuItemsPage = ({ id }) => {
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
-    const { restaurantId } = useParams();
 
 
     useEffect(() => {
-        dispatch(thunkRestaurantById(restaurantId)).then(() => setLoaded(true));
-    }, [dispatch, restaurantId]);
+        dispatch(thunkRestaurantById(id)).then(() => setLoaded(true));
+    }, [dispatch, id]);
 
-    const menu_items = useSelector((state) => menuItemsArray(state, restaurantId));
+    const menu_items = useSelector((state) => menuItemsArray(state, id));
     console.log(menu_items);
 
     if (!loaded) {
@@ -29,7 +28,6 @@ const CurrentMenuItemsPage = () => {
 
     return (
         <>
-            <CategoryScroller />
             {menu_items.map((menu_item) => {
                 return (
                     <>
