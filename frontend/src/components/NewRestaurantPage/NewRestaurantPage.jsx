@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { thunkNewRestaurant } from "../../redux/restaurants"
+import { useNavigate } from "react-router-dom";
+import './NewRestaurantPage.css'
 
 const NewRestaurantPage = () => {
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
   const [errors, setErrors] = useState({}) //need to figure this out
 
   const [name, setName] = useState('')
@@ -30,54 +32,55 @@ const NewRestaurantPage = () => {
       category_id: categoryId
     }
     
-    dispatch(thunkNewRestaurant(restaurantDetails))
+    await dispatch(thunkNewRestaurant(restaurantDetails))
+    navigate(`store/${name}`)
   }
 
   return (
     <>
-      <h2>Create New Restaurant</h2>
-      <form onSubmit={handleSubmit}>
+      <h2 className="new-restaurant-h2">Create New Restaurant</h2>
+      <form className="new-restaurant-form" onSubmit={handleSubmit}>
         <div>
-          <label>Name</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required/>
+          <label className="new-restaurant-label">Name</label>
+          <input className="new-restaurant-input" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required/>
           {errors && errors.name && <div className="error">{errors.name}</div>}
         </div>
 
         <div>
-          <label>Address</label>
-          <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" required/>
+          <label className="new-restaurant-label">Address</label>
+          <input className="new-restaurant-input" type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" required/>
           {errors && errors.address && <div className="error">{errors.address}</div>}
         </div>
 
         <div>
-          <label>City</label>
-          <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="City" required/>
+          <label className="new-restaurant-label">City</label>
+          <input className="new-restaurant-input" type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="City" required/>
           {errors && errors.city && <div className="error">{errors.city}</div>}
         </div>
 
         <div>
-          <label>State</label>
-          <input type="text" value={state} onChange={(e) => setState(e.target.value)} placeholder="State" required/>
+          <label className="new-restaurant-label">State</label>
+          <input className="new-restaurant-input" type="text" value={state} onChange={(e) => setState(e.target.value)} placeholder="State" required/>
           {errors && errors.state && <div className="error">{errors.state}</div>}
         </div>
 
         <div>
-          <label>Image</label>
-          <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" required/>
+          <label className="new-restaurant-label">Image</label>
+          <input className="new-restaurant-input" type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" required/>
           {errors && errors.image && <div className="error">{errors.image}</div>}
         </div>
 
         <div>
-          <label>Delivery</label>
-          <input type="checkbox" value={delivery} onChange={(e) => setDelivery(e.target.checked)}/>
+          <label className="new-restaurant-label">Delivery</label>
+          <input className="new-restaurant-input" type="checkbox" value={delivery} onChange={(e) => setDelivery(e.target.checked)}/>
         </div>
 
         <div>
-          <label>Category ID</label>
-          <input type="number" value={categoryId} onChange={(e) => setCategoryId(e.target.value)} placeholder="Category ID" required/>
+          <label className="new-restaurant-label">Category ID</label>
+          <input className="new-restaurant-input" type="number" value={categoryId} onChange={(e) => setCategoryId(e.target.value)} placeholder="Category ID" required/>
         </div>
 
-        <button type="submit">Create Restaurant</button>
+        <button className="new-restaurant-submit" type="submit">Create Restaurant</button>
       </form>
     </>
   )

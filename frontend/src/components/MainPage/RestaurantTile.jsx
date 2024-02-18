@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom"
-import { thunkRestaurantByName } from "../../redux/restaurants";
 
 const RestaurantTile = ({ restaurantInfo }) => {
 

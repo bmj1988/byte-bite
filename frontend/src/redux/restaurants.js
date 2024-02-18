@@ -231,6 +231,13 @@ export const restaurantByName = createSelector(
         return Object.values(restaurants).find(restaurant => restaurant.name === name);
     });
 
+export const restaurantById = createSelector(
+    (state) => state.restaurants,
+    (_, id) => id,
+    (restaurants, id) => {
+        return Object.values(restaurants).find(restaurant => restaurant.id === id)
+    })
+
 /// REDUCER
 
 

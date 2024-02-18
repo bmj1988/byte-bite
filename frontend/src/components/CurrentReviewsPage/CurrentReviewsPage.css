@@ -1,24 +1,44 @@
 .reviews {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(4, 288px);
   gap: 16px;
-  max-width: 1600px;
-  margin-left: 200px;
-  margin-right: 200px;
+  max-width: 1280px;
+  margin: 0 auto;
   margin-top: 40px;
+  color: black;
+  font-family: 'Rubik', sans-serif;
+  justify-content: space-evenly;
 }
 
-.review-box {
-  width: 325px;
-  display: grid;
-  grid-template-rows: 1fr 20px 20px;
-  border: 1px solid rgb(0, 0, 0);
+.current-reviewBox {
   border-radius: 8px;
-  margin-bottom: 30px;
-  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
+  border-color: hsla(0, 0%, 0%, 0.12);
+  padding: 12px;
+  min-height: 100px;
+  /* margin: 10px; */
 }
 
 .review-buttons {
   display: flex;
   justify-content: space-evenly;
+}
+
+
+.review-buttons button {
+  background: black;
+  padding: 12px 16px;
+  margin-top: 10px;
+  border-radius: 8px;
+  font-size: 18px;
+  color: rgb(255, 255, 255);
+  height: 25px;
+  justify-content: center;
+  font-weight: 500;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: flex;
+  font-family: 'Rubik', sans-serif;
+  align-items: center;
 }
