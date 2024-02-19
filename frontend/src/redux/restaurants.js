@@ -267,12 +267,7 @@ export const restaurantsReducer = (state = {}, action) => {
             return restaurantState;
         }
         case LOAD_RESTAURANT_DETAILS: {
-            if (restaurantState[action.payload.restaurant_id]) {
-                restaurantState[action.payload.restaurant_id] = action.payload;
-            }
-            if (restaurantState[action.payload.id]) {
-                restaurantState[action.payload.id] = action.payload;
-            }
+            restaurantState[action.payload.id] = action.payload;
             return restaurantState;
         }
         case DELETE_RESTAURANT: {

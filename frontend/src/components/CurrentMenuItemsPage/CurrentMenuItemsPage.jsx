@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { menuItemsArray, restaurantById, thunkRestaurantById, thunkUpdateMenuItem, thunkAddMenuItem, thunkDeleteMenuItem } from "../../redux/restaurants";
 import Spinner from "../Spinner";
+let draftCounter = 0;
 
 
 
@@ -9,7 +10,6 @@ const CurrentMenuItemsPage = ({ id }) => {
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
     const [menuItemsState, setMenuItemsState] = useState([]);
-
 
     const menu_items = useSelector((state) => menuItemsArray(state, id));
     const curr_restaurant = useSelector((state) => restaurantById(state, id));
@@ -45,12 +45,6 @@ const CurrentMenuItemsPage = ({ id }) => {
 
     const handleSubmit = async (e, index) => {
         e.preventDefault();
-        // curr_restaurant.MenuItems[index] = menuItemsState[index];
-        // if (!menuItemsState[index].restaurant_id) {
-        //     dispatch(thunkUpdateMenuItem(menuItemsState[index], curr_restaurant));
-        // } else {
-        //     dispatch(thunkAddMenuItem(menuItemsState[index], curr_restaurant, index));
-        // }
         const menuItemThatWasUpdated = menuItemsState[index];
         const isNewMenuItem = !!menuItemThatWasUpdated.restaurant_id;
         if (!isNewMenuItem) {
@@ -78,20 +72,27 @@ const CurrentMenuItemsPage = ({ id }) => {
         }
     };
 
-    const handleDelete = async (e, clickedMenuItem) => {
+    const handleDelete = async (e, clickedMenuItem, index) => {
         e.preventDefault();
-        const updatedRestaurant = { ...curr_restaurant, MenuItems: curr_restaurant.MenuItems.filter(menuItem => clickedMenuItem.id !== menuItem.id) };
-        dispatch(thunkDeleteMenuItem(clickedMenuItem, updatedRestaurant))
-            .then(() => setMenuItemsState(menuItemsState.filter(menuItem => clickedMenuItem.id !== menuItem.id)));
+        const isNewMenuItem = !!clickedMenuItem.restaurant_id;
+        if (!isNewMenuItem) {
+            const updatedRestaurant = { ...curr_restaurant, MenuItems: curr_restaurant.MenuItems.filter(menuItem => clickedMenuItem.id !== menuItem.id) };
+            dispatch(thunkDeleteMenuItem(clickedMenuItem, updatedRestaurant))
+                .then(() => setMenuItemsState(menuItemsState.filter(menuItem => clickedMenuItem.id !== menuItem.id)));
+        } else {
+            setMenuItemsState(menuItemsState.filter((menuItem, i) => i !== index));
+        }
     };
 
     const addItemRow = () => {
+        draftCounter += 1;
         setMenuItemsState([...menuItemsState, {
             name: '',
             image: '',
             description: '',
             price: 0,
-            restaurant_id: curr_restaurant.id
+            restaurant_id: curr_restaurant.id,
+            draftCounter
         }]);
     };
 
@@ -105,7 +106,7 @@ const CurrentMenuItemsPage = ({ id }) => {
         <>
             {menuItemsState.map((menu_item, index) => (
                 <form onSubmit={(e) => handleSubmit(e, index)}>
-                    <div className="menu_item_info" key={index}>
+                    <div className="menu_item_info" key={menu_item.draftCounter || menu_item.id}>
                         <label>Name
                             <input
                                 type="text"
@@ -134,7 +135,7 @@ const CurrentMenuItemsPage = ({ id }) => {
                             required
                         />
                         <button type="submit">Update</button>
-                        <button onClick={(e) => handleDelete(e, menu_item)}>Delete</button>
+                        <button onClick={(e) => handleDelete(e, menu_item, index)}>Delete</button>
                     </div>
                 </form>
             ))}
