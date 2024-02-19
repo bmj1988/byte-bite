@@ -11,6 +11,7 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState(null)
   const [quantity, setQuantity] = useState(1)
   const [price, setPrice] = useState(null)
+  const [restaurantId, setRestaurantId] = useState(null);
 
 
   const contextValue = {
@@ -21,7 +22,9 @@ export function CartProvider({ children }) {
     quantity,
     setQuantity,
     price,
-    setPrice
+    setPrice,
+    restaurantId,
+    setRestaurantId
   };
 
   return (

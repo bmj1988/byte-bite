@@ -1,10 +1,22 @@
 import { useEffect, useRef, useState } from "react"
 import { FaAngleDown } from "react-icons/fa"
 import { useCartContext } from "../../context/ShoppingCartContext";
-const QuantityDropdown = () => {
+import RemoveLi from "./RemoveLi";
+import { useSelector } from "react-redux";
+import { orderItemsArray } from "../../redux/orders";
+
+const QuantityDropdown = ({ menu_item_id }) => {
     const ulRef = useRef(null);
     const [showQuantityList, setShowQuantityList] = useState(false)
-    const { quantity, setQuantity, cart } = useCartContext();
+    const { quantity, setQuantity } = useCartContext();
+    const orderItems = useSelector(orderItemsArray)
+    const recordedItem = orderItems.find((foundItem) => foundItem.id === menu_item_id)
+    const oldQuantity = recordedItem?.quantity
+
+    useEffect(() => {
+        if (oldQuantity) setQuantity(Number(oldQuantity))
+        else setQuantity(1)
+    }, [oldQuantity])
 
     useEffect(() => {
         if (!showQuantityList) return;
@@ -20,12 +32,14 @@ const QuantityDropdown = () => {
     }, [showQuantityList]);
 
 
-    const quantities = [...Array(20).keys()]
+    const quantities = [...Array(21).keys()].slice(1)
 
     const clicker = (e) => {
         setShowQuantityList(!showQuantityList)
         console.log('im being clicked', showQuantityList)
     }
+
+
 
     const quantClicker = (number) => {
         setQuantity(number)
@@ -38,6 +52,7 @@ const QuantityDropdown = () => {
             </div>
             <div className={showQuantityList ? "" : "hidden"}>
                 <ul className="numberDropDown">
+                    <RemoveLi menu_item_id={menu_item_id} />
                     {quantities.map((number) => {
                         return (<li key={number} style={{ cursor: 'pointer' }} onClick={() => quantClicker(number)}>{number}</li>)
                     })}

@@ -25,7 +25,6 @@ const StorePage = () => {
 
     const restaurantDetails = useSelector((state) => restaurantByName(state, name))
 
-    console.log(`!!!!`, restaurantDetails)
     if (!restaurantDetails) {
         return (
             <Spinner />

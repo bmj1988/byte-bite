@@ -6,11 +6,7 @@ import QuantityDropdown from './QuantityDropDown'
 import SeeDetailsButton from './SeeDetailsButton'
 
 const MenuItemModalInfo = ({ item }) => {
-    const { menuItemId, setMenuItemId, setPrice } = useCartContext()
-    useEffect(() => {
-        setMenuItemId(item.id)
-        setPrice(item.price)
-    }, [])
+
     return (
         <div className="menuItemModalInfo">
             <div>
@@ -18,7 +14,7 @@ const MenuItemModalInfo = ({ item }) => {
                 <h2>{`$${item.price}.00`}</h2>
                 <p>{item.description}</p>
             </div>
-            <QuantityDropdown />
+            <QuantityDropdown menu_item_id={item.id}/>
             <AddToOrderButton />
             <SeeDetailsButton />
         </div>
