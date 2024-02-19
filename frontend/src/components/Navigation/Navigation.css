@@ -2,23 +2,23 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #333; 
+  color: #333;
 }
 
 .profile-sidebar {
   position: fixed;
   top: 0;
-  left: -300px; 
+  left: -300px;
   width: 250px;
   height: 100%;
-  background-color: #fff; 
+  background-color: #fff;
   padding: 25px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
-  transition: left 0.3s ease; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease;
 }
 
 .profile-sidebar.active {
-  left: 0; 
+  left: 0;
 }
 
 .profile-dropdown {
@@ -38,7 +38,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #333; 
+  color: #333;
 }
 
 .profile-sidebar button:hover {
@@ -142,6 +142,7 @@
   border-radius: 500px;
   padding: 2px 12px;
   height: 36px;
+  width: fit-content;
   background: black;
   color: white;
   align-items: center;
@@ -158,4 +159,32 @@
   background-color: #EEEEEE;
   color: black;
   align-items: center;
+}
+
+.cartList {
+  background: white;
+  width: 400px;
+  height: fit-content;
+  overflow-y: scroll;
+  max-height: 800px;
+  padding: 15px;
+  position: absolute;
+  right: 15px;
+  box-shadow: -1px 1px 5px lightgray;
+
+}
+
+.cartListName {
+  font-size: 35px;
+}
+
+.cartListLi {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Rubik', sans-serif;
+}
+
+.gap {
+  gap: 5px;
 }

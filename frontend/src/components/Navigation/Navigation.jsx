@@ -8,8 +8,10 @@ import ShoppingCart from "./Cart";
 import LoginIcon from "./LoginIcon";
 import SignUpButton from "./SignUpButton";
 import LogoDiv from "./LogoDiv";
+import { useSelector } from "react-redux";
 
 function Navigation() {
+  const user = useSelector((state) => state.session?.user)
 
   return (
     <nav className="nav-bar">
@@ -20,9 +22,10 @@ function Navigation() {
       <Location />
       <SearchBar />
       <ShoppingCart />
-      <LoginIcon />
-      <SignUpButton />
-
+      {!user && <>
+        <LoginIcon />
+        <SignUpButton />
+      </>}
     </nav>
 
 

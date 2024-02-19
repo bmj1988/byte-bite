@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.models import Order, db, order_items, MenuItem
+from app.models import Order, db, order_items, MenuItem, User
 from flask_login import current_user, login_required
 
 order_routes = Blueprint('order', __name__)
@@ -20,26 +20,34 @@ def get_all_orders():
         orders_list.append(order_pushed_to_list)
     return {"orders": orders_list}
 
+@order_routes.route('/current')
+@login_required
+def current_order():
+    order = db.session.query(Order).filter_by(user_id=current_user.id, status= "Open").first()
+    if not order:
+        return {"404": "No order found"}, 404
+    return ({"order": order.to_dict(), "items": order.items_array()})
+
 
 @order_routes.route('/<int:order_id>', methods=["GET"])
-@login_required
 def order_by_id(order_id):
     order = db.get_or_404(Order, order_id)
     order_dict = order.to_dict()
-    order_dict['items'] = list()
-    for item in order.items:
-        item_dict = item.to_dict()
-        quantity = db.session.query(order_items).filter_by(order_id=order_dict['id'], menu_item_id=item_dict['id']).first()
-        item_dict['quantity'] = quantity['quantity']
-        order_dict['items'].append(item_dict)
+    order_dict['items'] = order.items_array()
     return order_dict
 
 
 @order_routes.route('/', methods=["POST"])
 @login_required
 def new_order():
+    delete_orders = db.session.query(Order).filter_by(user_id=current_user.id, status="Open").all()
+    if delete_orders:
+        for order in delete_orders:
+            db.session.delete(order)
+            db.session.commit()
     data = request.json
     menu_item_id = data['menu_item_id']
+    quantity = data['quantity']
 
     order = Order(
         user_id = current_user.id,
@@ -50,48 +58,47 @@ def new_order():
   )
     menu_item = db.get_or_404(MenuItem, menu_item_id)
     menu_item = menu_item.to_dict()
-    menu_item['quantity'] = 1
+    menu_item['quantity'] = quantity
     db.session.add(order)
     db.session.commit()
-    db.session.execute(db.insert(order_items).values(order_id=order.id, menu_item_id=menu_item_id, quantity=1))
+    db.session.execute(db.insert(order_items).values(order_id=order.id, menu_item_id=menu_item_id, quantity=quantity))
     db.session.commit()
 
-    return {"order":order.to_dict(), "item": menu_item}
-
-
-@order_routes.route('/<int:order_id>/add_item/<int:menu_item_id>', methods=['PATCH'])
-@login_required
-def add_item(order_id,menu_item_id):
-    order = db.get_or_404(Order, order_id)
-    for item in order.items:
-        if item.id == menu_item_id:
-            order_item = db.session.query(order_items).filter_by(order_id=order.id, menu_item_id=menu_item_id).first()
-            quantity = order_item['quantity']
-            db.session.execute(db.update(order_items).where(order_id == order.id).where(menu_item_id == menu_item_id).values(quantity=quantity+1))
-            db.session.commit()
-            print('AFTER', order_item.quantity)
-            return {"order_id": order.id, "menu_item_id": menu_item_id, "quantity": order_item['quantity']}
-    db.session.execute(db.insert(order_items).values(order_id=order_id, menu_item_id=menu_item_id, quantity=1))
-    return {"order_id": order.id, "menu_item_id": menu_item_id, "quantity": 1}
-
-
-@order_routes.route('/<int:order_id>/delete_item/<int:menu_item_id>', methods=['PATCH'])
-@login_required
-def delete_item(order_id, menu_item_id):
-    print(order_id, menu_item_id)
-    order = db.get_or_404(Order, order_id)
-    for item in order.items:
-        if item.id == menu_item_id:
-            order_item = db.session.query(order_items).filter_by(order_id=order.id, menu_item_id=menu_item_id).first()
-            if order_item['quantity'] > 1:
-                db.session.execute(db.update(order_items).where(order_id == order.id).where(menu_item_id == menu_item_id).values(quantity=(order_item['quantity'] - 1)))
-            else:
-                db.session.delete(order_items)
-            db.session.commit()
-            return {"msg": "Successfully removed"}
+    return {"order":order.to_dict(), "items": [menu_item]}
 
 
 @order_routes.route('/<int:order_id>', methods=['PATCH'])
+@login_required
+def add_item(order_id):
+    order = db.get_or_404(Order, order_id)
+    data=request.json
+    menu_item_id=data['menu_item_id']
+    quantity=data['quantity']
+    for item in order.items:
+        if item.id == menu_item_id:
+            print("HELLO THERE!!!!!!!!!!!!!!!!!!!!!")
+            db.session.execute(db.update(order_items).where(order_items.c.order_id == order_id).where(order_items.c.menu_item_id == menu_item_id).values(quantity=quantity))
+            db.session.commit()
+            return {"order": order.to_dict(), "items": order.items_array()}
+    db.session.execute(db.insert(order_items).values(order_id=order_id, menu_item_id=menu_item_id, quantity=quantity))
+    db.session.commit()
+    return {"order": order.to_dict(), "items": order.items_array()}
+
+
+@order_routes.route('/<int:order_id>/remove', methods=['PATCH'])
+@login_required
+def delete_item(order_id):
+    data = request.json
+    menu_item_id = data['menu_item_id']
+    order = db.get_or_404(Order, order_id)
+    for item in order.items:
+        if item.id == menu_item_id:
+            db.session.execute(db.delete(order_items).where(order_items.c.order_id == order_id).where(order_items.c.menu_item_id == menu_item_id))
+            db.session.commit()
+            return {"order": order.to_dict(), "items": order.items_array()}
+
+
+@order_routes.route('/<int:order_id>/status', methods=['PATCH'])
 @login_required
 def order_status_update(order_id):
     data = request.json
