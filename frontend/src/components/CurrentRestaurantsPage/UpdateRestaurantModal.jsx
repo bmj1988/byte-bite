@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from '../../context/Modal'
 import { thunkUpdateRestaurant, restaurantByName } from "../../redux/restaurants";
+import { categoriesArray } from "../../redux/categories";
+import Select from "react-select";
 import './UpdateRestaurantsModal.css'
 
 const UpdateRestaurantModal = ({restaurantName}) => {
@@ -14,8 +16,9 @@ const UpdateRestaurantModal = ({restaurantName}) => {
   const [state, setState] = useState('')
   const [image, setImage] = useState('')
   const [delivery, setDelivery] = useState(true)
-  const [categoryId, setCategoryId] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState(null)
 
+  const categories = useSelector(categoriesArray)
   const restaurant = useSelector((state) => restaurantByName(state, restaurantName))
 
   useEffect(() => {
@@ -26,9 +29,45 @@ const UpdateRestaurantModal = ({restaurantName}) => {
       setState(restaurant.state)
       setImage(restaurant.image)
       setDelivery(restaurant.delivery)
-      setCategoryId(restaurant.categoryId)
+
+      const category = categories.find(category => category.id === restaurant.categoryId);
+      if (category) {
+        setSelectedCategory({ value: restaurant.categoryId, label: (
+          <div style={{ display: "flex", alignItems: "center" }} className="categories-map">
+            <img src={category.image} alt={category.id} style={{ marginRight: 10, width: 30, height: 30}}/>
+            {category.name}
+          </div>
+        ) });
+      }
     }
-  }, [restaurant])
+  }, [restaurant, categories])
+
+  const customStyling = {
+    option: (provided, state) => ({
+      ...provided,
+      borderBottom: "1px solid #ddd",
+      padding: 10,
+      display: "flex",
+      alignItems: "center",
+      alignSelf: "center",
+      fontFamily: 'Rubik, sans-serif'
+    }),
+    singleValue : (provided, state) => ({
+      ...provided,
+      color: "#333",
+      fontFamily: 'Rubik, sans-serif',
+    })
+  }
+
+  const options = categories.map((category) => ({
+    value: category.id,
+    label: (
+      <div style={{ display: "flex", alignItems: "center" }} className="categories-map">
+        <img src={category.image} alt={category.id} style={{ marginRight: 10, width: 30, height: 30}}/>
+        {category.name}
+      </div>
+    )
+  }))
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,7 +82,7 @@ const UpdateRestaurantModal = ({restaurantName}) => {
       lat: 90,
       lng: 90,
       delivery,
-      category_id: categoryId
+      category_id: selectedCategory.value
     }
 
     dispatch(thunkUpdateRestaurant(restaurantDetails))
@@ -81,13 +120,22 @@ const UpdateRestaurantModal = ({restaurantName}) => {
         </div>
 
         <div>
-          <label className="update-restaurant-label">Delivery</label>
-          <input className="update-restaurant-input" type="checkbox" value={delivery} onChange={(e) => setDelivery(e.target.checked)}/>
+          <label className="new-restaurant-label">Delivery</label>
+          <div>
+            <label> <input type="radio" value="true" checked={delivery === true} onChange={() => setDelivery(true)}/> Yes </label>
+            <label> <input type="radio" value="false" checked={delivery === false} onChange={() => setDelivery(false)}/> No </label>
+          </div>
         </div>
 
         <div>
-          <label className="update-restaurant-label">Category ID</label>
-          <input className="update-restaurant-input" type="number" value={categoryId} onChange={(e) => setCategoryId(e.target.value)} placeholder="Category ID" required/>
+          <label className="new-restaurant-label">Category</label>
+          <Select 
+          options={options}
+          value={selectedCategory}
+          onChange={setSelectedCategory}
+          styles={customStyling}
+          placeholder="Select a category"
+          />
         </div>
 
         <button className="update-restaurant-button" type="submit">Submit Changes</button>

@@ -35,16 +35,16 @@ function UpdateReviewModal({restaurant_id}) {
   }
 
   return (
-    <>
-    <h2>Update Review</h2>
+    <div className='update-modal'>
+    <h2 className='update-h2'>Update Review</h2>
     <form onSubmit={handleSubmit}>
       <label> Review 
         <input type='text' value={review} onChange={(e) => setReview(e.target.value)}/>
         <input type='number' value={stars} onChange={(e) => setStars(e.target.value)} />
       </label>
-      <button type='submit'>Submit Change</button>
+      <button className="update-review-button" type='submit'>Submit Change</button>
     </form>
-    </>
+    </div>
   )
 }
 
