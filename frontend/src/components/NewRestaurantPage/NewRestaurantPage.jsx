@@ -1,12 +1,16 @@
-import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { thunkNewRestaurant } from "../../redux/restaurants"
+import { categoriesArray, thunkCategories } from "../../redux/categories";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select"
 import './NewRestaurantPage.css'
 
 const NewRestaurantPage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const categories = useSelector(categoriesArray)
+
   const [errors, setErrors] = useState({}) //need to figure this out
 
   const [name, setName] = useState('')
@@ -15,7 +19,11 @@ const NewRestaurantPage = () => {
   const [state, setState] = useState('')
   const [image, setImage] = useState('')
   const [delivery, setDelivery] = useState(true)
-  const [categoryId, setCategoryId] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState(null)
+
+  useEffect(() => {
+    dispatch(thunkCategories())
+  }, [dispatch])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,12 +37,39 @@ const NewRestaurantPage = () => {
       lat: 90,
       lng: 90,
       delivery,
-      category_id: categoryId
+      category_id: selectedCategory.value
     }
     
-    await dispatch(thunkNewRestaurant(restaurantDetails))
-    navigate(`store/${name}`)
+    dispatch(thunkNewRestaurant(restaurantDetails))
+    navigate(`/store/${name}`)
   }
+
+  const customStyling = {
+    option: (provided, state) => ({
+      ...provided,
+      borderBottom: "1px solid #ddd",
+      padding: 10,
+      display: "flex",
+      alignItems: "center",
+      alignSelf: "center",
+      fontFamily: 'Rubik, sans-serif'
+    }),
+    singleValue : (provided, state) => ({
+      ...provided,
+      color: "#333",
+      fontFamily: 'Rubik, sans-serif',
+    })
+  }
+
+  const options = categories.map((category) => ({
+    value: category.id,
+    label: (
+      <div style={{ display: "flex", alignItems: "center" }} className="categories-map">
+        <img src={category.image} alt={category.id} style={{ marginRight: 10, width: 30, height: 30}}/>
+        {category.name}
+      </div>
+    )
+  }))
 
   return (
     <>
@@ -72,12 +107,21 @@ const NewRestaurantPage = () => {
 
         <div>
           <label className="new-restaurant-label">Delivery</label>
-          <input className="new-restaurant-input" type="checkbox" value={delivery} onChange={(e) => setDelivery(e.target.checked)}/>
+          <div>
+            <label> <input type="radio" value="true" checked={delivery === true} onChange={() => setDelivery(true)}/> Yes </label>
+            <label> <input type="radio" value="false" checked={delivery === false} onChange={() => setDelivery(false)}/> No </label>
+          </div>
         </div>
 
         <div>
-          <label className="new-restaurant-label">Category ID</label>
-          <input className="new-restaurant-input" type="number" value={categoryId} onChange={(e) => setCategoryId(e.target.value)} placeholder="Category ID" required/>
+          <label className="new-restaurant-label">Category</label>
+          <Select 
+          options={options}
+          value={selectedCategory}
+          onChange={setSelectedCategory}
+          styles={customStyling}
+          placeholder="Select a category"
+          />
         </div>
 
         <button className="new-restaurant-submit" type="submit">Create Restaurant</button>
