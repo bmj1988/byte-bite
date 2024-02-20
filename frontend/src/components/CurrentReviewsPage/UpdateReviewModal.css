@@ -25,3 +25,26 @@
   align-items: center;
   margin: 10px auto;
 }
+
+.review-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.review-textarea {
+  max-width: 290px;
+  min-width: 260px;
+  min-height: 50px;
+  max-height: 640px;
+  margin-bottom: 15px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  
+  transition: background-color 2s ease;
+}
+
+textarea:focus {
+  background-color: #ededed;
+}
