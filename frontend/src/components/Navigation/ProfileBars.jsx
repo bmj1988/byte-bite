@@ -25,7 +25,7 @@ const ProfileBars = () => {
     const toggleMenu = (e) => {
         e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
         setHideAddButton(!hideAddButton)
-        console.log('HIDE ADD BUTTON', hideAddButton)
+        // console.log('HIDE ADD BUTTON', hideAddButton)
         setShowMenu(!showMenu);
     };
 
@@ -35,7 +35,6 @@ const ProfileBars = () => {
         const closeMenu = (e) => {
             if (ulRef.current && !ulRef.current.contains(e.target)) {
                 setHideAddButton(!hideAddButton)
-                console.log('HIDE ADD BUTTON', hideAddButton)
                 setShowMenu(false);
             }
         };
@@ -72,6 +71,12 @@ const ProfileBars = () => {
         closeMenu();
     }
 
+    const toOrderHistory = (e) => {
+        e.preventDefault();
+        navigate('/order-history')
+        closeMenu();
+    }
+
     return (
         <>
         <button className="profile-bars" onClick={toggleMenu}>
@@ -87,6 +92,7 @@ const ProfileBars = () => {
                 <li>{user.firstName} {user.lastName}</li>
                 <li>{user.email}</li>
                 <li><button onClick={logout}>Log Out</button></li>
+                <li><button onClick={toOrderHistory}>Order History</button></li>
                 <li><button onClick={toMyReviews}>My Reviews</button></li>
                 <li><button onClick={toMyRestaurants}>My Restaurants</button></li>
                 <li><button onClick={toNewRestaurant}>Create New Restaurant</button></li>

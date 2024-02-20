@@ -38,6 +38,8 @@
     display: flex;
     justify-content: space-around;
     margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
     scrollbar-width: none;
     scroll-behavior: smooth;
     overflow-x: scroll;

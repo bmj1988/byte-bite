@@ -3,7 +3,7 @@ import './cart.css'
 import { useModal } from "../../../context/Modal"
 
 const NavigateToItemModal = ({ modalComponent }) => {
-    const { setModalContent, setHideAddButton, hideAddButton } = useModal()
+    const { setModalContent, hideAddButton } = useModal()
     const openModal = async () => {
         console.log('CLICK')
         setModalContent(modalComponent);

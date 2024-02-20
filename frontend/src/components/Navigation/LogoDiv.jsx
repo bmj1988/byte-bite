@@ -11,7 +11,7 @@ const LogoDiv = () => {
     }
 
     return (<div style={{ margin: '10px', cursor: 'pointer' }} onClick={() => click()} >
-        <span className='logo-text'>Byte</span><span className='logo-text bold'>Bite</span>
+        <span className='logo-text'>Byte</span><span className='logo-text bolder'>Bite</span>
     </div>)
 }
 

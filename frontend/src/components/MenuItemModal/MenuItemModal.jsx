@@ -3,6 +3,8 @@ import { useCartContext } from "../../context/ShoppingCartContext"
 import MenuItemModalInfo from "./MenuItemModalInfo"
 import { FaExternalLinkAlt, FaTimes } from "react-icons/fa"
 import { useEffect } from "react"
+import ModalCloseX from "../Icons/ModalCloseX"
+import ShareIcon from "../Icons/ShareIcon"
 
 const MenuItemModal = ({ item }) => {
     const { closeModal } = useModal()
@@ -13,15 +15,15 @@ const MenuItemModal = ({ item }) => {
         setMenuItemId(item.id)
         setPrice(item.price)
         setRestaurantId(item.restaurantId)
-    }, [])
+    }, [item])
 
 
 
     return (
         <div className="menuItemModalWrapper">
             <div style={{ display: 'flex', justifyContent: 'space-between', margin: "20px" }}>
-                <FaTimes onClick={() => closeModal()} />
-                <FaExternalLinkAlt onClick={() => alert('Feature coming soon!')} />
+                <ModalCloseX />
+                <ShareIcon />
             </div>
             <div className="menuItemModalMain">
                 <div>
