@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { menuItemsArray, restaurantById, thunkRestaurantById, thunkUpdateMenuItem, thunkAddMenuItem, thunkDeleteMenuItem } from "../../redux/restaurants";
 import Spinner from "../Spinner";
+import './CurrentMenuItemsPage.css';
 let draftCounter = 0;
 
 
@@ -134,13 +135,13 @@ const CurrentMenuItemsPage = ({ id }) => {
                             onChange={(e) => handleInputChange(index, 'price', e.target.value)}
                             required
                         />
-                        <button type="submit">Update</button>
-                        <button onClick={(e) => handleDelete(e, menu_item, index)}>Delete</button>
+                        <button className="menu_item_buttons" type="submit">Update</button>
+                        <button className="menu_item_buttons" onClick={(e) => handleDelete(e, menu_item, index)}>Delete</button>
                     </div>
                 </form>
             ))}
             <div>
-                <button onClick={() => addItemRow()}>Add Item</button>
+                <button className="add_item_button" onClick={() => addItemRow()}>Add Item</button>
             </div>
         </>
     );
