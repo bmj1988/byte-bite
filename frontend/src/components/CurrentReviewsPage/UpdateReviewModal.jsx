@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useModal } from '../../context/Modal'
 import { thunkUpdateReview, reviewsArray } from '../../redux/reviews'
+import StarRatings from 'react-star-ratings';
 import './UpdateReviewModal.css'
 
 function UpdateReviewModal({restaurant_id}) {
@@ -37,11 +38,21 @@ function UpdateReviewModal({restaurant_id}) {
   return (
     <div className='update-modal'>
     <h2 className='update-h2'>Update Review</h2>
-    <form onSubmit={handleSubmit}>
-      <label> Review 
-        <input type='text' value={review} onChange={(e) => setReview(e.target.value)}/>
-        <input type='number' value={stars} onChange={(e) => setStars(e.target.value)} />
-      </label>
+    <form className='update-review-form' onSubmit={handleSubmit}>
+        <div className='review-container'>
+        <textarea className='review-textarea' 
+        value={review} onChange={(e) => setReview(e.target.value)} 
+        rows={4} cols={38}/>
+          <StarRatings 
+          rating={stars}
+          starRatedColor='black'
+          changeRating={(newRating) => setStars(newRating)}
+          numberOfStars={5}
+          name='rating'
+          starDimension='45px'
+          starSpacing='5px'
+          starHoverColor='gold'/>
+        </div>
       <button className="update-review-button" type='submit'>Submit Change</button>
     </form>
     </div>
