@@ -30,7 +30,7 @@ const ShoppingCart = () => {
                     {`Cart • ${numItems}`}
                 </div>
             </div>
-            {openCart && <CartList />}
+            {openCart && <CartList func={() => setOpenCart(false)}/>}
         </div>
     )
 }

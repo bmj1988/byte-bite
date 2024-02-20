@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-import { useCartContext } from '../../context/ShoppingCartContext'
 import AddToOrderButton from './AddToOrderButton'
 import './MIM.css'
 import QuantityDropdown from './QuantityDropDown'

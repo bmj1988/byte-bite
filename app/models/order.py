@@ -40,7 +40,7 @@ class Order(db.Model):
             'status': self.status,
             'driver': self.driver,
             'price': self.price,
-            'restaurant': {'name': self.restaurant.name, 'id': self.restaurant.id, 'address': self.restaurant.address},
+            'restaurant': {'name': self.restaurant.name, 'id': self.restaurant.id, 'address': self.restaurant.address, 'image': self.restaurant.image},
         }
 
     def items_array(self):

@@ -11,12 +11,7 @@ def get_all_orders():
     orders_list = list()
     for order in orders:
         order_pushed_to_list = order.to_dict()
-    #     order_pushed_to_list['items'] = list()
-    #     for item in order.items:
-    #         item_added_to_order = item.to_dict()
-    #         quantity = db.session.query(order_items).filter_by(order_id=order_pushed_to_list['id'], menu_item_id=item_added_to_order['id']).first()
-    #         item_added_to_order['quantity'] = quantity['quantity']
-    #         order_pushed_to_list['items'].append(item_added_to_order)
+        order_pushed_to_list['items'] = order.items_array()
         orders_list.append(order_pushed_to_list)
     return {"orders": orders_list}
 
@@ -76,7 +71,6 @@ def add_item(order_id):
     quantity=data['quantity']
     for item in order.items:
         if item.id == menu_item_id:
-            print("HELLO THERE!!!!!!!!!!!!!!!!!!!!!")
             db.session.execute(db.update(order_items).where(order_items.c.order_id == order_id).where(order_items.c.menu_item_id == menu_item_id).values(quantity=quantity))
             db.session.commit()
             return {"order": order.to_dict(), "items": order.items_array()}
@@ -104,8 +98,10 @@ def order_status_update(order_id):
     data = request.json
     order_to_update = db.get_or_404(Order, order_id)
     order_to_update.status = data['status']
+    if data['price']:
+        order_to_update.price = data['price']
     db.session.commit()
-    return order_to_update.to_dict()
+    return {"order": order_to_update.to_dict(), "items" : order_to_update.items_array()}
 
 
 @order_routes.route('/<int:order_id>', methods=['DELETE'])
