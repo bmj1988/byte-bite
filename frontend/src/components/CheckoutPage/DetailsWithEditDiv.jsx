@@ -1,4 +1,6 @@
-const DetailsEdit = ({ icon, bold, sub, button, surcharge, clicker }) => {
+const DetailsEdit = ({ icon, bold, sub, button, surcharge, clicker, clickWholeDiv }) => {
+
+
 
     return (
         <div className="detailsExterior">

@@ -6,7 +6,7 @@ import { categoriesArray } from "../../redux/categories";
 import Select from "react-select";
 import './UpdateRestaurantsModal.css'
 
-const UpdateRestaurantModal = ({restaurantName}) => {
+const UpdateRestaurantModal = ({ restaurantName }) => {
   const dispatch = useDispatch()
   const { closeModal } = useModal()
 
@@ -30,12 +30,14 @@ const UpdateRestaurantModal = ({restaurantName}) => {
 
       const category = categories.find(category => category.id === restaurant.categoryId);
       if (category) {
-        setSelectedCategory({ value: restaurant.categoryId, label: (
-          <div style={{ display: "flex", alignItems: "center" }} className="categories-map">
-            <img src={category.image} alt={category.id} style={{ marginRight: 10, width: 30, height: 30}}/>
-            {category.name}
-          </div>
-        ) });
+        setSelectedCategory({
+          value: restaurant.categoryId, label: (
+            <div style={{ display: "flex", alignItems: "center" }} className="categories-map">
+              <img src={category.image} alt={category.id} style={{ marginRight: 10, width: 30, height: 30 }} />
+              {category.name}
+            </div>
+          )
+        });
       }
     }
   }, [restaurant, categories])
@@ -50,7 +52,7 @@ const UpdateRestaurantModal = ({restaurantName}) => {
       alignSelf: "center",
       fontFamily: 'Rubik, sans-serif'
     }),
-    singleValue : (provided, state) => ({
+    singleValue: (provided, state) => ({
       ...provided,
       color: "#333",
       fontFamily: 'Rubik, sans-serif',
@@ -61,7 +63,7 @@ const UpdateRestaurantModal = ({restaurantName}) => {
     value: category.id,
     label: (
       <div style={{ display: "flex", alignItems: "center" }} className="categories-map">
-        <img src={category.image} alt={category.id} style={{ marginRight: 10, width: 30, height: 30}}/>
+        <img src={category.image} alt={category.id} style={{ marginRight: 10, width: 30, height: 30 }} />
         {category.name}
       </div>
     )
@@ -79,7 +81,7 @@ const UpdateRestaurantModal = ({restaurantName}) => {
       image,
       lat: 90,
       lng: 90,
-      delivery,
+      delivery: true,
       category_id: selectedCategory.value
     }
 
@@ -89,49 +91,49 @@ const UpdateRestaurantModal = ({restaurantName}) => {
 
   return (
     <>
-    <div className="update-restaurant-modal">
-      <h2 className="update-res-h2">Update {name}</h2>
-      <form className="update-restaurant-form" onSubmit={handleSubmit}>
-        <div>
-          <label className="update-restaurant-label">Name</label>
-          <input className="update-restaurant-input" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required/>
-        </div>
+      <div className="update-restaurant-modal">
+        <h2 className="update-res-h2">Update {name}</h2>
+        <form className="update-restaurant-form" onSubmit={handleSubmit}>
+          <div>
+            <label className="update-restaurant-label">Name</label>
+            <input className="update-restaurant-input" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required />
+          </div>
 
-        <div>
-          <label className="update-restaurant-label">Address</label>
-          <input className="update-restaurant-input" type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" required/>
-        </div>
+          <div>
+            <label className="update-restaurant-label">Address</label>
+            <input className="update-restaurant-input" type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" required />
+          </div>
 
-        <div>
-          <label className="update-restaurant-label">City</label>
-          <input className="update-restaurant-input" type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="City" required/>
-        </div>
+          <div>
+            <label className="update-restaurant-label">City</label>
+            <input className="update-restaurant-input" type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="City" required />
+          </div>
 
-        <div>
-          <label className="update-restaurant-label">State</label>
-          <input className="update-restaurant-input" type="text" value={state} onChange={(e) => setState(e.target.value)} placeholder="State" required/>
-        </div>
+          <div>
+            <label className="update-restaurant-label">State</label>
+            <input className="update-restaurant-input" type="text" value={state} onChange={(e) => setState(e.target.value)} placeholder="State" required />
+          </div>
 
-        <div>
-          <label className="update-restaurant-label">Image</label>
-          <input className="update-restaurant-input" type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" required/>
-        </div>
+          <div>
+            <label className="update-restaurant-label">Image</label>
+            <input className="update-restaurant-input" type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" required />
+          </div>
 
-        <div>
-          <label className="new-restaurant-label">Category</label>
-          <Select 
-          options={options}
-          value={selectedCategory}
-          onChange={setSelectedCategory}
-          styles={customStyling}
-          placeholder="Select a category"
-          />
-        </div>
+          <div>
+            <label className="new-restaurant-label">Category</label>
+            <Select
+              options={options}
+              value={selectedCategory}
+              onChange={setSelectedCategory}
+              styles={customStyling}
+              placeholder="Select a category"
+            />
+          </div>
 
-        <button className="update-restaurant-button" type="submit">Submit Changes</button>
-        <button className="update-restaurant-cancel" onClick={closeModal}>Cancel</button>
-      </form>
-    </div>
+          <button className="update-restaurant-button" type="submit">Submit Changes</button>
+          <button className="update-restaurant-cancel" onClick={closeModal}>Cancel</button>
+        </form>
+      </div>
     </>
   )
 }

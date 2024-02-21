@@ -29,7 +29,7 @@ const OrderTotal = ({ order, price }) => {
                 <div className="slightBreak"></div>
                 <div className="detailsExterior">
                     <h2>Total</h2>
-                    <h2>{total}</h2>
+                    <h2>${total}</h2>
                 </div>
                 <p className="textmark smallText">{`Prices may be lower in store.`}</p>
                 <p className="textmark smallText">{`If you're not around when the delivery person arrives, they'll leave your order at the door. By placing your order, you agree to take full responsibility for it once it's delivered. Orders containing alcohol or other restricted items may not be eligible for leave at door and will be returned to the store if you are not available.`}</p>
