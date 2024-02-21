@@ -1,0 +1,23 @@
+.deliveryDetailsModal {
+    width: 350px;
+    height: fit-content;
+    background-color: white;
+    padding: 20px
+
+}
+
+.addressInput {
+    width: 100%;
+    background: #EEEEEE;
+    height: 50px;
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.newAddressInput {
+    border: none;
+    background: inherit;
+    font-size: 16px;
+    overflow-x: ellipsis;
+}

@@ -12,7 +12,10 @@ export function CartProvider({ children }) {
   const [quantity, setQuantity] = useState(1)
   const [price, setPrice] = useState(null)
   const [restaurantId, setRestaurantId] = useState(null);
-
+  const [stAddress, setStAddress] = useState('Enter your address')
+  const [deliveryTime, setDeliveryTime] = useState('Now')
+  const [locality, setLocality] = useState('')
+  const [city, setCity] = useState('')
 
   const contextValue = {
     menuItemId,
@@ -24,7 +27,15 @@ export function CartProvider({ children }) {
     price,
     setPrice,
     restaurantId,
-    setRestaurantId
+    setRestaurantId,
+    stAddress,
+    setStAddress,
+    locality,
+    setLocality,
+    city,
+    setCity,
+    deliveryTime,
+    setDeliveryTime
   };
 
   return (

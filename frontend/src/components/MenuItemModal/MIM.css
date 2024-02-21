@@ -10,6 +10,9 @@
     gap: 15px;
 }
 
+.menuItemModalWrapper {
+    border-radius: 0%;
+}
 .menuItemModalInfo h2 {
     color: #7e7474;
     font-weight: 600;

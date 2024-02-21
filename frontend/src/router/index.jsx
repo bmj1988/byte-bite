@@ -8,6 +8,8 @@ import StorePage from '../components/StorePage/StorePage';
 import CurrentReviewsPage from '../components/CurrentReviewsPage/CurrentReviewsPage';
 import CurrentRestaurantsPage from '../components/CurrentRestaurantsPage';
 import CurrentMenuItemsPage from '../components/CurrentMenuItemsPage/CurrentMenuItemsPage';
+import CheckoutPage from '../components/CheckoutPage/CheckoutPage';
+import OrderHistoryPage from '../components/OrderHistory/OrderHistoryPage';
 
 export const router = createBrowserRouter([
   {
@@ -51,10 +53,24 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ':restaurantId',
-            element: <CurrentMenuItemsPage />
+            element: <CurrentMenuItemsPage />,
           }
         ]
+      },
+      {
+        path:"/order-history",
+        element: <OrderHistoryPage/>,
+        loader: async () => {
+          return fetch(`/api/orders/`)
+        }
       }
     ],
   },
+  {
+    path: '/checkout',
+    element: <CheckoutPage />,
+    loader: async () => {
+      return fetch(`/api/orders/current`)
+    }
+  }
 ]);
