@@ -1,7 +1,6 @@
-import { useEffect } from 'react'
-import './StorePage.css'
+import { useEffect, useState } from 'react'
 import { restaurantByName, thunkRestaurantByName } from '../../redux/restaurants'
-import { reviewsArray } from '../../redux/reviews'
+import { reviewsArray, thunkRestaurantsReviews } from '../../redux/reviews'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import OpenModalButton from '../OpenModalButton'
@@ -14,6 +13,7 @@ import DeliveryOrPickupButton from './DeliveryOrPickupButton'
 import PaginatedReviewScroller from './PaginatedReviewScroller'
 import RatingDistanceDiv from './RatingDistanceDiv'
 import NewReviewModal from '../NewReviewModal/NewReviewModal'
+import './StorePage.css'
 
 const StorePage = () => {
     const { name } = useParams();
@@ -28,10 +28,15 @@ const StorePage = () => {
 
     const restaurantDetails = useSelector((state) => restaurantByName(state, name))
     const currentUser = useSelector((state) => state.session.user)
-    const reviews = useSelector(reviewsArray)
+    const reviews = restaurantDetails?.Reviews
 
     const owner = currentUser?.id === restaurantDetails?.ownerId
-    const reviewed = reviews && reviews.filter(review => review.user_id === currentUser.id)
+    const reviewed = reviews?.filter(review => review.user_id === currentUser?.id)
+
+    const avgStarRating = reviews?.reduce((acc, val) => acc + val.stars, 0, )/parseInt(restaurantDetails?.numReviews)
+
+    console.log(avgStarRating, '***********')
+    console.log(restaurantDetails)
 
     if (!restaurantDetails) {
         return (
@@ -61,14 +66,14 @@ const StorePage = () => {
                     <h2>From customers</h2>
                     <span>Reviews from people who've ordered here</span>
                     <div className='review-button'> 
-                    {!owner && reviewed.length === 0 && <OpenModalButton 
+                    {currentUser !== null && !owner && !reviewed?.length && <OpenModalButton 
                     modalComponent={<NewReviewModal restaurant_id={restaurantDetails.id} restaurantName={restaurantDetails.name}/>}
-                    buttonText="Leave your review" 
+                    buttonText="Leave a review" 
                     />}
                     </div>
                 </div>
                 <div className="reviewScrollbar">
-                    <PaginatedReviewScroller reviews={reviews} />
+                    <PaginatedReviewScroller reviews={restaurantDetails.Reviews} />
                 </div>
             </div>
             <h2>Menu items</h2>

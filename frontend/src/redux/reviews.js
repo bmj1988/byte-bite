@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+import { thunkRestaurantById } from "./restaurants";
 
 ///ACTION TYPES
 
@@ -35,7 +36,7 @@ export const thunkUsersReviews = () => async (dispatch) => {
   const res = await fetch('/api/reviews/current')
   if (res.ok) {
     const reviews = await res.json();
-    dispatch(loadReviews(reviews))
+    await dispatch(loadReviews(reviews))
     return reviews
   } else {
     const error = res.json()
@@ -81,7 +82,7 @@ export const thunkNewReview = (reviewDetails) => async (dispatch) => {
   })
   if (res.ok) {
     const newReview = await res.json()
-    dispatch(loadReviews(newReview))
+    dispatch(thunkRestaurantById(reviewDetails.restaurant_id))
     return newReview
   } else {
     const error = res.json()

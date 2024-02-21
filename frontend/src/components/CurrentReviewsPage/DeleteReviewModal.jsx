@@ -3,14 +3,16 @@ import { useDispatch } from 'react-redux'
 import { thunkDeleteReview } from '../../redux/reviews'
 import './DeleteReviewModal.css'
 
-function DeleteReviewModal({restaurant_id}) {
+function DeleteReviewModal({restaurant_id, rev2, setRev2, id}) {
   const { closeModal } = useModal();
   const dispatch = useDispatch();
 
   function confirmDelete(restaurant_id, e) {
-    e.preventDefault();
-    return dispatch(thunkDeleteReview(restaurant_id))
-    .then(closeModal)
+    // e.preventDefault();
+    dispatch(thunkDeleteReview(restaurant_id))
+    const newArray = rev2.filter((review) => review.id !== id)
+    setRev2(newArray)
+    closeModal()
   }
 
   return (
