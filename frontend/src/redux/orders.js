@@ -106,7 +106,7 @@ export const thunkPlaceOrder = (order) => async (dispatch) => {
     })
     if (response.ok) {
         const order = await response.json()
-        dispatch(loadOrder(order))
+        await dispatch(deleteOrder())
         return order
     }
     else {
@@ -159,6 +159,9 @@ export const ordersReducer = (state = {}, action) => {
             action.payload.items.map((item) => {
                 items[item.id] = item
             })
+            if (Object.values(items).length < 1) {
+                return orderState
+            }
             orderState.current.items = items
             return orderState
         }

@@ -89,6 +89,9 @@ def delete_item(order_id):
         if item.id == menu_item_id:
             db.session.execute(db.delete(order_items).where(order_items.c.order_id == order_id).where(order_items.c.menu_item_id == menu_item_id))
             db.session.commit()
+            if len(order.items_array()) == 0:
+                db.session.delete(order)
+                return {"order": False, "items": []}, 201
             return {"order": order.to_dict(), "items": order.items_array()}
 
 

@@ -6,7 +6,7 @@ import { FaTimes } from "react-icons/fa"
 import { useModal } from "../../context/Modal"
 import { useNavigate } from "react-router-dom"
 
-const CartList = ({func}) => {
+const CartList = ({ func }) => {
     const order = useSelector(orderInfo)
     const items = useSelector(orderItemsArray)
     const navigate = useNavigate()
@@ -22,7 +22,7 @@ const CartList = ({func}) => {
             <FaTimes style={{ fontSize: '20px', cursor: 'pointer' }} onClick={() => func()} />
             <h1 className="cartListName">{`${order.restaurant.name} (${order.restaurant.address})`}</h1>
             <GroupByOrderButton />
-            <ul style={{listStyleType: "none", margin: '0px', padding: '5px 0px 0px 0px'}}>
+            <ul style={{ listStyleType: "none", margin: '0px', padding: '5px 0px 0px 0px' }}>
                 {items.map((item) => {
                     return (
                         <div key={item.id}>
@@ -41,9 +41,9 @@ const CartList = ({func}) => {
                     )
                 })}
             </ul>
-            <div className="addToOrderButton" onClick={() => checkout()}>
+            {items.length > 0 && <div className="addToOrderButton" onClick={() => checkout()}>
                 {`Go to checkout • $${order.price}.00`}
-            </div>
+            </div>}
         </div>
     )
 }
