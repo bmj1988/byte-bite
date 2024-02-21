@@ -72,7 +72,7 @@ export const thunkDeleteReview = (restaurant_id) => async (dispatch) => {
 }
 
 export const thunkNewReview = (reviewDetails) => async (dispatch) => {
-  const res = await fetch(`/api/reviews/${reviewDetails.id}`, {
+  const res = await fetch(`/api/reviews/${reviewDetails.restaurant_id}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

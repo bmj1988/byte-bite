@@ -1,8 +1,10 @@
 import { useEffect } from 'react'
 import './StorePage.css'
 import { restaurantByName, thunkRestaurantByName } from '../../redux/restaurants'
+import { reviewsArray } from '../../redux/reviews'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import OpenModalButton from '../OpenModalButton'
 import Spinner from '../Spinner'
 import MenuItems from './MenuItems'
 import SeeSimilarButton from './SeeSimilarButton'
@@ -11,6 +13,7 @@ import ScheduleButton from './ScheduleButton'
 import DeliveryOrPickupButton from './DeliveryOrPickupButton'
 import PaginatedReviewScroller from './PaginatedReviewScroller'
 import RatingDistanceDiv from './RatingDistanceDiv'
+import NewReviewModal from '../NewReviewModal/NewReviewModal'
 
 const StorePage = () => {
     const { name } = useParams();
@@ -24,14 +27,17 @@ const StorePage = () => {
     }, [dispatch, name])
 
     const restaurantDetails = useSelector((state) => restaurantByName(state, name))
+    const currentUser = useSelector((state) => state.session.user)
+    const reviews = useSelector(reviewsArray)
+
+    const owner = currentUser?.id === restaurantDetails?.ownerId
+    const reviewed = reviews && reviews.filter(review => review.user_id === currentUser.id)
 
     if (!restaurantDetails) {
         return (
             <Spinner />
         )
     }
-
-    const reviews = restaurantDetails.Reviews
 
     return (
         <div className='storePageMainDiv'>
@@ -54,6 +60,12 @@ const StorePage = () => {
                 <div className="reviewHeader">
                     <h2>From customers</h2>
                     <span>Reviews from people who've ordered here</span>
+                    <div className='review-button'> 
+                    {!owner && reviewed.length === 0 && <OpenModalButton 
+                    modalComponent={<NewReviewModal restaurant_id={restaurantDetails.id} restaurantName={restaurantDetails.name}/>}
+                    buttonText="Leave your review" 
+                    />}
+                    </div>
                 </div>
                 <div className="reviewScrollbar">
                     <PaginatedReviewScroller reviews={reviews} />
