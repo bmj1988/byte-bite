@@ -40,5 +40,13 @@ class Order(db.Model):
             'status': self.status,
             'driver': self.driver,
             'price': self.price,
-            'restaurant': {'name': self.restaurant.name, 'id': self.restaurant.id}
+            'restaurant': {'name': self.restaurant.name, 'id': self.restaurant.id, 'address': self.restaurant.address, 'image': self.restaurant.image},
         }
+
+    def items_array(self):
+        items = [item.to_dict() for item in self.items]
+        for item in items:
+            print(item)
+            order_item = db.session.query(order_items).filter_by(order_id=self.id, menu_item_id=item['id']).first()
+            item['quantity'] = order_item.quantity
+        return items

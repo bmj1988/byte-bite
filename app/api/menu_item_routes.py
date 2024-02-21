@@ -16,7 +16,7 @@ def get_menu_items_by_restaurant(restaurant_id):
 
     if not menu_item:
         return {"message": "Menu item couldn't be found"}
-    
+
     lst = list()
     dic = {"MenuItems": lst}
     for menu_item in menu_item:
@@ -68,7 +68,7 @@ def update_menu_item(menu_item_id):
 
     if menu_item is None:
         return {'message': 'Menu item not found'}, 404
-    
+
     restaurant = db.session.query(Restaurant).get(menu_item.restaurant_id)
 
     if restaurant.owner_id is not current_user.id:
@@ -80,7 +80,6 @@ def update_menu_item(menu_item_id):
         menu_item.price = data['price']
         menu_item.image = data['image']
         menu_item.description = data['description']
-        menu_item.name = data['name']
 
         db.session.commit()
         return menu_item.to_dict()

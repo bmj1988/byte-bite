@@ -1,0 +1,143 @@
+.checkoutMain {
+    background: #EEEEEE;
+}
+
+.deliveryMain {
+    margin-left: 200px;
+    padding-bottom: 40px;
+}
+
+.checkout {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.detailsExterior {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+}
+
+.textmark {
+    font-family: 'Rubik', sans-serif;
+}
+
+.restaurantHeader {
+    gap: 15px;
+}
+
+.detailsInterior {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.bold {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 1px;
+}
+
+.light {
+    font-weight: 400;
+}
+
+.deliveryDetailsMain {
+    width: 670px;
+    height: fit-content;
+    background-color: white;
+    padding: 20px;
+
+}
+
+.restaurantHeaderImg {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+
+.breaker {
+    width: 670px;
+    justify-content: center;
+    height: 2px;
+    background: #EEEEEE;
+}
+
+.grayBorder {
+    border: 2px solid #d6d1d1;
+}
+
+.blackBorder {
+    border: 2px solid black;
+}
+
+.border-radius {
+    border-radius: 12px;
+    padding: 0px 15px;
+    cursor: pointer;
+}
+
+.deliveryOptions {
+    display: flex;
+    flex-direction: column;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+.borderRadTopDiv {
+    border-radius: 12px 12px 0px 0px;
+}
+
+.borderRadBodDiv {
+    border-radius: 0px 0px 12px 12px;
+}
+
+.integerOrder {
+    background: #EEEEEE;
+    padding: 2px 4px;
+}
+
+.slightBreak {
+    width: 90%;
+    justify-content: center;
+    background: #EEEEEE;
+    height: 1px;
+}
+
+.smallText {
+    font-size: 12px;
+}
+
+.standardText {
+    font-size: 14px;
+}
+
+.orderTotalMain {
+    height: fit-content;
+    width: 470px;
+    position: sticky;
+    top: 20px;
+}
+
+.orderTotalStats {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.bottomMargin {
+    margin-bottom: 25px;
+}
+
+.tipButtons {
+    display: flex;
+}
+
+.tipInput {
+    width: 30px;
+}

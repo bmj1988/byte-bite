@@ -14,9 +14,22 @@ def home():
     for restaurant in all_restaurants:
         if restaurant.delivery:
             rest_entry = restaurant.to_dict_main_page()
+            rest_entry['Reviews'] = [review.to_dict() for review in restaurant.reviews]
+            rest_entry['numReviews'] = len(rest_entry['Reviews'])
             lst.append(rest_entry)
 
     return dic
+
+@restaurant_routes.route('/current')
+@login_required
+def current_user_restaurants():
+    my_restaurants = db.session.query(Restaurant).filter(Restaurant.owner_id == current_user.id).all()
+    lst = list()
+    dic = {"restaurants": lst}
+    for restaurant in my_restaurants:
+        rest_entry = restaurant.to_dict()
+        lst.append(rest_entry)
+    return dic, 200
 
 @restaurant_routes.route('/new', methods=['POST'])
 @login_required
@@ -58,17 +71,15 @@ def new():
         errors[field] = error[0]
     return {'error': errors}, 400
 
-# @restaurant_routes.route('/<int:id>')
-# def get_restaurant_details(id):
-#     restaurant = db.get_or_404(Restaurant, id)
+@restaurant_routes.route('/<int:id>')
+def get_restaurant_by_id(id):
+    restaurant = db.get_or_404(Restaurant, id)
+    return restaurant.to_dict()
 
-#     return restaurant.to_dict()
 
-# changed to str:name to accommodate front end route without additional queries -GWW
 @restaurant_routes.route('/<string:name>')
 def get_restaurant_details(name):
     restaurant = db.session.query(Restaurant).filter_by(name=name).first()
-
     return restaurant.to_dict()
 
 @restaurant_routes.route('/<int:restaurant_id>', methods=['PUT'])

@@ -45,7 +45,9 @@ class Restaurant(db.Model):
             'starRating': self.star_rating,
             'ownerId': self.owner_id,
             'owner': self.owner.to_dict(),
-            'MenuItems': [x.to_dict() for x in self.menu]
+            'MenuItems': [x.to_dict() for x in self.menu],
+            'Reviews': [x.to_dict() for x in self.reviews],
+            'numReviews': len([x.to_dict() for x in self.reviews])
         }
 
     def to_dict_main_page(self):

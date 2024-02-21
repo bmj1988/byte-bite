@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import { FaMapMarkerAlt } from 'react-icons/fa'
+import { useCartContext } from '../../context/ShoppingCartContext'
+import { useModal } from '../../context/Modal'
+import DeliveryDetailModal from './OptionModals/DeliveryDetailsModal'
 
 /// IF NOT LOGGED IN
 
@@ -19,14 +22,19 @@ import { FaMapMarkerAlt } from 'react-icons/fa'
 
 
 const Location = () => {
-    const [address, setAddress] = useState('Enter your address')
-    const [deliveryTime, setDeliveryTime] = useState('Now')
+    const {stAddress, setStAddress, deliveryTime, setDeliveryTime} = useCartContext()
+    const {setModalContent} = useModal()
+
+    const clicker = () => {
+        setModalContent(<DeliveryDetailModal/>)
+        console.log("click")
+    }
 
     return (
-        <div className='deliveryLocation'>
+        <div className='deliveryLocation' onClick={() => clicker()}>
             <FaMapMarkerAlt style={{marginRight: '5px'}}/>
             <div id='locationInput' className='locationItem'>
-                {address}
+                {stAddress}
             </div>
             <div className='locationItem'>
                 {'•'}

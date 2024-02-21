@@ -7,23 +7,26 @@ import SearchBar from "./SearchBar";
 import ShoppingCart from "./Cart";
 import LoginIcon from "./LoginIcon";
 import SignUpButton from "./SignUpButton";
+import LogoDiv from "./LogoDiv";
+import { useSelector } from "react-redux";
 
 function Navigation() {
+  const user = useSelector((state) => state.session?.user)
+
   return (
     <nav className="nav-bar">
-      <div>
-        <ProfileBars />
-      </div>
-      <div style={{ margin: '10px' }}>
-        <span className='logo-text'>Byte</span><span className='logo-text bold'>Bite</span>
+      <div style={{display: 'flex'}}>
+      <ProfileBars />
+      <LogoDiv />
       </div>
       <DeliveryToggle />
       <Location />
       <SearchBar />
       <ShoppingCart />
-      <LoginIcon />
-      <SignUpButton/>
-
+      {!user && <>
+        <LoginIcon />
+        <SignUpButton />
+      </>}
     </nav>
 
 

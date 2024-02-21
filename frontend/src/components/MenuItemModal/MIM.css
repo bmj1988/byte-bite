@@ -1,0 +1,98 @@
+.menuItemModalInfo {
+    font-size: 14px;
+    font-family: 'Rubik', sans-serif;
+    background: 'white';
+    color: black;
+    height: 700px;
+    width: 400px;
+    flex-direction: column;
+    display: flex;
+    gap: 15px;
+}
+
+.menuItemModalWrapper {
+    border-radius: 0%;
+}
+.menuItemModalInfo h2 {
+    color: #7e7474;
+    font-weight: 600;
+}
+
+.menuItemModalMain {
+    background: white;
+    height: 700px;
+    width: 900px;
+    display: flex;
+    gap: 20px;
+}
+
+.menuItemModalImg {
+    width: 400px;
+}
+
+.quantityButton {
+    display: flex;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 16px;
+    border-radius: 500px;
+    padding: 2px 12px;
+    height: 36px;
+    width: fit-content;
+    background-color: #EEEEEE;
+    color: black;
+    align-items: center;
+    gap: 20px;
+}
+
+.numberDropDown {
+    width: fit-content;
+    height: 300px;
+    list-style-type: none;
+    background: #EEEEEE;
+    font-family: inherit;
+    border: 1px solid black;
+    overflow: scroll;
+    overflow-x: hidden;
+    font-size: 16px;
+    position: absolute;
+}
+
+
+.hidden {
+    display: none;
+}
+
+.addToOrderButton {
+    background: black;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 18px;
+    color: white;
+    min-height: 56px;
+    line-height: 24px;
+    justify-content: center;
+    font-weight: 500;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: flex;
+    font-family: 'Rubik', sans-serif;
+    align-items: center;
+}
+
+.seeDetailsButton {
+    background: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 18px;
+    color: black;
+    min-height: 56px;
+    line-height: 24px;
+    justify-content: center;
+    font-weight: 500;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: flex;
+    font-family: 'Rubik', sans-serif;
+    align-items: center;
+}

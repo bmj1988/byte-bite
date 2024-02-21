@@ -1,28 +1,86 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { restaurantByName, thunkRestaurantById } from "../../redux/restaurants";
+import { useEffect, useState } from 'react'
+import { restaurantByName, thunkRestaurantByName } from '../../redux/restaurants'
+import { reviewsArray, thunkRestaurantsReviews } from '../../redux/reviews'
+import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import OpenModalButton from '../OpenModalButton'
+import Spinner from '../Spinner'
+import MenuItems from './MenuItems'
+import SeeSimilarButton from './SeeSimilarButton'
+import GroupOrderButton from './GroupByOrderButton'
+import ScheduleButton from './ScheduleButton'
+import DeliveryOrPickupButton from './DeliveryOrPickupButton'
+import PaginatedReviewScroller from './PaginatedReviewScroller'
+import RatingDistanceDiv from './RatingDistanceDiv'
+import NewReviewModal from '../NewReviewModal/NewReviewModal'
+import './StorePage.css'
 
 const StorePage = () => {
-  const dispatch = useDispatch();
-  const { name } = useParams();
+    const { name } = useParams();
+    const dispatch = useDispatch();
 
-  const restaurant = useSelector((state) => restaurantByName(state, name))
+    useEffect(() => {
+        const thunkSender = async () => {
+            await dispatch(thunkRestaurantByName(name))
+        }
+        thunkSender()
+    }, [dispatch, name])
 
-  useEffect(() => {
-    dispatch(thunkRestaurantById(name))
-  }, [dispatch, name])
+    const restaurantDetails = useSelector((state) => restaurantByName(state, name))
+    const currentUser = useSelector((state) => state.session.user)
+    const reviews = restaurantDetails?.Reviews
 
-  return (
-    <>
-      <h2>StorePage</h2>
-      <img src={restaurant.image}/>
-      <div>{restaurant.name}</div>
-      <div>{restaurant.address}</div>
-      <div>{restaurant.city}</div>
-      <div>{restaurant.state}</div>
-    </>
-  )
+    const owner = currentUser?.id === restaurantDetails?.ownerId
+    const reviewed = reviews?.filter(review => review.user_id === currentUser?.id)
+
+    const avgStarRating = reviews?.reduce((acc, val) => acc + val.stars, 0, )/parseInt(restaurantDetails?.numReviews)
+
+    console.log(avgStarRating, '***********')
+    console.log(restaurantDetails)
+
+    if (!restaurantDetails) {
+        return (
+            <Spinner />
+        )
+    }
+
+    return (
+        <div className='storePageMainDiv'>
+            {/* {restaurantDetails.header && <div>
+                <img src={restaurantDetails.header} className="storePageHeader" />
+            </div>} */}
+            <div className="storePageName">
+                {restaurantDetails.name}
+            </div>
+            <RatingDistanceDiv restaurantDetails={restaurantDetails} />
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div className="storePageButtonDiv">
+                    <SeeSimilarButton />
+                    <GroupOrderButton />
+                    <ScheduleButton />
+                </div>
+                <DeliveryOrPickupButton />
+            </div>
+            <div className="storePageReviews">
+                <div className="reviewHeader">
+                    <h2>From customers</h2>
+                    <span>Reviews from people who've ordered here</span>
+                    <div className='review-button'> 
+                    {currentUser !== null && !owner && !reviewed?.length && <OpenModalButton 
+                    modalComponent={<NewReviewModal restaurant_id={restaurantDetails.id} restaurantName={restaurantDetails.name}/>}
+                    buttonText="Leave a review" 
+                    />}
+                    </div>
+                </div>
+                <div className="reviewScrollbar">
+                    <PaginatedReviewScroller reviews={restaurantDetails.Reviews} />
+                </div>
+            </div>
+            <h2>Menu items</h2>
+            <MenuItems menuItemsArray={restaurantDetails.MenuItems} />
+
+        </div>
+    )
 }
 
 export default StorePage
