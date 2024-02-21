@@ -108,35 +108,45 @@ const CurrentMenuItemsPage = ({ id }) => {
             {menuItemsState.map((menu_item, index) => (
                 <form onSubmit={(e) => handleSubmit(e, index)}>
                     <div className="menu_item_info" key={menu_item.draftCounter || menu_item.id}>
-                        <label>Name
+                        <div className="menu_item_box">
+                            <label>Name</label>
                             <input
                                 type="text"
                                 defaultValue={menu_item.name}
                                 onChange={(e) => handleInputChange(index, 'name', e.target.value)}
                                 required
                             />
-                        </label>
-                        <label>Image URL</label>
-                        <input
-                            type="text"
-                            defaultValue={menu_item.image}
-                            onChange={(e) => handleInputChange(index, 'image', e.target.value)}
-                        />
-                        <label>Description</label>
-                        <textarea
-                            defaultValue={menu_item.description}
-                            onChange={(e) => handleInputChange(index, 'description', e.target.value)}
-                            required
-                        />
-                        <label>Price</label>
-                        <input
-                            type="number"
-                            defaultValue={menu_item.price}
-                            onChange={(e) => handleInputChange(index, 'price', e.target.value)}
-                            required
-                        />
-                        <button className="menu_item_buttons" type="submit">Update</button>
-                        <button className="menu_item_buttons" onClick={(e) => handleDelete(e, menu_item, index)}>Delete</button>
+                        </div>
+                        <div className="menu_item_box">
+                            <label>Image URL</label>
+                            <input
+                                type="text"
+                                defaultValue={menu_item.image}
+                                onChange={(e) => handleInputChange(index, 'image', e.target.value)}
+                            />
+                        </div>
+                        <div className="menu_item_box">
+
+                            <label>Description</label>
+                            <textarea
+                                defaultValue={menu_item.description}
+                                onChange={(e) => handleInputChange(index, 'description', e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="menu_item_box">
+                            <label>Price</label>
+                            <input
+                                type="number"
+                                defaultValue={menu_item.price}
+                                onChange={(e) => handleInputChange(index, 'price', e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="button_container">
+                            <button className="menu_item_buttons" type="submit">Update</button>
+                            <button className="menu_item_buttons" onClick={(e) => handleDelete(e, menu_item, index)}>Delete</button>
+                        </div>
                     </div>
                 </form>
             ))}
