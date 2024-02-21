@@ -7,14 +7,14 @@ const PlaceOrderButton = ({order, total}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const placeOrder = () => {
+    const placeOrder = async () => {
         const orderToPlace = {
             id: order.id,
             status: "Received",
             price: total
         }
         console.log(orderToPlace)
-        dispatch(thunkPlaceOrder(orderToPlace))
+        await dispatch(thunkPlaceOrder(orderToPlace))
         navigate('/')
     }
 

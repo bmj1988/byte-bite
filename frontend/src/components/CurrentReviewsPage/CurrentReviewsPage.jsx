@@ -1,23 +1,24 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react";
-import { thunkUsersReviews, reviewsArray } from "../../redux/reviews";
-import { thunkAllRestaurants } from "../../redux/restaurants";
+import { useEffect, useState } from "react";
+import { reviewsArray, thunkUsersReviews } from "../../redux/reviews";
 import DeleteReviewModal from "./DeleteReviewModal";
 import OpenModalButton from '../OpenModalButton'
 import CurrentReviewBox from "./CurrentReviewsBox";
 import UpdateReviewModal from "./UpdateReviewModal";
 import Spinner from "../Spinner";
-import './CurrentReviewsPage.css' 
+import './CurrentReviewsPage.css'
 
 const CurrentReviewsPage = () => {
   const dispatch = useDispatch();
 
+
+
   useEffect(() => {
     dispatch(thunkUsersReviews())
-    dispatch(thunkAllRestaurants())
   }, [dispatch])
 
   const reviews = useSelector(reviewsArray)
+
 
   if (!reviews) {
     return <Spinner />
@@ -26,18 +27,19 @@ const CurrentReviewsPage = () => {
   return (
     <>
       <div className="reviews">
-        {reviews.map((review) => {
+        {!reviews.length && <h2 className="textmark">You have no reviews.</h2>}
+        {reviews.length > 0 && reviews.map((review) => {
           return (
             <>
               <div className="review-box">
                 <CurrentReviewBox review={review} key={review.id} />
                 <div className="review-buttons">
                   < OpenModalButton className="review-modal-button"
-                  modalComponent={<DeleteReviewModal restaurant_id={review.restaurant_id}/>}
+                  modalComponent={<DeleteReviewModal id={review.id}/>}
                   buttonText="Delete" />
                   < OpenModalButton className="review-modal-button"
-                  modalComponent={ <UpdateReviewModal restaurant_id={review.restaurant_id} />}
-                  buttonText="Update"
+                    modalComponent={<UpdateReviewModal restaurant_id={review.restaurant_id} />}
+                    buttonText="Update"
                   />
                 </div>
               </div>

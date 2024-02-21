@@ -46,7 +46,10 @@ export const router = createBrowserRouter([
       },
       {
         path: "/reviews/current",
-        element: <CurrentReviewsPage />
+        element: <CurrentReviewsPage />,
+        loader: async () => {
+          return fetch('/api/reviews/current')
+        }
       },
       {
         path: "/menu_items",
@@ -72,5 +75,5 @@ export const router = createBrowserRouter([
     loader: async () => {
       return fetch(`/api/orders/current`)
     }
-  }
+  },
 ]);

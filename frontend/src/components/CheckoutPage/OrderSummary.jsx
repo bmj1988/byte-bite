@@ -1,14 +1,20 @@
 import { FaPlus } from "react-icons/fa"
 import DetailsEdit from "./DetailsWithEditDiv"
 import './checkout.css'
+import { useNavigate } from "react-router-dom"
 
-const OrderSummary = ({ items }) => {
+const OrderSummary = ({ items, restaurantName }) => {
+    const navigate = useNavigate()
+
+    const clicker = () => {
+        navigate(`/store/${restaurantName}`)
+    }
 
     return (
         <div className="deliveryDetailsMain borderRadBodDiv">
             <div className="detailsExterior">
                 <h2 className="textmark">Order summary</h2>
-                <div className="seeSimilar">
+                <div className="seeSimilar" onClick={() => clicker()}>
                     <FaPlus style={{marginRight: '3px', textSize: '10px'}}/>
                     <p>Add items</p>
                 </div>
@@ -16,11 +22,11 @@ const OrderSummary = ({ items }) => {
             </div>
             <div name="summaryDiv">
                 <p className="textmark">{`${items.length} ${items.length > 1 ? "items" : "item"}`}</p>
-                <div className="slightBreak"></div>
                 {items.map((item) => {
                     return (<div key={item.id}>
-                        <DetailsEdit icon={<p className="integerOrder">{item.quantity}</p>} bold={item.name} surcharge={item.price} />
                         <div className="slightBreak"></div>
+                        <DetailsEdit icon={<p className="integerOrder">{item.quantity}</p>} bold={item.name} surcharge={item.price}/>
+
                     </div>)
                 })}
             </div>

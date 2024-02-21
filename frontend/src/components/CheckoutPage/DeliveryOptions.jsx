@@ -1,7 +1,14 @@
-const DeliveryOption = ({ icon, bold, sub, button, surcharge }) => {
+const DeliveryOption = ({ icon, bold, sub, black, surcharge, clicker }) => {
+
+    const click = () => {
+        if (clicker) {
+            clicker()
+        }
+        return
+    }
 
     return (
-        <div className="detailsExterior grayBorder border-radius">
+        <div className={black ? "detailsExterior blackBorder border-radius" : "detailsExterior grayBorder border-radius"} onClick={() => click()}>
             <div className="detailsInterior restaurantHeader ">
                 {icon}
                 <div>

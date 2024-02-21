@@ -15,9 +15,10 @@ function Navigation() {
 
   return (
     <nav className="nav-bar">
-
+      <div style={{display: 'flex'}}>
       <ProfileBars />
       <LogoDiv />
+      </div>
       <DeliveryToggle />
       <Location />
       <SearchBar />

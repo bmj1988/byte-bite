@@ -14,6 +14,8 @@ def home():
     for restaurant in all_restaurants:
         if restaurant.delivery:
             rest_entry = restaurant.to_dict_main_page()
+            rest_entry['Reviews'] = [review.to_dict() for review in restaurant.reviews]
+            rest_entry['numReviews'] = len(rest_entry['Reviews'])
             lst.append(rest_entry)
 
     return dic
