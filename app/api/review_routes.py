@@ -27,7 +27,7 @@ def reviews_by_rest(restaurant_id):
 def reviews_by_user():
   reviews_by_user_id = db.session.query(Review).filter_by(user_id=current_user.id).all()
   if not reviews_by_user_id:
-    return {"message": "Current user does not have any reviews"}
+    return {"reviews": list()}
   lst = list()
   dic = {"reviews": lst}
   for review in reviews_by_user_id:
@@ -92,23 +92,17 @@ def edit_review(restaurant_id):
   return form.errors, 401
 
 # DELETE REVIEW /api/reviews/restaurant_id
-@review_routes.route('/<int:restaurant_id>', methods=['DELETE'])
+@review_routes.route('/<int:review_id>', methods=['DELETE'])
 @login_required
-def delete_review(restaurant_id):
-  target = db.session.query(Review).filter_by(restaurant_id=restaurant_id, user_id=current_user.id).first()
-  restaurant = db.session.query(Restaurant).get(restaurant_id)
+def delete_review(review_id):
+  review = db.get_or_404(Review, review_id)
 
-  if restaurant is None:
-    return {"message": "Restaurant couldn't be found"}
-
-  if target is None:
-    return {'message': 'Review not found'}, 404
-
-  if target.user_id is not current_user.id:
+  if review.user_id is not current_user.id:
     return {'message': 'Forbidden'}, 403
 
-  db.session.delete(target)
+  db.session.delete(review)
   db.session.commit()
+
   return {'message': 'Review deleted successfully'}, 200
 
 @review_routes.route('/<int:restaurant_id>/scroller')
