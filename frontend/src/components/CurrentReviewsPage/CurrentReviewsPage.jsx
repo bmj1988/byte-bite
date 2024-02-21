@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react";
-import { thunkUsersReviews, reviewsArray } from "../../redux/reviews";
-import { thunkAllRestaurants } from "../../redux/restaurants";
+import { reviewsArray, thunkUsersReviews } from "../../redux/reviews";
 import DeleteReviewModal from "./DeleteReviewModal";
 import OpenModalButton from '../OpenModalButton'
 import CurrentReviewBox from "./CurrentReviewsBox";
@@ -10,23 +9,15 @@ import Spinner from "../Spinner";
 import './CurrentReviewsPage.css'
 
 const CurrentReviewsPage = () => {
-  const [objreviews, setObjreviews] = useState([])
   const dispatch = useDispatch();
 
-  const reviews = useSelector(reviewsArray)
+
 
   useEffect(() => {
     dispatch(thunkUsersReviews())
   }, [dispatch])
 
-  useEffect(() => {
-    dispatch(thunkAllRestaurants())
-  }, [dispatch])
-
-  useEffect(() => {
-    setObjreviews(reviews)
-  }, [reviews])
-
+  const reviews = useSelector(reviewsArray)
 
 
   if (!reviews) {
@@ -36,15 +27,16 @@ const CurrentReviewsPage = () => {
   return (
     <>
       <div className="reviews">
-        {objreviews.map((review) => {
+        {!reviews.length && <h2 className="textmark">You have no reviews.</h2>}
+        {reviews.length > 0 && reviews.map((review) => {
           return (
             <>
               <div className="review-box">
                 <CurrentReviewBox review={review} key={review.id} />
                 <div className="review-buttons">
                   < OpenModalButton className="review-modal-button"
-                    modalComponent={<DeleteReviewModal restaurant_id={review.restaurant_id} />}
-                    buttonText="Delete" />
+                  modalComponent={<DeleteReviewModal id={review.id}/>}
+                  buttonText="Delete" />
                   < OpenModalButton className="review-modal-button"
                     modalComponent={<UpdateReviewModal restaurant_id={review.restaurant_id} />}
                     buttonText="Update"

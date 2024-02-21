@@ -15,7 +15,6 @@ const UpdateRestaurantModal = ({restaurantName}) => {
   const [city, setCity] = useState('')
   const [state, setState] = useState('')
   const [image, setImage] = useState('')
-  const [delivery, setDelivery] = useState(true)
   const [selectedCategory, setSelectedCategory] = useState(null)
 
   const categories = useSelector(categoriesArray)
@@ -28,7 +27,6 @@ const UpdateRestaurantModal = ({restaurantName}) => {
       setCity(restaurant.city)
       setState(restaurant.state)
       setImage(restaurant.image)
-      setDelivery(restaurant.delivery)
 
       const category = categories.find(category => category.id === restaurant.categoryId);
       if (category) {
@@ -117,14 +115,6 @@ const UpdateRestaurantModal = ({restaurantName}) => {
         <div>
           <label className="update-restaurant-label">Image</label>
           <input className="update-restaurant-input" type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" required/>
-        </div>
-
-        <div>
-          <label className="new-restaurant-label">Delivery</label>
-          <div>
-            <label> <input type="radio" value="true" checked={delivery === true} onChange={() => setDelivery(true)}/> Yes </label>
-            <label> <input type="radio" value="false" checked={delivery === false} onChange={() => setDelivery(false)}/> No </label>
-          </div>
         </div>
 
         <div>

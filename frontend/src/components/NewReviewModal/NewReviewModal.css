@@ -1,14 +1,14 @@
-.update-modal {
+.review-modal {
   padding: 20px;
   border-radius: 10px;
   width: 300px;
 }
 
-.update-h2 {
+.review-h2 {
   text-align: center;
 }
 
-.update-review-button {
+.new-review-button {
   background: black;
   padding: 12px 16px;
   border-radius: 8px;

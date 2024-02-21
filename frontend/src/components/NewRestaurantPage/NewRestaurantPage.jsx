@@ -18,7 +18,6 @@ const NewRestaurantPage = () => {
   const [city, setCity] = useState('')
   const [state, setState] = useState('')
   const [image, setImage] = useState('')
-  const [delivery, setDelivery] = useState(true)
   const [selectedCategory, setSelectedCategory] = useState(null)
 
   useEffect(() => {
@@ -36,7 +35,7 @@ const NewRestaurantPage = () => {
       image,
       lat: 90,
       lng: 90,
-      delivery,
+      delivery: true,
       category_id: selectedCategory.value
     }
     
@@ -103,14 +102,6 @@ const NewRestaurantPage = () => {
           <label className="new-restaurant-label">Image</label>
           <input className="new-restaurant-input" type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" required/>
           {errors && errors.image && <div className="error">{errors.image}</div>}
-        </div>
-
-        <div>
-          <label className="new-restaurant-label">Delivery</label>
-          <div>
-            <label> <input type="radio" value="true" checked={delivery === true} onChange={() => setDelivery(true)}/> Yes </label>
-            <label> <input type="radio" value="false" checked={delivery === false} onChange={() => setDelivery(false)}/> No </label>
-          </div>
         </div>
 
         <div>

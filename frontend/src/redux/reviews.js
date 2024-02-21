@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+import { thunkRestaurantById } from "./restaurants";
 
 ///ACTION TYPES
 
@@ -35,7 +36,7 @@ export const thunkUsersReviews = () => async (dispatch) => {
   const res = await fetch('/api/reviews/current')
   if (res.ok) {
     const reviews = await res.json();
-    dispatch(loadReviews(reviews))
+    await dispatch(loadReviews(reviews))
     return reviews
   } else {
     const error = res.json()
@@ -57,12 +58,12 @@ export const thunkRestaurantsReviews = (id) => async (dispatch) => {
   }
 }
 
-export const thunkDeleteReview = (restaurant_id) => async (dispatch) => {
-  const res  = await fetch(`/api/reviews/${restaurant_id}`, {
+export const thunkDeleteReview = (review_id) => async (dispatch) => {
+  const res  = await fetch(`/api/reviews/${review_id}`, {
     method: "DELETE"
   })
   if (res.ok) {
-    await dispatch(deleteReview(restaurant_id))
+    await dispatch(deleteReview(review_id))
     return {"msg": "Review successfully deleted"}
   } else {
     const error = await res.json()
@@ -72,7 +73,7 @@ export const thunkDeleteReview = (restaurant_id) => async (dispatch) => {
 }
 
 export const thunkNewReview = (reviewDetails) => async (dispatch) => {
-  const res = await fetch(`/api/reviews/${reviewDetails.id}`, {
+  const res = await fetch(`/api/reviews/${reviewDetails.restaurant_id}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -81,7 +82,7 @@ export const thunkNewReview = (reviewDetails) => async (dispatch) => {
   })
   if (res.ok) {
     const newReview = await res.json()
-    dispatch(loadReviews(newReview))
+    dispatch(thunkRestaurantById(reviewDetails.restaurant_id))
     return newReview
   } else {
     const error = res.json()

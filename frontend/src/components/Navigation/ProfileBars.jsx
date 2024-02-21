@@ -25,7 +25,6 @@ const ProfileBars = () => {
     const toggleMenu = (e) => {
         e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
         setHideAddButton(!hideAddButton)
-        // console.log('HIDE ADD BUTTON', hideAddButton)
         setShowMenu(!showMenu);
     };
 
@@ -49,30 +48,35 @@ const ProfileBars = () => {
     const logout = (e) => {
         e.preventDefault();
         dispatch(thunkLogout());
+        setHideAddButton(!hideAddButton)
         navigate('/')
         closeMenu();
     };
 
     const toMyReviews = (e) => {
         e.preventDefault();
+        setHideAddButton(!hideAddButton)
         navigate('/reviews/current');
         closeMenu();
     }
 
     const toMyRestaurants = (e) => {
         e.preventDefault();
+        setHideAddButton(!hideAddButton)
         navigate('/store/my-stores');
         closeMenu();
     }
 
     const toNewRestaurant = (e) => {
         e.preventDefault();
+        setHideAddButton(!hideAddButton)
         navigate('/store/new');
         closeMenu();
     }
 
     const toOrderHistory = (e) => {
         e.preventDefault();
+        setHideAddButton(!hideAddButton)
         navigate('/order-history')
         closeMenu();
     }
