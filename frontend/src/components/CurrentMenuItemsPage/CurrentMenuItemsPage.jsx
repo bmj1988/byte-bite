@@ -91,7 +91,7 @@ const CurrentMenuItemsPage = ({ id }) => {
             name: '',
             image: '',
             description: '',
-            price: 0,
+            price: 1,
             restaurant_id: curr_restaurant.id,
             draftCounter
         }]);
@@ -126,7 +126,6 @@ const CurrentMenuItemsPage = ({ id }) => {
                             />
                         </div>
                         <div className="menu_item_box">
-
                             <label>Description</label>
                             <textarea
                                 defaultValue={menu_item.description}
