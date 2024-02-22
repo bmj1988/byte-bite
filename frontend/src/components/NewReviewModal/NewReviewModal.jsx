@@ -21,9 +21,8 @@ function NewReviewModal({restaurant_id, restaurantName}) {
       restaurant_id
     }
 
-    const res = await dispatch(thunkNewReview(reviewDetails))
-    
-      closeModal()
+    dispatch(thunkNewReview(reviewDetails))
+    closeModal()
     
     }
 
