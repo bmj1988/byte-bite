@@ -11,7 +11,7 @@ const NewRestaurantPage = () => {
   const navigate = useNavigate()
   const categories = useSelector(categoriesArray)
 
-  const [errors, setErrors] = useState({}) //need to figure this out
+  const [errors, setErrors] = useState({}) 
 
   const [name, setName] = useState('')
   const [address, setAddress] = useState('')
@@ -39,8 +39,19 @@ const NewRestaurantPage = () => {
       category_id: selectedCategory.value
     }
     
-    dispatch(thunkNewRestaurant(restaurantDetails))
+    const res = await dispatch(thunkNewRestaurant(restaurantDetails))
+    
+    if (res.error) {
+      if (res.error.name) {
+        setErrors({ name: 'Error: Restaurant name already exists'})
+      }
+      if (res.error.address) {
+        setErrors({ address: 'Error: Restaurant address already exists'})
+      }
+    }
+    if (res.ok) {
     navigate(`/store/${name}`)
+    }
   }
 
   const customStyling = {
