@@ -6,6 +6,9 @@ order_items = db.Table('order_items',
     db.Column('quantity', db.Integer))
 
 
+if environment == 'production':
+    order_items.schema = SCHEMA
+
 class Order(db.Model):
     __tablename__ = 'orders'
 
@@ -46,7 +49,6 @@ class Order(db.Model):
     def items_array(self):
         items = [item.to_dict() for item in self.items]
         for item in items:
-            print(item)
             order_item = db.session.query(order_items).filter_by(order_id=self.id, menu_item_id=item['id']).first()
             item['quantity'] = order_item.quantity
         return items

@@ -14,7 +14,7 @@ const loadOrder = (newOrder) => {
     }
 }
 
-const deleteOrder = () => {
+export const deleteOrder = () => {
     return {
         type: DELETE_ORDER
     }

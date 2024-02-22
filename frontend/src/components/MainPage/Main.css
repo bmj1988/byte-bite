@@ -51,6 +51,7 @@
     flex-direction: column;
     height: 87px;
     width: 72px;
+    cursor: pointer;
 }
 
 .categoryImage {

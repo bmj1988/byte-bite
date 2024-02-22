@@ -7,7 +7,6 @@ import ModalCloseX from "../Icons/ModalCloseX"
 import ShareIcon from "../Icons/ShareIcon"
 
 const MenuItemModal = ({ item }) => {
-    const { closeModal } = useModal()
     const { setMenuItemId, setPrice, setRestaurantId } = useCartContext();
 
 

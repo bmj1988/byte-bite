@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from app.models import Order, db, order_items, MenuItem, User
 from flask_login import current_user, login_required
+from functools import reduce
 
 order_routes = Blueprint('order', __name__)
 
@@ -21,7 +22,12 @@ def current_order():
     order = db.session.query(Order).filter_by(user_id=current_user.id, status= "Open").first()
     if not order:
         return {"404": "No order found"}, 404
-    return ({"order": order.to_dict(), "items": order.items_array()})
+
+    order_dict = order.to_dict()
+    items = order.items_array()
+    price = sum([item["price"]*item["quantity"] for item in items])
+    order_dict['price'] = price
+    return ({"order": order_dict, "items": items})
 
 
 @order_routes.route('/<int:order_id>', methods=["GET"])
@@ -76,6 +82,7 @@ def add_item(order_id):
             return {"order": order.to_dict(), "items": order.items_array()}
     db.session.execute(db.insert(order_items).values(order_id=order_id, menu_item_id=menu_item_id, quantity=quantity))
     db.session.commit()
+
     return {"order": order.to_dict(), "items": order.items_array()}
 
 

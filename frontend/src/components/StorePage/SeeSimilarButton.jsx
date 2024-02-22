@@ -6,6 +6,7 @@ const SeeSimilarButton = () => {
     const [clicked, setClicked] = useState(false)
     const onClick = () => {
         setClicked(!clicked)
+        alert('Feature coming soon!')
     }
     return (
         <div onClick={() => onClick()}>
