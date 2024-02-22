@@ -65,10 +65,10 @@ const StorePage = () => {
                 <div className="reviewHeader">
                     <h2>From customers</h2>
                     <span>Reviews from people who've ordered here</span>
-                    <div className='review-button'> 
-                    {currentUser !== null && !owner && !reviewed?.length && <OpenModalButton 
+                    <div className='review-button'>
+                    {currentUser && !owner && reviewed?.length === 0 && <OpenModalButton
                     modalComponent={<NewReviewModal restaurant_id={restaurantDetails.id} restaurantName={restaurantDetails.name}/>}
-                    buttonText="Leave a review" 
+                    buttonText="Leave a review"
                     />}
                     </div>
                 </div>

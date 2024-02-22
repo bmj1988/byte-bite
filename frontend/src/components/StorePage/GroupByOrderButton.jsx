@@ -3,12 +3,12 @@ import { FaUserPlus } from "react-icons/fa"
 
 const GroupOrderButton = () => {
 
-    // const [clicked, setClicked] = useState(false)
-    // const onClick = () => {
-    //     setClicked(!clicked)
-    // }
+    const clicker = () => {
+        alert('Feature coming soon!')
+    }
+
     return (
-        <div className="seeSimilar flexButtonRow">
+        <div className="seeSimilar flexButtonRow" onClick={() => clicker()}>
             <FaUserPlus style={{fontSize: '16px', marginRight: '5px'}}/>
             {"Group order"}
         </div>

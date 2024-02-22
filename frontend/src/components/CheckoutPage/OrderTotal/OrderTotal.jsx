@@ -3,11 +3,12 @@ import LineItem from "./LineItem"
 import '../checkout.css'
 import PlaceOrderButton from "./PlaceOrderButton"
 import AddATip from "./AddATipDiv"
+import { tipCalculator } from "../../../utils/tipCalculator"
 
 
 const OrderTotal = ({ order, price }) => {
     const [total, setTotal] = useState(price)
-    const [tip, setTip] = useState(3)
+    const [tip, setTip] = useState(tipCalculator(total, 3, .25))
     const [deliveryFee, setDeliveryFee] = useState((price * .1))
     const [taxes, setTaxes] = useState(price * .2)
 

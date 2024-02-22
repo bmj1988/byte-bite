@@ -24,7 +24,7 @@ const OrderHistoryPage = () => {
     return (
         <div>
             {firstTen.map((order) => {
-                return (<DetailsEdit key={order.id} icon={<FaChevronRight />} bold={order.restaurant.name} sub={order.id} button={{ text: "Delete from history" }} clicker={() => deleteOrder(order.id)}/>)
+                return (<DetailsEdit key={order.id} icon={<FaChevronRight />} bold={order.restaurant.name} sub={`$${(order.price).toFixed(2)}`} button={{ text: "Delete from history" }} clicker={() => deleteOrder(order.id)}/>)
             })}
         </div>
     )

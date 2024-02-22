@@ -2,20 +2,29 @@ import { useEffect, useRef, useState } from "react"
 import { FaAngleDown } from "react-icons/fa"
 import { useCartContext } from "../../context/ShoppingCartContext";
 import RemoveLi from "./RemoveLi";
-import { useSelector } from "react-redux";
-import { orderItemsArray } from "../../redux/orders";
+import { useDispatch, useSelector } from "react-redux";
+import { orderItemsArray, thunkAddToOrder } from "../../redux/orders";
 
 const QuantityDropdown = ({ menu_item_id }) => {
+    const dispatch = useDispatch()
     const ulRef = useRef(null);
     const [showQuantityList, setShowQuantityList] = useState(false)
-    const { quantity, setQuantity } = useCartContext();
+    const {setItemQuantity } = useCartContext();
+    const order = useSelector((state) => state.orders.current)
     const orderItems = useSelector(orderItemsArray)
     const recordedItem = orderItems.find((foundItem) => foundItem.id === menu_item_id)
     const oldQuantity = recordedItem?.quantity
+    const [quantity, setQuantity] = useState(1)
 
     useEffect(() => {
-        if (oldQuantity) setQuantity(Number(oldQuantity))
-        else setQuantity(1)
+        if (oldQuantity) {
+            setQuantity(Number(oldQuantity))
+            setItemQuantity(oldQuantity)
+        }
+        else {
+            setQuantity(1)
+            setItemQuantity(1)
+        }
     }, [oldQuantity])
 
     useEffect(() => {
@@ -36,13 +45,24 @@ const QuantityDropdown = ({ menu_item_id }) => {
 
     const clicker = (e) => {
         setShowQuantityList(!showQuantityList)
-        console.log('im being clicked', showQuantityList)
     }
 
 
 
-    const quantClicker = (number) => {
+    const quantClicker = async (number) => {
         setQuantity(number)
+        setItemQuantity(number)
+        if (oldQuantity) {
+            const addToOrder = {
+                order_id: order.id,
+                menu_item_id,
+                quantity: number,
+            }
+
+            await dispatch(thunkAddToOrder(addToOrder))
+        }
+        setShowQuantityList(!showQuantityList)
+        return
     }
 
     return (
