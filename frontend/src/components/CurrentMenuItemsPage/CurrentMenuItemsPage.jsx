@@ -105,52 +105,54 @@ const CurrentMenuItemsPage = ({ id }) => {
 
     return (
         <>
-            {menuItemsState.map((menu_item, index) => (
-                <form onSubmit={(e) => handleSubmit(e, index)}>
-                    <div className="menu_item_info" key={menu_item.draftCounter || menu_item.id}>
-                        <div className="menu_item_box">
-                            <label>Name</label>
-                            <input
-                                type="text"
-                                defaultValue={menu_item.name}
-                                onChange={(e) => handleInputChange(index, 'name', e.target.value)}
-                                required
-                            />
+            <div className="wrap" style={{ 'max-height': '600px', 'overflow-y': 'auto' }}>
+                {menuItemsState.map((menu_item, index) => (
+                    <form onSubmit={(e) => handleSubmit(e, index)}>
+                        <div className="menu_item_info" key={menu_item.draftCounter || menu_item.id}>
+                            <div className="menu_item_box">
+                                <label>Name</label>
+                                <input
+                                    type="text"
+                                    defaultValue={menu_item.name}
+                                    onChange={(e) => handleInputChange(index, 'name', e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="menu_item_box">
+                                <label>Image URL</label>
+                                <input
+                                    type="text"
+                                    defaultValue={menu_item.image}
+                                    onChange={(e) => handleInputChange(index, 'image', e.target.value)}
+                                />
+                            </div>
+                            <div className="menu_item_box">
+                                <label>Description</label>
+                                <textarea
+                                    defaultValue={menu_item.description}
+                                    onChange={(e) => handleInputChange(index, 'description', e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="menu_item_box">
+                                <label>Price</label>
+                                <input
+                                    type="number"
+                                    defaultValue={menu_item.price}
+                                    onChange={(e) => handleInputChange(index, 'price', e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="button_container">
+                                <button className="menu_item_buttons" type="submit">Update</button>
+                                <button className="menu_item_buttons" onClick={(e) => handleDelete(e, menu_item, index)}>Delete</button>
+                            </div>
                         </div>
-                        <div className="menu_item_box">
-                            <label>Image URL</label>
-                            <input
-                                type="text"
-                                defaultValue={menu_item.image}
-                                onChange={(e) => handleInputChange(index, 'image', e.target.value)}
-                            />
-                        </div>
-                        <div className="menu_item_box">
-                            <label>Description</label>
-                            <textarea
-                                defaultValue={menu_item.description}
-                                onChange={(e) => handleInputChange(index, 'description', e.target.value)}
-                                required
-                            />
-                        </div>
-                        <div className="menu_item_box">
-                            <label>Price</label>
-                            <input
-                                type="number"
-                                defaultValue={menu_item.price}
-                                onChange={(e) => handleInputChange(index, 'price', e.target.value)}
-                                required
-                            />
-                        </div>
-                        <div className="button_container">
-                            <button className="menu_item_buttons" type="submit">Update</button>
-                            <button className="menu_item_buttons" onClick={(e) => handleDelete(e, menu_item, index)}>Delete</button>
-                        </div>
-                    </div>
-                </form>
-            ))}
-            <div>
-                <button className="add_item_button" onClick={() => addItemRow()}>Add Item</button>
+                    </form>
+                ))}
+                <div>
+                    <button className="add_item_button" onClick={() => addItemRow()}>Add Item</button>
+                </div>
             </div>
         </>
     );

@@ -44,9 +44,9 @@ const CurrentRestaurantsPage = () => {
                     modalComponent={<DeleteRestaurantModal id={restaurant.id} name={restaurant.name} />}
                     buttonText="Delete" />
                 </button>
-                <button className="restaurant-modal-button">
+                <button className="restaurant-modal-button" >
                   <OpenModalButton
-                    modalComponent={<CurrentMenuItemsPage id={restaurant.id}/>}
+                    modalComponent={<CurrentMenuItemsPage id={restaurant.id} />}
                     buttonText="Menu" />
                 </button>
               </div>
