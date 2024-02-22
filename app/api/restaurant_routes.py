@@ -48,7 +48,7 @@ def new():
             form.name.errors.append('Restaurant name already exists')
 
         if existing_add:
-            form.name.errors.append('Restaurant address already exists')
+            form.address.errors.append('Restaurant address already exists')
 
         if not existing_add and not existing_name:
             new_restaurant = Restaurant(

@@ -109,6 +109,10 @@ export const thunkNewRestaurant = (restaurantDetails) => async (dispatch) => {
         const newRestaurant = await response.json();
         dispatch(loadRestaurantDetails(newRestaurant));
         return newRestaurant;
+    } else {
+        const error = response.json();
+        console.log(error);
+        return error;
     }
 };
 
