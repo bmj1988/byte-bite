@@ -45,7 +45,7 @@ function UpdateReviewModal({restaurant_id}) {
         rows={4} cols={38}/>
           <StarRatings 
           rating={stars}
-          starRatedColor='black'
+          starRatedColor='gold'
           changeRating={(newRating) => setStars(newRating)}
           numberOfStars={5}
           name='rating'

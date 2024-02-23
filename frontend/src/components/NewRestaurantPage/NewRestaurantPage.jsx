@@ -27,6 +27,12 @@ const NewRestaurantPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const isValidUrl = /^https:\/\/.*$/.test(image) || /\.(png|jpe?g|gif)$/.test(image);
+    if (!isValidUrl) {
+      setErrors({ image: 'Error: Please provide a valid image URL ending with .png, .jpeg, .jpg, or .gif' });
+      return
+    } 
+
     const restaurantDetails = {
       name,
       address,
@@ -40,7 +46,7 @@ const NewRestaurantPage = () => {
     }
     
     const res = await dispatch(thunkNewRestaurant(restaurantDetails))
-    
+
     if (res.error) {
       setErrors(prevErrors => ({
         ...prevErrors,

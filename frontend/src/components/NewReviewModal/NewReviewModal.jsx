@@ -29,7 +29,7 @@ function NewReviewModal({restaurant_id, restaurantName}) {
 
   return (
     <div className='review-modal'>
-    <h2 className='review-h2'>Update Review</h2>
+    <h2 className='review-h2'>Leave a Review</h2>
     <form className='new-review-form' onSubmit={handleSubmit}>
         <div className='review-container'>
         <textarea className='review-textarea' 
@@ -37,7 +37,7 @@ function NewReviewModal({restaurant_id, restaurantName}) {
         rows={4} cols={38}/>
           <StarRatings 
           rating={stars}
-          starRatedColor='black'
+          starRatedColor='gold'
           changeRating={(newRating) => setStars(newRating)}
           numberOfStars={5}
           name='rating'
