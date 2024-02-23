@@ -12,6 +12,7 @@
     border: 2px solid black;
     border-radius: 5px;
 
+
 }
 
 .menu_item_info label {
@@ -68,3 +69,4 @@
     flex-direction: row;
     margin-top: 1%
 }
+

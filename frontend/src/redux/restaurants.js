@@ -55,7 +55,6 @@ export const thunkRestaurantById = (id) => async (dispatch) => {
     }
     else {
         const error = await response.json();
-        console.log(error);
         return error;
     }
 };
@@ -68,7 +67,8 @@ export const thunkAllRestaurants = () => async (dispatch) => {
         return allRestaurants;
     }
     else {
-        console.log(`RESPONSE`, response);
+        const error = response
+        return error
     }
 };
 
@@ -92,7 +92,6 @@ export const thunkRestaurantByName = (name) => async (dispatch) => {
     }
     else {
         const error = await response.json();
-        console.log(error);
         return error;
     }
 };
@@ -109,6 +108,9 @@ export const thunkNewRestaurant = (restaurantDetails) => async (dispatch) => {
         const newRestaurant = await response.json();
         dispatch(loadRestaurantDetails(newRestaurant));
         return newRestaurant;
+    } else {
+        const error = response.json();
+        return error;
     }
 };
 
@@ -126,7 +128,6 @@ export const thunkUpdateRestaurant = (restaurantDetails) => async (dispatch) => 
     }
     else {
         const error = response.json();
-        console.log(error);
         return error;
     }
 
@@ -143,7 +144,6 @@ export const thunkDeleteRestaurant = (id) => async (dispatch) => {
     }
     else {
         const error = response.json();
-        console.log(error);
         return error;
 
     }
@@ -158,7 +158,6 @@ export const thunkGetMenuItemsByRestaurantId = (restaurantId) => async (dispatch
     }
     else {
         const error = await response.json();
-        console.log(error);
         return error;
     }
 };
@@ -182,7 +181,6 @@ export const thunkAddMenuItem = (menuItem, currentRestaurant) => async (dispatch
     }
     else {
         const error = await response.json();
-        console.log('ADD MENU ITEM THUNK', error);
         return error;
     }
 };
@@ -196,7 +194,6 @@ export const thunkDeleteMenuItem = (menuItem, currentRestaurant) => async (dispa
     }
     else {
         const error = await response.json();
-        console.log('DELETE MENU ITEM THUNK', error);
         return error;
     }
 };
@@ -215,7 +212,7 @@ export const thunkUpdateMenuItem = (menuItem, currentRestaurant) => async (dispa
     else {
         const error = await response.json();
         console.log('UPDATE MENU ITEM THUNK', error);
-        return error;
+        throw error;
     }
 };
 

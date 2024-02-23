@@ -7,14 +7,14 @@ import CurrentReviewBox from "./CurrentReviewsBox";
 import UpdateReviewModal from "./UpdateReviewModal";
 import Spinner from "../Spinner";
 import './CurrentReviewsPage.css'
+import { thunkAllRestaurants } from "../../redux/restaurants";
 
 const CurrentReviewsPage = () => {
   const dispatch = useDispatch();
 
-
-
   useEffect(() => {
     dispatch(thunkUsersReviews())
+    dispatch(thunkAllRestaurants())
   }, [dispatch])
 
   const reviews = useSelector(reviewsArray)

@@ -12,6 +12,8 @@ function UpdateReviewModal({restaurant_id}) {
   const [review, setReview] = useState('')
   const [stars, setStars] = useState(0)
 
+  const [errors, setErrors] = useState({})
+
   const reviews = useSelector(reviewsArray)
   const targetReview = reviews.find(review => review.restaurant_id == restaurant_id)
   
@@ -31,8 +33,12 @@ function UpdateReviewModal({restaurant_id}) {
       restaurant_id
     }
 
-    dispatch(thunkUpdateReview(reviewDetails))
-    closeModal()
+    const res = await dispatch(thunkUpdateReview(reviewDetails))
+    if (res) {
+      setErrors({error: 'Review cannot be blank'})
+    } else {
+      closeModal()
+    }
   }
 
   return (
@@ -45,13 +51,14 @@ function UpdateReviewModal({restaurant_id}) {
         rows={4} cols={38}/>
           <StarRatings 
           rating={stars}
-          starRatedColor='black'
+          starRatedColor='gold'
           changeRating={(newRating) => setStars(newRating)}
           numberOfStars={5}
           name='rating'
           starDimension='45px'
           starSpacing='5px'
           starHoverColor='gold'/>
+          {errors && <div className='error'>{errors.error}</div>}
         </div>
       <button className="update-review-button" type='submit'>Submit Change</button>
     </form>

@@ -6,7 +6,7 @@ const ModalCloseX = () => {
     const {closeModal} = useModal()
 
     return (
-        <FaTimes className="x" onClick={() => closeModal()} />
+        <FaTimes className="xIcon" onClick={() => closeModal()} />
     )
 }
 export default ModalCloseX

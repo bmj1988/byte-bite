@@ -6,29 +6,28 @@ import { useModal } from "../../context/Modal";
 
 const AddToOrderButton = () => {
     const cart = useSelector(orderItemsArray)
-    const orderId = useSelector((state) => state.orders?.current?.id)
-    const { menuItemId, price, quantity, restaurantId } = useCartContext()
+    const order = useSelector((state) => state.orders?.current)
+    const { menuItemId, price, restaurantId, itemQuantity } = useCartContext()
     const { closeModal } = useModal()
     const dispatch = useDispatch();
-    const total = Number(price) * quantity
+    const total = Number(price) * itemQuantity
     const clicker = async () => {
         if (cart.length < 1) {
             const newOrder = {
                 menu_item_id: menuItemId,
-                quantity,
+                quantity : itemQuantity,
                 restaurant_id: restaurantId,
                 status: "Open",
                 driver: "",
                 price: total,
             }
-            console.log(newOrder)
             await dispatch(thunkStartOrder(newOrder))
         }
         else {
             const addToOrder = {
-                order_id: orderId,
+                order_id: order.id,
                 menu_item_id: menuItemId,
-                quantity: quantity
+                quantity: itemQuantity
             }
 
             await dispatch(thunkAddToOrder(addToOrder))
@@ -38,7 +37,7 @@ const AddToOrderButton = () => {
 
     return (
         <div className="addToOrderButton" onClick={() => clicker()}>
-            {`Add ${quantity} to order • $${total}.00`}
+            {`Add ${itemQuantity} to order • $${total}.00`}
         </div>
     )
 }

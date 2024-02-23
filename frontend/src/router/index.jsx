@@ -10,6 +10,7 @@ import CurrentRestaurantsPage from '../components/CurrentRestaurantsPage';
 import CurrentMenuItemsPage from '../components/CurrentMenuItemsPage/CurrentMenuItemsPage';
 import CheckoutPage from '../components/CheckoutPage/CheckoutPage';
 import OrderHistoryPage from '../components/OrderHistory/OrderHistoryPage';
+import Page404 from '../components/PAGE404';
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <MainPage />,
+      },
+      {
+        path: '/404',
+        element: <Page404/>
       },
       {
         path: "login",
@@ -76,4 +81,9 @@ export const router = createBrowserRouter([
       return fetch(`/api/orders/current`)
     }
   },
+  {
+    path: '*',
+    element: <Page404/>
+  },
+
 ]);

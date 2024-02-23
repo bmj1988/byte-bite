@@ -8,7 +8,7 @@ const SeeDetailsButton = () => {
     }
 
     return (
-        <div onClick={() => console.log('See details')} className="seeDetailsButton">
+        <div onClick={() => alert('Feature coming soon')} className="seeDetailsButton">
             {`See details`}
         </div>
     )

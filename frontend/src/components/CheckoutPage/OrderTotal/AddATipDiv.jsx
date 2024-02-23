@@ -1,20 +1,10 @@
 import { useState } from "react"
 import '../checkout.css'
-import { useModal } from "../../../context/Modal";
-import CustomTip from "./CustomTipModal";
-
+import {tipCalculator} from "../../../utils/tipCalculator";
 const AddATip = ({ total, tip, setTip }) => {
     const [toggle, setToggle] = useState('tip2')
     const [tipInput, setTipInput] = useState(false)
 
-    const tipCalculator = (total, base, percent) => {
-        if (total < 10) {
-            return Number(base).toFixed(2)
-        }
-        else {
-            return Math.floor((total * percent)).toFixed(2)
-        }
-    }
 
     return (
         <div>
@@ -62,7 +52,7 @@ const AddATip = ({ total, tip, setTip }) => {
                 }}>
                     {`Other`}
                 </div>
-                {tipInput && <input className="tipInput" type="number" onChange={(e) => {
+                {tipInput && <input className="tipInput" type="number" min={0} onChange={(e) => {
                     const tipNum = Number(e.target.value).toFixed(2)
                     setTip(tipNum)
                 }}/>}

@@ -9,7 +9,7 @@ export function useCartContext() {
 export function CartProvider({ children }) {
   const [menuItemId, setMenuItemId] = useState(null);
   const [cart, setCart] = useState(null)
-  const [quantity, setQuantity] = useState(1)
+  const [itemQuantity, setItemQuantity] = useState(1)
   const [price, setPrice] = useState(null)
   const [restaurantId, setRestaurantId] = useState(null);
   const [stAddress, setStAddress] = useState('Enter your address')
@@ -22,8 +22,8 @@ export function CartProvider({ children }) {
     setMenuItemId,
     cart,
     setCart,
-    quantity,
-    setQuantity,
+    itemQuantity,
+    setItemQuantity,
     price,
     setPrice,
     restaurantId,

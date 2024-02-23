@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from '../../context/Modal'
-import { thunkUpdateRestaurant, restaurantByName } from "../../redux/restaurants";
+import { thunkUpdateRestaurant, restaurantById } from "../../redux/restaurants";
 import { categoriesArray } from "../../redux/categories";
 import Select from "react-select";
 import './UpdateRestaurantsModal.css'
 
-const UpdateRestaurantModal = ({ restaurantName }) => {
+const UpdateRestaurantModal = ({ restaurantName, restaurantId }) => {
   const dispatch = useDispatch()
   const { closeModal } = useModal()
 
@@ -17,8 +17,10 @@ const UpdateRestaurantModal = ({ restaurantName }) => {
   const [image, setImage] = useState('')
   const [selectedCategory, setSelectedCategory] = useState(null)
 
+  const [errors, setErrors] = useState({}) 
+
   const categories = useSelector(categoriesArray)
-  const restaurant = useSelector((state) => restaurantByName(state, restaurantName))
+  const restaurant = useSelector((state) => restaurantById(state, restaurantId))
 
   useEffect(() => {
     if (restaurant) {
@@ -73,7 +75,7 @@ const UpdateRestaurantModal = ({ restaurantName }) => {
     e.preventDefault();
 
     const restaurantDetails = {
-      id: restaurant.id,
+      id: restaurantId,
       name,
       address,
       city,
@@ -85,8 +87,18 @@ const UpdateRestaurantModal = ({ restaurantName }) => {
       category_id: selectedCategory.value
     }
 
-    dispatch(thunkUpdateRestaurant(restaurantDetails))
-    closeModal()
+    const res = await dispatch(thunkUpdateRestaurant(restaurantDetails))
+    
+    if (res) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        ...(res.name && { name: 'Error: Restaurant name already exists' }),
+        ...(res.address && { address: 'Error: Restaurant address already exists' })
+      }));
+    } else {
+      setErrors({})
+      closeModal()
+    }
   }
 
   return (
@@ -97,11 +109,13 @@ const UpdateRestaurantModal = ({ restaurantName }) => {
           <div>
             <label className="update-restaurant-label">Name</label>
             <input className="update-restaurant-input" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required />
+            {errors && errors.name && <div className="error">{errors.name}</div>}
           </div>
 
           <div>
             <label className="update-restaurant-label">Address</label>
             <input className="update-restaurant-input" type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" required />
+            {errors && errors.address && <div className="error">{errors.address}</div>}
           </div>
 
           <div>

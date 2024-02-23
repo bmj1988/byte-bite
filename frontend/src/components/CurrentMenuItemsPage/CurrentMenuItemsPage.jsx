@@ -11,7 +11,7 @@ const CurrentMenuItemsPage = ({ id }) => {
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
     const [menuItemsState, setMenuItemsState] = useState([]);
-
+    const [errors, setErrors] = useState({});
     const menu_items = useSelector((state) => menuItemsArray(state, id));
     const curr_restaurant = useSelector((state) => restaurantById(state, id));
 
@@ -58,7 +58,15 @@ const CurrentMenuItemsPage = ({ id }) => {
                     return curItem;
                 }),
             };
-            dispatch(thunkUpdateMenuItem(menuItemThatWasUpdated, updatedRestaurant));
+            dispatch(thunkUpdateMenuItem(menuItemThatWasUpdated, updatedRestaurant))
+                .catch((error) => {
+                    setErrors(prevErrors => ({
+                        ...prevErrors,
+                        ...(error.name && { name: 'Name must be included' }),
+                        ...(error.description && { description: 'Description must be included' }),
+                        ...(error.price && { price: 'Price must be a valid integer above 0' })
+                    }));
+                });
         } else {
             dispatch(thunkAddMenuItem(menuItemThatWasUpdated, curr_restaurant))
                 .then((menuItemThatWasUpdated) => {
@@ -67,7 +75,15 @@ const CurrentMenuItemsPage = ({ id }) => {
                             return menuItemThatWasUpdated;
                         }
                         return curItem;
-                    });
+                    })
+                        .catch((error) => {
+                            setErrors(prevErrors => ({
+                                ...prevErrors,
+                                ...(error.name && { name: 'Name must be included' }),
+                                ...(error.description && { description: 'Description must be included' }),
+                                ...(error.price && { price: 'Price must be a valid integer above 0' })
+                            }));
+                        });
                     setMenuItemsState(updatedDraftItems);
                 });
         }
@@ -105,52 +121,59 @@ const CurrentMenuItemsPage = ({ id }) => {
 
     return (
         <>
-            {menuItemsState.map((menu_item, index) => (
-                <form onSubmit={(e) => handleSubmit(e, index)}>
-                    <div className="menu_item_info" key={menu_item.draftCounter || menu_item.id}>
-                        <div className="menu_item_box">
-                            <label>Name</label>
-                            <input
-                                type="text"
-                                defaultValue={menu_item.name}
-                                onChange={(e) => handleInputChange(index, 'name', e.target.value)}
-                                required
-                            />
+            <div className="wrap" style={{ 'max-height': '600px', 'overflow-y': 'auto' }}>
+                {menuItemsState.map((menu_item, index) => (
+                    <form onSubmit={(e) => handleSubmit(e, index)}>
+                        <div className="menu_item_info" key={menu_item.draftCounter || menu_item.id}>
+                            <div className="menu_item_box">
+                                <label>Name</label>
+                                <input
+                                    type="text"
+                                    defaultValue={menu_item.name}
+                                    onChange={(e) => handleInputChange(index, 'name', e.target.value)}
+                                    required
+                                    maxLength={40}
+                                />
+                            </div>
+                            <div className="menu_item_box">
+                                <label>Image URL</label>
+                                <input
+                                    type="text"
+                                    defaultValue={menu_item.image}
+                                    onChange={(e) => handleInputChange(index, 'image', e.target.value)}
+                                />
+                            </div>
+                            <div className="menu_item_box">
+                                <label>Description</label>
+                                <textarea
+                                    defaultValue={menu_item.description}
+                                    onChange={(e) => handleInputChange(index, 'description', e.target.value)}
+                                    required
+                                    maxLength={255}
+                                />
+                            </div>
+                            <div className="menu_item_box">
+                                <label>Price</label>
+                                <input
+                                    type="number"
+                                    defaultValue={menu_item.price}
+                                    onChange={(e) => handleInputChange(index, 'price', e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="button_container">
+                                <button className="menu_item_buttons" type="submit">Update</button>
+                                <button className="menu_item_buttons" onClick={(e) => handleDelete(e, menu_item, index)}>Delete</button>
+                            </div>
                         </div>
-                        <div className="menu_item_box">
-                            <label>Image URL</label>
-                            <input
-                                type="text"
-                                defaultValue={menu_item.image}
-                                onChange={(e) => handleInputChange(index, 'image', e.target.value)}
-                            />
-                        </div>
-                        <div className="menu_item_box">
-                            <label>Description</label>
-                            <textarea
-                                defaultValue={menu_item.description}
-                                onChange={(e) => handleInputChange(index, 'description', e.target.value)}
-                                required
-                            />
-                        </div>
-                        <div className="menu_item_box">
-                            <label>Price</label>
-                            <input
-                                type="number"
-                                defaultValue={menu_item.price}
-                                onChange={(e) => handleInputChange(index, 'price', e.target.value)}
-                                required
-                            />
-                        </div>
-                        <div className="button_container">
-                            <button className="menu_item_buttons" type="submit">Update</button>
-                            <button className="menu_item_buttons" onClick={(e) => handleDelete(e, menu_item, index)}>Delete</button>
-                        </div>
-                    </div>
-                </form>
-            ))}
-            <div>
-                <button className="add_item_button" onClick={() => addItemRow()}>Add Item</button>
+                    </form>
+                ))}
+                {errors && errors.name && <div className="error">{errors.name}</div>}
+                {errors && errors.description && <div className="error">{errors.description}</div>}
+                {errors && errors.price && <div className="error">{errors.price}</div>}
+                <div>
+                    <button className="add_item_button" onClick={() => addItemRow()}>Add Item</button>
+                </div>
             </div>
         </>
     );

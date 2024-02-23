@@ -27,7 +27,6 @@ const Location = () => {
 
     const clicker = () => {
         setModalContent(<DeliveryDetailModal/>)
-        console.log("click")
     }
 
     return (

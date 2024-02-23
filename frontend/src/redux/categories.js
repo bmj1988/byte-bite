@@ -26,7 +26,8 @@ export const thunkCategories = () => async (dispatch) => {
         return allCategories
     }
     else {
-        console.log(`RESPONSE`, response)
+        const error = response
+        return error
     }
 }
 

@@ -7,9 +7,7 @@ const OrderHistoryPage = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const orders = useLoaderData();
-    console.log(orders)
     const firstTen = orders.orders.slice(0, 10)
-    console.log(firstTen)
 
     const deleteOrder = async (orderId) => {
         const response = await fetch(`/api/orders/${orderId}`, {
@@ -24,7 +22,7 @@ const OrderHistoryPage = () => {
     return (
         <div>
             {firstTen.map((order) => {
-                return (<DetailsEdit key={order.id} icon={<FaChevronRight />} bold={order.restaurant.name} sub={order.id} button={{ text: "Delete from history" }} clicker={() => deleteOrder(order.id)}/>)
+                return (<DetailsEdit key={order.id} icon={<FaChevronRight />} bold={order.restaurant.name} sub={`$${(order.price).toFixed(2)}`} button={{ text: "Delete from history" }} clicker={() => deleteOrder(order.id)}/>)
             })}
         </div>
     )

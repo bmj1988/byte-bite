@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { restaurantByName, thunkRestaurantByName } from '../../redux/restaurants'
 import { reviewsArray, thunkRestaurantsReviews } from '../../redux/reviews'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import OpenModalButton from '../OpenModalButton'
 import Spinner from '../Spinner'
@@ -18,10 +18,13 @@ import './StorePage.css'
 const StorePage = () => {
     const { name } = useParams();
     const dispatch = useDispatch();
+    const [loaded, setLoaded] = useState(false)
+    const navigate = useNavigate();
 
     useEffect(() => {
         const thunkSender = async () => {
             await dispatch(thunkRestaurantByName(name))
+            setLoaded(true)
         }
         thunkSender()
     }, [dispatch, name])
@@ -29,21 +32,19 @@ const StorePage = () => {
     const restaurantDetails = useSelector((state) => restaurantByName(state, name))
     const currentUser = useSelector((state) => state.session.user)
     const reviews = restaurantDetails?.Reviews
-
     const owner = currentUser?.id === restaurantDetails?.ownerId
     const reviewed = reviews?.filter(review => review.user_id === currentUser?.id)
 
-    const avgStarRating = reviews?.reduce((acc, val) => acc + val.stars, 0, )/parseInt(restaurantDetails?.numReviews)
-
-    console.log(avgStarRating, '***********')
-    console.log(restaurantDetails)
-
-    if (!restaurantDetails) {
+    if (!restaurantDetails && !loaded) {
         return (
             <Spinner />
         )
     }
 
+    if (loaded && !restaurantDetails) {
+        navigate('/404')
+    }
+console.log(loaded)
     return (
         <div className='storePageMainDiv'>
             {/* {restaurantDetails.header && <div>
@@ -65,10 +66,10 @@ const StorePage = () => {
                 <div className="reviewHeader">
                     <h2>From customers</h2>
                     <span>Reviews from people who've ordered here</span>
-                    <div className='review-button'> 
-                    {currentUser !== null && !owner && !reviewed?.length && <OpenModalButton 
+                    <div className='review-button'>
+                    {currentUser && !owner && reviewed?.length === 0 && <OpenModalButton
                     modalComponent={<NewReviewModal restaurant_id={restaurantDetails.id} restaurantName={restaurantDetails.name}/>}
-                    buttonText="Leave a review" 
+                    buttonText="Leave a review"
                     />}
                     </div>
                 </div>

@@ -1,13 +1,12 @@
-import OpenModalButton from '../OpenModalButton'
+import { useModal } from '../../context/Modal'
 import SignupFormModal from '../SignupFormModal'
 
 const SignUpButton = () => {
+    const {setModalContent} = useModal();
+
     return (
-        <div className='loginIcon'>
-            <OpenModalButton 
-            modalComponent={<SignupFormModal />}
-            buttonText='Sign Up'
-            />
+        <div className='loginIcon' onClick={() => setModalContent(<SignupFormModal/>)}>
+           {"Sign up"}
         </div>
     )
 }
