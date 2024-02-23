@@ -66,6 +66,7 @@ def post_review_by_user(restaurant_id):
     db.session.add(new_review)
     db.session.commit()
     return new_review.to_dict(), 201
+  return form.errors, 401
 
 # UPDATE REVIEW /api/reviews/restaurant_id
 @review_routes.route('/<int:restaurant_id>', methods=['PUT'])

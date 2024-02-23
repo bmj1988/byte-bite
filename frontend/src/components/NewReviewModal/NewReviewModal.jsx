@@ -12,6 +12,8 @@ function NewReviewModal({restaurant_id, restaurantName}) {
   const [review, setReview] = useState('')
   const [stars, setStars] = useState(0)
 
+  const [errors, setErrors] = useState({})
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -21,9 +23,12 @@ function NewReviewModal({restaurant_id, restaurantName}) {
       restaurant_id
     }
 
-    dispatch(thunkNewReview(reviewDetails))
-    closeModal()
-    
+    const res = await dispatch(thunkNewReview(reviewDetails))
+    if (res) {
+      setErrors({error: 'Review cannot be blank'})
+    } else {
+      closeModal()
+    }
     }
 
 
@@ -32,7 +37,7 @@ function NewReviewModal({restaurant_id, restaurantName}) {
     <h2 className='review-h2'>Leave a Review</h2>
     <form className='new-review-form' onSubmit={handleSubmit}>
         <div className='review-container'>
-        <textarea className='review-textarea' 
+        <textarea className='review-textarea' required
         value={review} onChange={(e) => setReview(e.target.value)} 
         rows={4} cols={38}/>
           <StarRatings 
@@ -44,6 +49,7 @@ function NewReviewModal({restaurant_id, restaurantName}) {
           starDimension='45px'
           starSpacing='5px'
           starHoverColor='gold'/>
+          {errors && <div className='error'>{errors.error}</div>}
         </div>
       <button className="new-review-button" type='submit'>Review {restaurantName}</button>
     </form>
