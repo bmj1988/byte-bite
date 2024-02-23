@@ -130,7 +130,6 @@ export const thunkUpdateRestaurant = (restaurantDetails) => async (dispatch) => 
     }
     else {
         const error = response.json();
-        console.log(error);
         return error;
     }
 
