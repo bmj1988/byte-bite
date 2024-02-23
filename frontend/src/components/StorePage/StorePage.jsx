@@ -33,11 +33,6 @@ const StorePage = () => {
     const owner = currentUser?.id === restaurantDetails?.ownerId
     const reviewed = reviews?.filter(review => review.user_id === currentUser?.id)
 
-    const avgStarRating = reviews?.reduce((acc, val) => acc + val.stars, 0, )/parseInt(restaurantDetails?.numReviews)
-
-    console.log(avgStarRating, '***********')
-    console.log(restaurantDetails)
-
     if (!restaurantDetails) {
         return (
             <Spinner />

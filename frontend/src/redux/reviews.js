@@ -83,10 +83,8 @@ export const thunkNewReview = (reviewDetails) => async (dispatch) => {
   if (res.ok) {
     const newReview = await res.json()
     dispatch(thunkRestaurantById(reviewDetails.restaurant_id))
-    return newReview
   } else {
     const error = res.json()
-    console.log(error)
     return error
   }
 }
