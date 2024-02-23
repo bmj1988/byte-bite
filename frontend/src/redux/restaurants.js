@@ -186,7 +186,7 @@ export const thunkAddMenuItem = (menuItem, currentRestaurant) => async (dispatch
     else {
         const error = await response.json();
         console.log('ADD MENU ITEM THUNK', error);
-        return error;
+        throw error;
     }
 };
 
@@ -218,7 +218,7 @@ export const thunkUpdateMenuItem = (menuItem, currentRestaurant) => async (dispa
     else {
         const error = await response.json();
         console.log('UPDATE MENU ITEM THUNK', error);
-        return error;
+        throw error;
     }
 };
 

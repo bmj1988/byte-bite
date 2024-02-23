@@ -11,7 +11,7 @@ const CurrentMenuItemsPage = ({ id }) => {
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
     const [menuItemsState, setMenuItemsState] = useState([]);
-
+    const [errors, setErrors] = useState({});
     const menu_items = useSelector((state) => menuItemsArray(state, id));
     const curr_restaurant = useSelector((state) => restaurantById(state, id));
 
@@ -58,7 +58,15 @@ const CurrentMenuItemsPage = ({ id }) => {
                     return curItem;
                 }),
             };
-            dispatch(thunkUpdateMenuItem(menuItemThatWasUpdated, updatedRestaurant));
+            dispatch(thunkUpdateMenuItem(menuItemThatWasUpdated, updatedRestaurant))
+                .catch((error) => {
+                    setErrors(prevErrors => ({
+                        ...prevErrors,
+                        ...(error.name && { name: 'Name must be included' }),
+                        ...(error.description && { description: 'Description must be included' }),
+                        ...(error.price && { price: 'Price must be a valid integer above 0' })
+                    }));
+                });
         } else {
             dispatch(thunkAddMenuItem(menuItemThatWasUpdated, curr_restaurant))
                 .then((menuItemThatWasUpdated) => {
@@ -67,7 +75,15 @@ const CurrentMenuItemsPage = ({ id }) => {
                             return menuItemThatWasUpdated;
                         }
                         return curItem;
-                    });
+                    })
+                        .catch((error) => {
+                            setErrors(prevErrors => ({
+                                ...prevErrors,
+                                ...(error.name && { name: 'Name must be included' }),
+                                ...(error.description && { description: 'Description must be included' }),
+                                ...(error.price && { price: 'Price must be a valid integer above 0' })
+                            }));
+                        });
                     setMenuItemsState(updatedDraftItems);
                 });
         }
@@ -116,6 +132,7 @@ const CurrentMenuItemsPage = ({ id }) => {
                                     defaultValue={menu_item.name}
                                     onChange={(e) => handleInputChange(index, 'name', e.target.value)}
                                     required
+                                    maxLength={40}
                                 />
                             </div>
                             <div className="menu_item_box">
@@ -132,6 +149,7 @@ const CurrentMenuItemsPage = ({ id }) => {
                                     defaultValue={menu_item.description}
                                     onChange={(e) => handleInputChange(index, 'description', e.target.value)}
                                     required
+                                    maxLength={255}
                                 />
                             </div>
                             <div className="menu_item_box">
@@ -150,6 +168,9 @@ const CurrentMenuItemsPage = ({ id }) => {
                         </div>
                     </form>
                 ))}
+                {errors && errors.name && <div className="error">{errors.name}</div>}
+                {errors && errors.description && <div className="error">{errors.description}</div>}
+                {errors && errors.price && <div className="error">{errors.price}</div>}
                 <div>
                     <button className="add_item_button" onClick={() => addItemRow()}>Add Item</button>
                 </div>
