@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import '../checkout.css'
-import { useModal } from "../../../context/Modal";
-import CustomTip from "./CustomTipModal";
 import {tipCalculator} from "../../../utils/tipCalculator";
 const AddATip = ({ total, tip, setTip }) => {
     const [toggle, setToggle] = useState('tip2')

@@ -13,7 +13,6 @@ const PlaceOrderButton = ({order, total}) => {
             status: "Received",
             price: total
         }
-        console.log(orderToPlace)
         await dispatch(thunkPlaceOrder(orderToPlace))
         navigate('/')
     }

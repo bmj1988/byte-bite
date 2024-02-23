@@ -80,6 +80,8 @@ def get_restaurant_by_id(id):
 @restaurant_routes.route('/<string:name>')
 def get_restaurant_details(name):
     restaurant = db.session.query(Restaurant).filter_by(name=name).first()
+    if not restaurant:
+        return {'ERROR': 'RESTAURANT NOT FOUND'}, 404
     return restaurant.to_dict()
 
 @restaurant_routes.route('/<int:restaurant_id>', methods=['PUT'])

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { restaurantByName, thunkRestaurantByName } from '../../redux/restaurants'
 import { reviewsArray, thunkRestaurantsReviews } from '../../redux/reviews'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import OpenModalButton from '../OpenModalButton'
 import Spinner from '../Spinner'
@@ -18,10 +18,13 @@ import './StorePage.css'
 const StorePage = () => {
     const { name } = useParams();
     const dispatch = useDispatch();
+    const [loaded, setLoaded] = useState(false)
+    const navigate = useNavigate();
 
     useEffect(() => {
         const thunkSender = async () => {
             await dispatch(thunkRestaurantByName(name))
+            setLoaded(true)
         }
         thunkSender()
     }, [dispatch, name])
@@ -29,16 +32,19 @@ const StorePage = () => {
     const restaurantDetails = useSelector((state) => restaurantByName(state, name))
     const currentUser = useSelector((state) => state.session.user)
     const reviews = restaurantDetails?.Reviews
-
     const owner = currentUser?.id === restaurantDetails?.ownerId
     const reviewed = reviews?.filter(review => review.user_id === currentUser?.id)
 
-    if (!restaurantDetails) {
+    if (!restaurantDetails && !loaded) {
         return (
             <Spinner />
         )
     }
 
+    if (loaded && !restaurantDetails) {
+        navigate('/404')
+    }
+console.log(loaded)
     return (
         <div className='storePageMainDiv'>
             {/* {restaurantDetails.header && <div>

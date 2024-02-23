@@ -15,13 +15,12 @@ const AddToOrderButton = () => {
         if (cart.length < 1) {
             const newOrder = {
                 menu_item_id: menuItemId,
-                quantity,
+                quantity : itemQuantity,
                 restaurant_id: restaurantId,
                 status: "Open",
                 driver: "",
                 price: total,
             }
-            console.log(newOrder)
             await dispatch(thunkStartOrder(newOrder))
         }
         else {

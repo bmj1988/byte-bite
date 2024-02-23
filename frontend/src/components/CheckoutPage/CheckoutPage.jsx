@@ -11,7 +11,6 @@ const CheckoutPage = () => {
     const loader = useLoaderData();
     const order = loader.order
     const items = loader.items
-    console.log(loader?.items)
     if (!loader?.order) return <div></div>
 
     return (

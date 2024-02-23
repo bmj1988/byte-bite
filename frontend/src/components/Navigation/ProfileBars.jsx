@@ -34,7 +34,7 @@ const ProfileBars = () => {
 
         const closeMenu = (e) => {
             if (ulRef.current && !ulRef.current.contains(e.target)) {
-                setHideAddButton(!hideAddButton)
+                setHideAddButton(false)
                 setShowMenu(false);
             }
         };
@@ -48,7 +48,7 @@ const ProfileBars = () => {
 
     const logout = (e) => {
         e.preventDefault();
-        setHideAddButton(!hideAddButton)
+        setHideAddButton(false)
         dispatch(thunkLogout());
         dispatch(deleteOrder())
         navigate('/')
@@ -57,28 +57,28 @@ const ProfileBars = () => {
 
     const toMyReviews = (e) => {
         e.preventDefault();
-        setHideAddButton(!hideAddButton)
+        setHideAddButton(false)
         navigate('/reviews/current');
         closeMenu();
     }
 
     const toMyRestaurants = (e) => {
         e.preventDefault();
-        setHideAddButton(!hideAddButton)
+        setHideAddButton(false)
         navigate('/store/my-stores');
         closeMenu();
     }
 
     const toNewRestaurant = (e) => {
         e.preventDefault();
-        setHideAddButton(!hideAddButton)
+        setHideAddButton(false)
         navigate('/store/new');
         closeMenu();
     }
 
     const toOrderHistory = (e) => {
         e.preventDefault();
-        setHideAddButton(!hideAddButton)
+        setHideAddButton(false)
         navigate('/order-history')
         closeMenu();
     }

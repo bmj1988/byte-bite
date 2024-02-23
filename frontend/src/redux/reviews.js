@@ -40,7 +40,6 @@ export const thunkUsersReviews = () => async (dispatch) => {
     return reviews
   } else {
     const error = res.json()
-    console.log(error)
     return error
   }
 }
@@ -53,7 +52,6 @@ export const thunkRestaurantsReviews = (id) => async (dispatch) => {
     return reviews
   } else {
     const error = res.json()
-    console.log(error)
     return error
   }
 }
@@ -67,7 +65,6 @@ export const thunkDeleteReview = (review_id) => async (dispatch) => {
     return {"msg": "Review successfully deleted"}
   } else {
     const error = await res.json()
-    console.log(error)
     return error
   }
 }
@@ -103,7 +100,6 @@ export const thunkUpdateReview = (reviewDetails) => async (dispatch) => {
     return newReview
   } else {
     const error = res.json()
-    console.log(error)
     return error
   }
 }

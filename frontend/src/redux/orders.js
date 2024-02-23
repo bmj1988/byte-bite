@@ -31,7 +31,6 @@ export const thunkGetCurrentOrder = () => async (dispatch) => {
     }
     else {
         const error = await response.json()
-        console.log(error)
         return error
     }
 }
@@ -51,7 +50,6 @@ export const thunkStartOrder = (newOrder) => async (dispatch) => {
     }
     else {
         const error = await response.json()
-        console.log(error)
         return error
     }
 }
@@ -71,7 +69,6 @@ export const thunkAddToOrder = (addition) => async (dispatch) => {
     }
     else {
         const error = await response.json()
-        console.log(error)
         return error
     }
 }
@@ -91,7 +88,6 @@ export const thunkRemoveFromOrder = (removal) => async (dispatch) => {
     }
     else {
         const error = await response.json()
-        console.log(error)
         return error
     }
 }
@@ -111,7 +107,6 @@ export const thunkPlaceOrder = (order) => async (dispatch) => {
     }
     else {
         const error = await response.json()
-        console.log(error)
         return error
     }
 }
@@ -125,7 +120,6 @@ export const thunkDeleteOrder = (orderId) => async (dispatch) => {
     }
     else {
         const error = await response.json()
-        console.log(error)
         return error
     }
 }
