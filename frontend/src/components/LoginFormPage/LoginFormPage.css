@@ -1,0 +1,36 @@
+.signup-page-title {
+  font-weight: 500;
+}
+
+.login-label {
+  display: block;
+  margin-left: 10px;
+  font-family: 'Rubik', sans-serif;
+}
+
+.signup-page-input {
+  width: 400px;
+  padding: 4px;
+  margin-top: 4px;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.signup-page-button {
+  background: black;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 18px;
+  color: rgb(121, 255, 12);
+  min-height: 56px;
+  line-height: 24px;
+  justify-content: center;
+  font-weight: 500;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: flex;
+  font-family: 'Rubik', sans-serif;
+  align-items: center;
+  margin-left: 140px;
+  margin-top: 15px;
+}

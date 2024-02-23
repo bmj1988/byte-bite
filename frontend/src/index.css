@@ -1,1 +1,9 @@
 /* TODO: Add sitewide styles */
+
+body {
+  font-family: 'Rubik', sans-serif;
+}
+
+.error {
+  color: red;
+}

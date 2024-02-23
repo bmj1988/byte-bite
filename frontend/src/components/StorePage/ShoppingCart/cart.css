@@ -1,0 +1,23 @@
+.shoppingCartAddButton {
+    width: 36px;
+    padding: 2px 4px;
+    min-height: 0px;
+    font-size: 14px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    line-height: 24px;
+    border-radius: 500px;
+    font-weight: 500;
+    cursor: 'pointer';
+    background: #FFFFFF;
+    align-items: center;
+    color: black;
+    box-sizing: border-box;
+    position: absolute;
+
+}
+
+.shoppingCartAddButton:hover {
+    background-color: #EEEEEE;
+}

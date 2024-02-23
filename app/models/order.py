@@ -1,9 +1,13 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 order_items = db.Table('order_items',
-    db.Column('order_id', db.Integer, db.ForeignKey('orders.id'), primary_key=True),
-    db.Column('menu_item_id', db.Integer, db.ForeignKey('menu_items.id'), primary_key=True))
+    db.Column('order_id', db.Integer, db.ForeignKey(add_prefix_for_prod('orders.id')), primary_key=True),
+    db.Column('menu_item_id', db.Integer, db.ForeignKey(add_prefix_for_prod('menu_items.id')), primary_key=True),
+    db.Column('quantity', db.Integer))
 
+
+if environment == 'production':
+    order_items.schema = SCHEMA
 
 class Order(db.Model):
     __tablename__ = 'orders'
@@ -36,8 +40,15 @@ class Order(db.Model):
         return {
             'id': self.id,
             'userId': self.user_id,
-            'restaurantId': self.restaurant_id,
             'status': self.status,
             'driver': self.driver,
             'price': self.price,
+            'restaurant': {'name': self.restaurant.name, 'id': self.restaurant.id, 'address': self.restaurant.address, 'image': self.restaurant.image},
         }
+
+    def items_array(self):
+        items = [item.to_dict() for item in self.items]
+        for item in items:
+            order_item = db.session.query(order_items).filter_by(order_id=self.id, menu_item_id=item['id']).first()
+            item['quantity'] = order_item.quantity
+        return items

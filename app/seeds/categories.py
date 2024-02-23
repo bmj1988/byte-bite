@@ -3,22 +3,68 @@ from sqlalchemy.sql import text
 
 def seed_categories():
     thai = Category(
-        name="Thai"
+        name="Thai",
+        image="/FRONTENDICONthai-food.png"
     )
     fast_food = Category(
-        name="Fast Food"
+        name="Fast Food",
+        image="/FRONTENDICONfast-food.png"
     )
-    burritos = Category(
-        name="Burritos"
+    mexican = Category(
+        name="Mexican",
+        image="/FRONTENDICONmexican-food.png"
     )
     poke = Category(
-        name="Poke"
+        name="Poke",
+        image="/FRONTENDICONpoke.png"
     )
     chinese = Category(
-        name="Chinese"
+        name="Chinese",
+        image="/FRONTENDICONchinese-food.png"
+    )
+    indian = Category(
+        name="Indian",
+        image="/FRONTENDICONindian-food.png"
+    )
+    sushi = Category(
+        name="Sushi",
+        image="/FRONTENDICONsushi.png"
+    )
+    wings = Category(
+        name="Wings",
+        image="/FRONTENDICONfried-chicken.png"
+    )
+    alcohol = Category(
+        name="Alcohol",
+        image="/FRONTENDICONalcohol.png"
+    )
+    pizza = Category(
+        name="Pizza",
+        image="/FRONTENDICONpizza.png"
+    )
+    italian = Category(
+        name="Italian",
+        image="/FRONTENDICONspaghetti.png"
+    )
+    greek = Category(
+        name="Greek",
+        image="/FRONTENDICONgreek.png"
+    )
+    breakfast = Category(
+        name="Breakfast",
+        image="/FRONTENDICONbreakfast.png"
+    )
+    ice_cream = Category(
+        name="Ice Cream",
+        image="/FRONTENDICONice-cream.png"
+    )
+    vegan = Category(
+        name="Vegan",
+        image="/FRONTENDICONvegan.png"
     )
 
-    db.session.add_all([thai, fast_food, burritos, poke, chinese])
+
+    db.session.add_all([pizza, italian, greek, breakfast, ice_cream, vegan, thai, fast_food, mexican, poke, chinese, indian, sushi, wings, alcohol])
     db.session.commit()
 
 def undo_categories():

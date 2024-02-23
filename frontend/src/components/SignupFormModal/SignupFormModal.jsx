@@ -7,7 +7,8 @@ import "./SignupForm.css";
 function SignupFormModal() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -26,8 +27,9 @@ function SignupFormModal() {
     const serverResponse = await dispatch(
       thunkSignup({
         email,
-        username,
         password,
+        first_name: firstName,
+        last_name: lastName
       })
     );
 
@@ -39,13 +41,13 @@ function SignupFormModal() {
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
+    <div className="login-container">
+      <h1 className="login-title">Sign Up</h1>
       {errors.server && <p>{errors.server}</p>}
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form className='login-form' onSubmit={handleSubmit}>
+        <label className="login-label">
           Email
-          <input
+          <input className="login-input"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -53,19 +55,29 @@ function SignupFormModal() {
           />
         </label>
         {errors.email && <p>{errors.email}</p>}
-        <label>
-          Username
-          <input
+        <label className="login-label">
+          First Name
+          <input className="login-input"
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
+        {errors.first_name && <p>{errors.first_name}</p>}
+        <label className="login-label">
+          Last Name
+          <input className="login-input"
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+        </label>
+        {errors.last_name && <p>{errors.last_name}</p>}
+        <label className="login-label">
           Password
-          <input
+          <input className="login-input"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -73,9 +85,9 @@ function SignupFormModal() {
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
-        <label>
+        <label className="login-label">
           Confirm Password
-          <input
+          <input className="login-input"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -83,9 +95,9 @@ function SignupFormModal() {
           />
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <button className='login-button' type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

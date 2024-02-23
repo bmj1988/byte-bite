@@ -1,0 +1,141 @@
+.main_page_primary {
+    /* display: flex; */
+    display: grid;
+    grid-template-columns: repeat(4, 288px);
+    max-width: 1280px;
+    padding: 0 40px;
+    min-width: 1024px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    gap: 12px;
+    justify-content: space-evenly;
+}
+
+.neutralButton {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    outline: inherit;
+}
+
+/* .category_scroller {
+    width: 100%;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    overflow-x: scroll;
+}
+
+.category_item {
+    height: 87px;
+    width: 72px;
+} */
+
+.categoryScroller {
+    width: 1200px;
+    height: 87px;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    overflow-x: scroll;
+    /* gap: 5px; */
+}
+
+.categoryIcon {
+    display: flex;
+    flex-direction: column;
+    height: 87px;
+    width: 72px;
+    cursor: pointer;
+}
+
+.categoryImage {
+    height: 64;
+    width: inherit;
+}
+
+.categoryName {
+    font-size: 12px;
+    font-family: 'Rubik', sans-serif;
+    align-self: center;
+}
+
+
+.spinner {
+    display: flex;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+
+.restaurant_div {
+    display: flex;
+    flex-flow: column;
+    overflow: hidden;
+    font-family: 'Rubik', sans-serif;
+    color: black;
+    width: 288px;
+    height: 190px;
+    cursor:pointer;
+}
+
+.restaurant-div {
+    width: 288px;
+}
+
+.restaurant_image {
+    border-radius: 12px;
+    background: white;
+    height: 130px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.restaurant_details {
+    align-items: center;
+    display: flex;
+    width: 288px;
+    height: 28px;
+    margin-top: 12px;
+    gap: 4px;
+    justify-content: space-between;
+}
+
+.restaurant_name {
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 500;
+    text-overflow: ellipsis;
+}
+
+.restaurant_rating {
+    flex: 0 0 28px;
+    font-size: 12px;
+    border-radius: 50%;
+    height: 28px;
+    width: 28px;
+    background: #EEEEEE;
+    line-height: 16px;
+    font-weight: 500;
+    align-items: center;
+}
+
+.ratingText {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;
+}
+
+.page404 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}

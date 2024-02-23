@@ -11,10 +11,11 @@ from .api.restaurant_routes import restaurant_routes
 from .api.review_routes import review_routes
 from .api.order_routes import order_routes
 from .api.menu_item_routes import menu_item_routes
+from .api.categories_routes import category_routes
 from .seeds import seed_commands
 from .config import Config
 
-app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
+app = Flask(__name__, static_folder='../frontend/dist', static_url_path='/')
 
 # Setup login manager
 login = LoginManager(app)
@@ -36,6 +37,7 @@ app.register_blueprint(restaurant_routes, url_prefix='/api/restaurants')
 app.register_blueprint(order_routes, url_prefix='/api/orders')
 app.register_blueprint(menu_item_routes, url_prefix='/api/menu_items')
 app.register_blueprint(review_routes, url_prefix='/api/reviews')
+app.register_blueprint(category_routes, url_prefix='/api/categories')
 db.init_app(app)
 Migrate(app, db)
 
@@ -95,6 +97,8 @@ def react_root(path):
     """
     if path == 'favicon.ico':
         return app.send_from_directory('public', 'favicon.ico')
+    elif path.startswith('FRONTENDICON') and path.endswith('.png'):
+        return app.send_from_directory('public', path)
     return app.send_static_file('index.html')
 
 
