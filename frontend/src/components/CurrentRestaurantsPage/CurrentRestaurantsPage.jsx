@@ -36,7 +36,7 @@ const CurrentRestaurantsPage = () => {
               <div className="my-restaurant-buttons">
                 <button className="restaurant-modal-button">
                   <OpenModalButton
-                    modalComponent={<UpdateRestaurantModal restaurantName={restaurant.name} />}
+                    modalComponent={<UpdateRestaurantModal restaurantName={restaurant.name} restaurantId={restaurant.id}/>}
                     buttonText="Update" />
                 </button>
                 <button className="restaurant-modal-button">

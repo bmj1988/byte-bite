@@ -42,16 +42,16 @@ const NewRestaurantPage = () => {
     const res = await dispatch(thunkNewRestaurant(restaurantDetails))
     
     if (res.error) {
-      if (res.error.name) {
-        setErrors({ name: 'Error: Restaurant name already exists'})
-      }
-      if (res.error.address) {
-        setErrors({ address: 'Error: Restaurant address already exists'})
-      }
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        ...(res.error.name && { name: 'Error: Restaurant name already exists' }),
+        ...(res.error.address && { address: 'Error: Restaurant address already exists' })
+      }));
+    } else {
+      setErrors({})
+      navigate(`/store/${name}`)
     }
-    if (res.ok) {
-    navigate(`/store/${name}`)
-    }
+    
   }
 
   const customStyling = {

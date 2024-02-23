@@ -98,18 +98,28 @@ def edit(restaurant_id):
 
     if form.validate_on_submit():
         data = form.data
-        target.name = data['name']
-        target.address = data['address']
-        target.city = data['city']
-        target.state = data['state']
-        target.image = data['image']
-        target.lat = data['lat']
-        target.lng = data['lng']
-        target.delivery = data['delivery']
-        target.category_id = data['category_id']
 
-        db.session.commit()
-        return target.to_dict()
+        existing_name = db.session.query(Restaurant).filter(Restaurant.name == data['name'], Restaurant.id != restaurant_id).first()
+        existing_add = db.session.query(Restaurant).filter(Restaurant.address == data['address'], Restaurant.id != restaurant_id).first()
+
+        if existing_name:
+            form.name.errors.append('Restaurant name already exists')
+
+        if existing_add:
+            form.address.errors.append('Restaurant address already exists')
+
+        if not existing_add and not existing_name:
+            target.name = data['name']
+            target.address = data['address']
+            target.city = data['city']
+            target.state = data['state']
+            target.image = data['image']
+            target.lat = data['lat']
+            target.lng = data['lng']
+            target.delivery = data['delivery']
+            target.category_id = data['category_id']
+            db.session.commit()
+            return target.to_dict()
     return form.errors, 401
 
 @restaurant_routes.route('/<int:restaurant_id>', methods=['DELETE'])
