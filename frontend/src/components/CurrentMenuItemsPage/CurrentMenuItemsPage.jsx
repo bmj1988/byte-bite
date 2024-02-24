@@ -75,16 +75,17 @@ const CurrentMenuItemsPage = ({ id }) => {
                             return menuItemThatWasUpdated;
                         }
                         return curItem;
-                    })
-                        .catch((error) => {
-                            setErrors(prevErrors => ({
-                                ...prevErrors,
-                                ...(error.name && { name: 'Name must be included' }),
-                                ...(error.description && { description: 'Description must be included' }),
-                                ...(error.price && { price: 'Price must be a valid integer above 0' })
-                            }));
-                        });
+                    });
+
                     setMenuItemsState(updatedDraftItems);
+                })
+                .catch((error) => {
+                    setErrors(prevErrors => ({
+                        ...prevErrors,
+                        ...(error.formErrors.name && { name: 'Name must be included' }),
+                        ...(error.formErrors.description && { description: 'Description must be included' }),
+                        ...(error.formErrors.price && { price: 'Price must be a valid integer above 0' })
+                    }));
                 });
         }
     };
