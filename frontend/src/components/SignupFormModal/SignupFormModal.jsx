@@ -43,7 +43,7 @@ function SignupFormModal() {
   return (
     <div className="login-container">
       <h1 className="login-title">Sign Up</h1>
-      {errors.server && <p>{errors.server}</p>}
+      {errors.server && <p className="error">{errors.server}</p>}
       <form className='login-form' onSubmit={handleSubmit}>
         <label className="login-label">
           Email
@@ -54,7 +54,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className="error">{errors.email}</p>}
         <label className="login-label">
           First Name
           <input className="login-input"
@@ -64,7 +64,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.first_name && <p>{errors.first_name}</p>}
+        {errors.first_name && <p className="error">{errors.first_name}</p>}
         <label className="login-label">
           Last Name
           <input className="login-input"
@@ -84,7 +84,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className="error">{errors.password}</p>}
         <label className="login-label">
           Confirm Password
           <input className="login-input"
@@ -94,7 +94,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
         <button className='login-button' type="submit">Sign Up</button>
       </form>
     </div>
