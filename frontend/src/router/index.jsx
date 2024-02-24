@@ -24,10 +24,6 @@ export const router = createBrowserRouter([
         path: '/404',
         element: <Page404/>
       },
-      // {
-      //   path: '*',
-      //   element: <Page404/>
-      // },
       {
         path: "login",
         element: <LoginFormPage />,
