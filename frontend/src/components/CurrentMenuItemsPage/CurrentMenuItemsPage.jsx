@@ -95,6 +95,7 @@ const CurrentMenuItemsPage = ({ id }) => {
 
     const handleDelete = async (e, clickedMenuItem, index) => {
         e.preventDefault();
+        setErrors({});
         const isNewMenuItem = !!clickedMenuItem.restaurant_id;
         if (!isNewMenuItem) {
             const updatedRestaurant = { ...curr_restaurant, MenuItems: curr_restaurant.MenuItems.filter(menuItem => clickedMenuItem.id !== menuItem.id) };
@@ -107,6 +108,7 @@ const CurrentMenuItemsPage = ({ id }) => {
 
     const addItemRow = () => {
         draftCounter += 1;
+        setErrors({});
         setMenuItemsState([...menuItemsState, {
             name: '',
             image: '',
