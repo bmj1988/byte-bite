@@ -26,21 +26,29 @@ const NewRestaurantPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({})
 
     const isValidUrl = /^https:\/\/.*$/.test(image) || /\.(png|jpe?g|gif)$/.test(image);
     if (!isValidUrl) {
-      setErrors({ image: 'Error: Please provide a valid image URL ending with .png, .jpeg, .jpg, or .gif' });
-      return
+      setErrors(prevErrors => ({
+        ...prevErrors, 
+        ...({image: 'Error: Please provide a valid image URL ending with .png, .jpeg, .jpg, or .gif'})
+      }))
     }
     
     if (!selectedCategory) {
-      setErrors({ category: 'Error: Please select a category' });
-      return;
+      setErrors(prevErrors => ({
+        ...prevErrors, 
+        ...({category: 'Error: Please select a category'})
+      }))
     }
+    
 
     if (!state) {
-      setErrors({ state: 'Error Please select a state'});
-      return;
+      setErrors(prevErrors => ({
+        ...prevErrors, 
+        ...({ state: 'Error Please select a state'})
+      }))
     }
 
     const restaurantDetails = {
@@ -61,7 +69,9 @@ const NewRestaurantPage = () => {
       setErrors(prevErrors => ({
         ...prevErrors,
         ...(res.error.name && { name: 'Error: Invalid name' }),
-        ...(res.error.address && { address: 'Error: Restaurant address already exists' })
+        ...(res.error.address && { address: 'Error: Invalid address' }),
+        ...(res.error.city && { city: 'Error: Invalid city' }),
+        ...(res.error.image && { image: 'Error: Invalid URL' })
       }));
     } else {
       setErrors({})
@@ -111,19 +121,19 @@ const NewRestaurantPage = () => {
       <form className="new-restaurant-form" onSubmit={handleSubmit}>
         <div>
           <label className="new-restaurant-label">Name</label>
-          <input className="new-restaurant-input" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required/>
+          <input className="new-restaurant-input" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required maxLength={40}/>
           {errors && errors.name && <div className="error">{errors.name}</div>}
         </div>
 
         <div>
           <label className="new-restaurant-label">Address</label>
-          <input className="new-restaurant-input" type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" required/>
+          <input className="new-restaurant-input" type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" required maxLength={255}/>
           {errors && errors.address && <div className="error">{errors.address}</div>}
         </div>
 
         <div>
           <label className="new-restaurant-label">City</label>
-          <input className="new-restaurant-input" type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="City" required/>
+          <input className="new-restaurant-input" type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="City" required maxLength={40}/>
           {errors && errors.city && <div className="error">{errors.city}</div>}
         </div>
 
@@ -142,7 +152,7 @@ const NewRestaurantPage = () => {
 
         <div>
           <label className="new-restaurant-label">Image</label>
-          <input className="new-restaurant-input" type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" required/>
+          <input className="new-restaurant-input" type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" required maxLength={255}/>
           {errors && errors.image && <div className="error">{errors.image}</div>}
         </div>
 

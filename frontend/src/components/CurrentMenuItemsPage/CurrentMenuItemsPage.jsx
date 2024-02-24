@@ -59,10 +59,13 @@ const CurrentMenuItemsPage = ({ id }) => {
                 }),
             };
             dispatch(thunkUpdateMenuItem(menuItemThatWasUpdated, updatedRestaurant))
+                .then(setErrors({}))
                 .catch((error) => {
+                    setErrors({});
                     setErrors(prevErrors => ({
                         ...prevErrors,
                         ...(error.name && { name: 'Name must be included' }),
+                        ...(error.image && { name: 'Must include a valid URL' }),
                         ...(error.description && { description: 'Description must be included' }),
                         ...(error.price && { price: 'Price must be a valid integer above 0' })
                     }));
@@ -72,17 +75,21 @@ const CurrentMenuItemsPage = ({ id }) => {
                 .then((menuItemThatWasUpdated) => {
                     const updatedDraftItems = menuItemsState.map((curItem, i) => {
                         if (i === index) {
+                            setErrors({});
                             return menuItemThatWasUpdated;
                         }
+                        setErrors({});
                         return curItem;
                     });
 
                     setMenuItemsState(updatedDraftItems);
                 })
                 .catch((error) => {
+                    setErrors({});
                     setErrors(prevErrors => ({
                         ...prevErrors,
                         ...(error.formErrors.name && { name: 'Name must be included' }),
+                        ...(error.formErrors.image && { name: 'Must include a valid URL' }),
                         ...(error.formErrors.description && { description: 'Description must be included' }),
                         ...(error.formErrors.price && { price: 'Price must be a valid integer above 0' })
                     }));
@@ -92,6 +99,7 @@ const CurrentMenuItemsPage = ({ id }) => {
 
     const handleDelete = async (e, clickedMenuItem, index) => {
         e.preventDefault();
+        setErrors({});
         const isNewMenuItem = !!clickedMenuItem.restaurant_id;
         if (!isNewMenuItem) {
             const updatedRestaurant = { ...curr_restaurant, MenuItems: curr_restaurant.MenuItems.filter(menuItem => clickedMenuItem.id !== menuItem.id) };
@@ -104,6 +112,7 @@ const CurrentMenuItemsPage = ({ id }) => {
 
     const addItemRow = () => {
         draftCounter += 1;
+        setErrors({});
         setMenuItemsState([...menuItemsState, {
             name: '',
             image: '',

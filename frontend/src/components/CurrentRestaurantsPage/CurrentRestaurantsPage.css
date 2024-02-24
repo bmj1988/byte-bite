@@ -1,5 +1,7 @@
 .current_restaurants_container {
-  display: flex;
+  /* display: flex; */
+  display: grid;
+  grid-template-columns: repeat(4, 288px);
   max-width: 1280px;
   padding: 0 40px;
   min-width: 1024px;
