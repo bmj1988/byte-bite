@@ -59,6 +59,7 @@ const CurrentMenuItemsPage = ({ id }) => {
                 }),
             };
             dispatch(thunkUpdateMenuItem(menuItemThatWasUpdated, updatedRestaurant))
+                .then(setErrors({}))
                 .catch((error) => {
                     setErrors(prevErrors => ({
                         ...prevErrors,
@@ -72,8 +73,10 @@ const CurrentMenuItemsPage = ({ id }) => {
                 .then((menuItemThatWasUpdated) => {
                     const updatedDraftItems = menuItemsState.map((curItem, i) => {
                         if (i === index) {
+                            setErrors({});
                             return menuItemThatWasUpdated;
                         }
+                        setErrors({});
                         return curItem;
                     });
 
