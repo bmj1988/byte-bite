@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from '../../context/Modal'
-import { thunkUpdateRestaurant, restaurantById } from "../../redux/restaurants";
+import { thunkUpdateRestaurant, restaurantByName } from "../../redux/restaurants";
 import { categoriesArray } from "../../redux/categories";
 import Select from "react-select";
 import './UpdateRestaurantsModal.css'
@@ -20,7 +20,7 @@ const UpdateRestaurantModal = ({ restaurantName, restaurantId }) => {
   const [errors, setErrors] = useState({}) 
 
   const categories = useSelector(categoriesArray)
-  const restaurant = useSelector((state) => restaurantById(state, restaurantId))
+  const restaurant = useSelector((state) => restaurantByName(state, restaurantName))
 
   useEffect(() => {
     if (restaurant) {
@@ -71,6 +71,14 @@ const UpdateRestaurantModal = ({ restaurantName, restaurantId }) => {
     )
   }))
 
+  const stateAbbreviations = [
+    "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
+    "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+    "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+    "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+    "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
+  ];
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -88,6 +96,22 @@ const UpdateRestaurantModal = ({ restaurantName, restaurantId }) => {
     }
 
     const res = await dispatch(thunkUpdateRestaurant(restaurantDetails))
+
+    const isValidUrl = /^https:\/\/.*$/.test(image) || /\.(png|jpe?g|gif)$/.test(image);
+    if (!isValidUrl) {
+      setErrors({ image: 'Error: Please provide a valid image URL ending with .png, .jpeg, .jpg, or .gif' });
+      return
+    }
+    
+    if (!selectedCategory) {
+      setErrors({ category: 'Error: Please select a category' });
+      return;
+    }
+
+    if (!state) {
+      setErrors({ state: 'Error Please select a state'});
+      return;
+    }
     
     if (res) {
       setErrors(prevErrors => ({
@@ -124,13 +148,22 @@ const UpdateRestaurantModal = ({ restaurantName, restaurantId }) => {
           </div>
 
           <div>
-            <label className="update-restaurant-label">State</label>
-            <input className="update-restaurant-input" type="text" value={state} onChange={(e) => setState(e.target.value)} placeholder="State" required />
-          </div>
+          <label className="new-restaurant-label">State</label>
+          <select className='new-restaurant-select' value={state} onChange={(e) => setState(e.target.value)}> 
+            <option className='new-restaurant-option' value=''>Select</option>
+            {stateAbbreviations.map(abbreviation => (
+            <option key={abbreviation} value={abbreviation}>
+              {abbreviation}
+            </option>
+            ))}
+          </select>
+          {errors && errors.state && <div className="error">{errors.state}</div>}
+        </div>
 
           <div>
             <label className="update-restaurant-label">Image</label>
             <input className="update-restaurant-input" type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" required />
+            {errors && errors.image && <div className="error">{errors.image}</div>}
           </div>
 
           <div>
@@ -142,6 +175,7 @@ const UpdateRestaurantModal = ({ restaurantName, restaurantId }) => {
               styles={customStyling}
               placeholder="Select a category"
             />
+            {errors && errors.category && <div className="error">{errors.category}</div>}
           </div>
 
           <button className="update-restaurant-button" type="submit">Submit Changes</button>

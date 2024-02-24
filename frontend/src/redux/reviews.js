@@ -97,7 +97,6 @@ export const thunkUpdateReview = (reviewDetails) => async (dispatch) => {
   if (res.ok) {
     const newReview = await res.json()
     dispatch(updateReview(newReview))
-    return newReview
   } else {
     const error = res.json()
     return error

@@ -44,7 +44,7 @@ function SignupFormPage() {
   return (
     <>
       <h1 className="signup-page-title">Sign Up</h1>
-      {errors.server && <p>{errors.server}</p>}
+      {errors.server && <p className="error">{errors.server}</p>}
       <form onSubmit={handleSubmit}>
         <label className="login-label">
           Email
@@ -55,7 +55,7 @@ function SignupFormPage() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className="error">{errors.email}</p>}
         <label className="login-label">
           Username
           </label>
@@ -65,7 +65,7 @@ function SignupFormPage() {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && <p className="error">{errors.username}</p>}
         <label className="login-label">
           Password
           </label>
@@ -75,7 +75,7 @@ function SignupFormPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className="error">{errors.password}</p>}
         <label className="login-label">
           Confirm Password
           </label>
@@ -85,7 +85,7 @@ function SignupFormPage() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
         <button className='signup-page-button' type="submit">Sign Up</button>
       </form>
     </>

@@ -31,7 +31,17 @@ const NewRestaurantPage = () => {
     if (!isValidUrl) {
       setErrors({ image: 'Error: Please provide a valid image URL ending with .png, .jpeg, .jpg, or .gif' });
       return
-    } 
+    }
+    
+    if (!selectedCategory) {
+      setErrors({ category: 'Error: Please select a category' });
+      return;
+    }
+
+    if (!state) {
+      setErrors({ state: 'Error Please select a state'});
+      return;
+    }
 
     const restaurantDetails = {
       name,
@@ -50,7 +60,7 @@ const NewRestaurantPage = () => {
     if (res.error) {
       setErrors(prevErrors => ({
         ...prevErrors,
-        ...(res.error.name && { name: 'Error: Restaurant name already exists' }),
+        ...(res.error.name && { name: 'Error: Invalid name' }),
         ...(res.error.address && { address: 'Error: Restaurant address already exists' })
       }));
     } else {
@@ -87,6 +97,14 @@ const NewRestaurantPage = () => {
     )
   }))
 
+  const stateAbbreviations = [
+    "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
+    "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+    "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+    "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+    "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
+  ];
+
   return (
     <>
       <h2 className="new-restaurant-h2">Create New Restaurant</h2>
@@ -111,7 +129,14 @@ const NewRestaurantPage = () => {
 
         <div>
           <label className="new-restaurant-label">State</label>
-          <input className="new-restaurant-input" type="text" value={state} onChange={(e) => setState(e.target.value)} placeholder="State" required/>
+          <select className='new-restaurant-select' value={state} onChange={(e) => setState(e.target.value)}> 
+            <option className='new-restaurant-option' value=''>Select</option>
+            {stateAbbreviations.map(abbreviation => (
+            <option key={abbreviation} value={abbreviation}>
+              {abbreviation}
+            </option>
+            ))}
+          </select>
           {errors && errors.state && <div className="error">{errors.state}</div>}
         </div>
 
@@ -130,6 +155,7 @@ const NewRestaurantPage = () => {
           styles={customStyling}
           placeholder="Select a category"
           />
+          {errors && errors.category && <div className="error">{errors.category}</div>}
         </div>
 
         <button className="new-restaurant-submit" type="submit">Create Restaurant</button>
