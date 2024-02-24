@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from '../../context/Modal'
-import { thunkUpdateRestaurant, restaurantById } from "../../redux/restaurants";
+import { thunkUpdateRestaurant, restaurantByName } from "../../redux/restaurants";
 import { categoriesArray } from "../../redux/categories";
 import Select from "react-select";
 import './UpdateRestaurantsModal.css'
@@ -20,7 +20,7 @@ const UpdateRestaurantModal = ({ restaurantName, restaurantId }) => {
   const [errors, setErrors] = useState({}) 
 
   const categories = useSelector(categoriesArray)
-  const restaurant = useSelector((state) => restaurantById(state, restaurantId))
+  const restaurant = useSelector((state) => restaurantByName(state, restaurantName))
 
   useEffect(() => {
     if (restaurant) {

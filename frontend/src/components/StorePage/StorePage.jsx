@@ -44,7 +44,7 @@ const StorePage = () => {
     if (loaded && !restaurantDetails) {
         navigate('/404')
     }
-console.log(loaded)
+    
     return (
         <div className='storePageMainDiv'>
             {/* {restaurantDetails.header && <div>

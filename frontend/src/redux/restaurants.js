@@ -211,7 +211,6 @@ export const thunkUpdateMenuItem = (menuItem, currentRestaurant) => async (dispa
     }
     else {
         const error = await response.json();
-        console.log('UPDATE MENU ITEM THUNK', error);
         throw error;
     }
 };
