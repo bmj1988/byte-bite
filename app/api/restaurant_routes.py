@@ -127,10 +127,7 @@ def edit(restaurant_id):
 @restaurant_routes.route('/<int:restaurant_id>', methods=['DELETE'])
 @login_required
 def delete(restaurant_id):
-    target = db.session.query(Restaurant).get(restaurant_id)
-
-    if target is None:
-        return {'message': 'Restaurant not found'}, 404
+    target = db.get_or_404(Restaurant, restaurant_id)
 
     if target.owner_id is not current_user.id:
         return {'message': 'Forbidden'}, 403
