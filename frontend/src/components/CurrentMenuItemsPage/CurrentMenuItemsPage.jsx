@@ -129,6 +129,7 @@ const CurrentMenuItemsPage = ({ id }) => {
                             <div className="menu_item_box">
                                 <label>Name</label>
                                 <input
+                                    className="update-menu-items-input"
                                     type="text"
                                     defaultValue={menu_item.name}
                                     onChange={(e) => handleInputChange(index, 'name', e.target.value)}
@@ -139,6 +140,7 @@ const CurrentMenuItemsPage = ({ id }) => {
                             <div className="menu_item_box">
                                 <label>Image URL</label>
                                 <input
+                                    className="update-menu-items-input"
                                     type="text"
                                     defaultValue={menu_item.image}
                                     onChange={(e) => handleInputChange(index, 'image', e.target.value)}
@@ -146,7 +148,8 @@ const CurrentMenuItemsPage = ({ id }) => {
                             </div>
                             <div className="menu_item_box">
                                 <label>Description</label>
-                                <textarea
+                                <input
+                                    className="update-menu-items-input"
                                     defaultValue={menu_item.description}
                                     onChange={(e) => handleInputChange(index, 'description', e.target.value)}
                                     required
@@ -156,6 +159,7 @@ const CurrentMenuItemsPage = ({ id }) => {
                             <div className="menu_item_box">
                                 <label>Price</label>
                                 <input
+                                    className="update-menu-items-input"
                                     type="number"
                                     defaultValue={menu_item.price}
                                     onChange={(e) => handleInputChange(index, 'price', e.target.value)}
