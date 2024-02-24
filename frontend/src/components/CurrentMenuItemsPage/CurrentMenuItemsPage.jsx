@@ -163,7 +163,7 @@ const CurrentMenuItemsPage = ({ id }) => {
                                 />
                             </div>
                             <div className="button_container">
-                                <button className="menu_item_buttons" type="submit">Update</button>
+                                <button className="menu_item_buttons" type="submit">Submit</button>
                                 <button className="menu_item_buttons" onClick={(e) => handleDelete(e, menu_item, index)}>Delete</button>
                             </div>
                         </div>
@@ -175,6 +175,7 @@ const CurrentMenuItemsPage = ({ id }) => {
                 <div>
                     <button className="add_item_button" onClick={() => addItemRow()}>Add Item</button>
                 </div>
+                <p className="form-note">Please click submit to save changes</p>
             </div>
         </>
     );
