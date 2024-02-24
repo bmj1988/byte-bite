@@ -61,9 +61,11 @@ const CurrentMenuItemsPage = ({ id }) => {
             dispatch(thunkUpdateMenuItem(menuItemThatWasUpdated, updatedRestaurant))
                 .then(setErrors({}))
                 .catch((error) => {
+                    setErrors({});
                     setErrors(prevErrors => ({
                         ...prevErrors,
                         ...(error.name && { name: 'Name must be included' }),
+                        ...(error.image && { name: 'Must include a valid URL' }),
                         ...(error.description && { description: 'Description must be included' }),
                         ...(error.price && { price: 'Price must be a valid integer above 0' })
                     }));
@@ -83,9 +85,11 @@ const CurrentMenuItemsPage = ({ id }) => {
                     setMenuItemsState(updatedDraftItems);
                 })
                 .catch((error) => {
+                    setErrors({});
                     setErrors(prevErrors => ({
                         ...prevErrors,
                         ...(error.formErrors.name && { name: 'Name must be included' }),
+                        ...(error.formErrors.image && { name: 'Must include a valid URL' }),
                         ...(error.formErrors.description && { description: 'Description must be included' }),
                         ...(error.formErrors.price && { price: 'Price must be a valid integer above 0' })
                     }));
