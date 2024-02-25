@@ -81,6 +81,7 @@ const UpdateRestaurantModal = ({ restaurantName, restaurantId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({})
 
     const restaurantDetails = {
       id: restaurantId,
@@ -99,27 +100,37 @@ const UpdateRestaurantModal = ({ restaurantName, restaurantId }) => {
 
     const isValidUrl = /^https:\/\/.*$/.test(image) || /\.(png|jpe?g|gif)$/.test(image);
     if (!isValidUrl) {
-      setErrors({ image: 'Error: Please provide a valid image URL ending with .png, .jpeg, .jpg, or .gif' });
-      return
+      setErrors(prevErrors => ({
+        ...prevErrors, 
+        ...({image: 'Error: Please provide a valid image URL ending with .png, .jpeg, .jpg, or .gif'})
+      }))
     }
     
     if (!selectedCategory) {
-      setErrors({ category: 'Error: Please select a category' });
-      return;
+      setErrors(prevErrors => ({
+        ...prevErrors, 
+        ...({category: 'Error: Please select a category'})
+      }))
     }
 
     if (!state) {
-      setErrors({ state: 'Error Please select a state'});
-      return;
+      setErrors(prevErrors => ({
+        ...prevErrors, 
+        ...({ state: 'Error Please select a state'})
+      }))
     }
     
     if (res) {
       setErrors(prevErrors => ({
         ...prevErrors,
-        ...(res.name && { name: 'Error: Restaurant name already exists' }),
-        ...(res.address && { address: 'Error: Restaurant address already exists' })
+        ...(res.name && { name: 'Error: Invalid name' }),
+        ...(res.address && { address: 'Error: Invalid address' }),
+        ...(res.city && { city: 'Error: Invalid city' }),
+        ...(res.image && { image: 'Error: Invalid image URL' }),
       }));
-    } else {
+    } 
+
+    if (res.ok) {
       setErrors({})
       closeModal()
     }
@@ -145,6 +156,7 @@ const UpdateRestaurantModal = ({ restaurantName, restaurantId }) => {
           <div>
             <label className="update-restaurant-label">City</label>
             <input className="update-restaurant-input" type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="City" required />
+            {errors && errors.city && <div className="error">{errors.city}</div>}
           </div>
 
           <div>
