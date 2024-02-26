@@ -3,7 +3,6 @@ import { orderInfo, orderItemsArray } from "../../redux/orders"
 import GroupByOrderButton from '../StorePage/GroupByOrderButton'
 import QuantityDropdown from '../MenuItemModal/QuantityDropDown'
 import { FaTimes } from "react-icons/fa"
-import { useModal } from "../../context/Modal"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import ClearCart from "../Icons/ClearCart"

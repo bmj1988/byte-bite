@@ -1,6 +1,4 @@
 import { FaUser } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
-import OpenModalButton from '../OpenModalButton'
 import LoginFormModal from '../LoginFormModal'
 import { useModal } from '../../context/Modal'
 

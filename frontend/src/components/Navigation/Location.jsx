@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 import { useCartContext } from '../../context/ShoppingCartContext'
 import { useModal } from '../../context/Modal'

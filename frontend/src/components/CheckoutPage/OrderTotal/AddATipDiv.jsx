@@ -52,7 +52,7 @@ const AddATip = ({ total, tip, setTip }) => {
                 }}>
                     {`Other`}
                 </div>
-                {tipInput && <input className="tipInput" type="number" min={0} onChange={(e) => {
+                {tipInput && <input className="tipInput" type="number" inputMode="numeric" min={0} max={100} step={1} onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() || evt.key === 'E' && evt.preventDefault()} onChange={(e) => {
                     const tipNum = Number(e.target.value).toFixed(2)
                     setTip(tipNum)
                 }}/>}

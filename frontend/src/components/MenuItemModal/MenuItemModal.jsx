@@ -1,7 +1,5 @@
-import { useModal } from "../../context/Modal"
 import { useCartContext } from "../../context/ShoppingCartContext"
 import MenuItemModalInfo from "./MenuItemModalInfo"
-import { FaExternalLinkAlt, FaTimes } from "react-icons/fa"
 import { useEffect } from "react"
 import ModalCloseX from "../Icons/ModalCloseX"
 import ShareIcon from "../Icons/ShareIcon"

@@ -43,7 +43,7 @@ const QuantityDropdown = ({ menu_item_id }) => {
 
     const quantities = [...Array(21).keys()].slice(1)
 
-    const clicker = (e) => {
+    const clicker = () => {
         setShowQuantityList(!showQuantityList)
     }
 
