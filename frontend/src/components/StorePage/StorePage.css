@@ -1,157 +1,158 @@
 .storePageName {
-    line-height: 36px;
-    font-weight: 700;
-    font-family: inherit;
-    font-size: 36px;
+  line-height: 36px;
+  font-weight: 700;
+  font-family: inherit;
+  font-size: 36px;
 }
 
 .storePageMainDiv {
-    margin: 20px;
-    font-family: 'Rubik', sans-serif;
+  margin: 20px;
+  font-family: 'Rubik', sans-serif;
 }
 
 .ratingDistanceDiv {
-    margin: 15px 0px;
+  margin: 15px 0px;
 }
 
 .seeSimilar {
-    display: flex;
-    background: #EEEEEE;
-    padding: 8px 12px;
-    height: 38px;
-    border-radius: 500px;
-    line-height: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    align-items: center;
-    box-sizing: border-box;
-    width: fit-content;
-    margin-right: 8px;
-    font-size: 14px;
+  display: flex;
+  background: #EEEEEE;
+  padding: 8px 12px;
+  height: 38px;
+  border-radius: 500px;
+  line-height: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  align-items: center;
+  box-sizing: border-box;
+  width: fit-content;
+  margin-right: 8px;
+  font-size: 14px;
 
-  }
+}
 
-  .seeSimilarClicked {
-    display: flex;
-    background: black;
-    padding: 8px 12px;
-    height: 38px;
-    border-radius: 500px;
-    line-height: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    align-items: center;
-    box-sizing: border-box;
-    width: fit-content;
-    color: white;
-    margin-right: 8px;
-    font-size: 14px;
+.seeSimilarClicked {
+  display: flex;
+  background: black;
+  padding: 8px 12px;
+  height: 38px;
+  border-radius: 500px;
+  line-height: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  align-items: center;
+  box-sizing: border-box;
+  width: fit-content;
+  color: white;
+  margin-right: 8px;
+  font-size: 14px;
 
-  }
+}
 
-  .flexButtonRow {
-    display: flex;
-  }
+.flexButtonRow {
+  display: flex;
+}
 
-  .storePageButtonDiv {
-    display: flex;
-  }
+.storePageButtonDiv {
+  display: flex;
+}
 
-  .deliveryPickupPill {
-    width: 438px;
-    height: 48px;
-    padding: 0 2px;
-    box-sizing: border-box;
-    background: #EEEEEE;
-    border-radius: 500px;
-    align-items: center;
-    white-space: nowrap;
-    line-height: 16px;
-    font-weight: 500;
-    font-size: 14px;
-    font-family: inherit;
-    display: flex;
-    justify-content: space-around;
-  }
+.deliveryPickupPill {
+  width: 438px;
+  height: 48px;
+  padding: 0 2px;
+  box-sizing: border-box;
+  background: #EEEEEE;
+  border-radius: 500px;
+  align-items: center;
+  white-space: nowrap;
+  line-height: 16px;
+  font-weight: 500;
+  font-size: 14px;
+  font-family: inherit;
+  display: flex;
+  justify-content: space-around;
+}
 
-  .largePill {
-    width: 219px;
-    text-align: center;
-  }
+.largePill {
+  width: 219px;
+  text-align: center;
+}
 
-  .reviewBox {
-    border-radius: 8px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: hsla(0, 0%, 0%, 0.12);
-    padding: 16px;
-    min-height: 100px;
-    margin: 10px;
-    width: 220px;
-  }
+.reviewBox {
+  border-radius: 8px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: hsla(0, 0%, 0%, 0.12);
+  padding: 16px;
+  min-height: 100px;
+  margin: 10px;
+  width: 220px;
+}
 
-  .reviewBoxName {
-    font-size: 14px;
-    font-family: inherit;
-    font-weight: 600;
-  }
+.reviewBoxName {
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 600;
+}
 
-  .reviewBoxText {
-    color: #545454;
-    font-size: 14px;
-    font-family: inherit;
-    font-weight: 400;
-    line-height: 20px;
-  }
+.reviewBoxText {
+  color: #545454;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 400;
+  line-height: 20px;
+}
 
-  .paginatedReviewBar {
-    display: flex;
-    width: 100%;
-    gap: 10px;
-  }
+.paginatedReviewBar {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+}
 
-  .menuItemTileImage {
-    height: 188px;
-    width: 100%;
-    max-width: 220px;
-  }
+.menuItemTileImage {
+  height: 188px;
+  width: 100%;
+  max-width: 220px;
+  border-radius: 5px;
+}
 
-  .storePageMenuItems {
-    display: flex;
-    flex-wrap: wrap;
-    width: fit-content;
-    gap: 15px;
-  }
+.storePageMenuItems {
+  display: flex;
+  flex-wrap: wrap;
+  width: fit-content;
+  gap: 15px;
+}
 
-  .menuItemTile {
-    width: 220px;
-    height: 220px;
-  }
+.menuItemTile {
+  width: 220px;
+  height: 220px;
+}
 
-  .storePageMenuItemList {
-    width: 300px;
-    justify-content: flex-start;
-    text-align: start;
-    font-weight: 600;
-  }
+.storePageMenuItemList {
+  width: 300px;
+  justify-content: flex-start;
+  text-align: start;
+  font-weight: 600;
+}
 
-  ul {
-    list-style-type: none;
-  }
+ul {
+  list-style-type: none;
+}
 
-  .review-button button {
-    background: black;
-    padding: 12px 16px;
-    margin-top: 10px;
-    border-radius: 8px;
-    font-size: 18px;
-    color: rgb(255, 255, 255);
-    height: 25px;
-    justify-content: center;
-    font-weight: 500;
-    cursor: pointer;
-    box-sizing: border-box;
-    display: flex;
-    font-family: 'Rubik', sans-serif;
-    align-items: center;
-  }
+.review-button button {
+  background: black;
+  padding: 12px 16px;
+  margin-top: 10px;
+  border-radius: 8px;
+  font-size: 18px;
+  color: rgb(255, 255, 255);
+  height: 25px;
+  justify-content: center;
+  font-weight: 500;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: flex;
+  font-family: 'Rubik', sans-serif;
+  align-items: center;
+}

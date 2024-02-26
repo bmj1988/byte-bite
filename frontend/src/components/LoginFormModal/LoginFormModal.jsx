@@ -3,6 +3,7 @@ import { thunkLogin } from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import { thunkGetCurrentOrder } from "../../redux/orders";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ function LoginFormModal() {
         password,
       })
     );
-
+    await dispatch(thunkGetCurrentOrder())
     if (serverResponse) {
       setErrors(serverResponse);
     } else {
@@ -31,7 +32,8 @@ function LoginFormModal() {
 
   const loginDemoUser = async (e) => {
     e.preventDefault();
-    await dispatch(thunkLogin({ email:"demo@aa.io", password: "password"}))
+    await dispatch(thunkLogin({ email: "demo@aa.io", password: "password" }))
+    await dispatch(thunkGetCurrentOrder())
     setHideAddButton(false)
     closeModal()
   }
@@ -49,7 +51,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className="error">{errors.email}</p>}
         <label className="login-label">
           Password
           <input className="login-input"
@@ -59,10 +61,10 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className="error">{errors.password}</p>}
         <button className='login-button' type="submit">Log In</button>
         <div className="addToOrderButton marginTop" onClick={(e) => loginDemoUser(e)}>
-      {`Login Demo User`}
+          {`Login Demo User`}
         </div>
       </form>
     </div>

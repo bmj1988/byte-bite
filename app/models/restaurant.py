@@ -27,8 +27,8 @@ class Restaurant(db.Model):
         .scalar_subquery()
     )
 
-    menu = db.relationship('MenuItem', back_populates="restaurant")
-    reviews = db.relationship('Review', back_populates="restaurant")
+    menu = db.relationship('MenuItem', back_populates="restaurant", cascade="all, delete")
+    reviews = db.relationship('Review', back_populates="restaurant", cascade="all, delete")
     owner = db.relationship('User')
     category = db.relationship('Category')
 

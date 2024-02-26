@@ -26,6 +26,17 @@
   
 }
 
+.new-restaurant-select {
+  border: 2px solid black;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-family: 'Rubik', sans-serif;
+}
+
+option {
+  font-family: 'Rubik', sans-serif;
+}
+
 .new-restaurant-submit {
   background: black;
   padding: 12px 16px;

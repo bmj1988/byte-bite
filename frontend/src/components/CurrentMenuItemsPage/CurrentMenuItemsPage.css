@@ -70,3 +70,16 @@
     margin-top: 1%
 }
 
+.form-note {
+    margin: 10px
+}
+
+.update-menu-items-input {
+    width: 100%;
+    padding: 4px;
+    margin-top: 4px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-family: 'Rubik', sans-serif;
+}
+
