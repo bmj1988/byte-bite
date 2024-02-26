@@ -1,7 +1,6 @@
 import { useLoaderData } from "react-router-dom"
 import LogoDiv from "../Navigation/LogoDiv"
 import ProfileBars from "../Navigation/ProfileBars"
-import { FaBolt, FaCalendarDay, FaCreditCard, FaMapMarkerAlt, FaShoppingBag, FaTag, FaUser } from "react-icons/fa";
 import RestaurantHeader from "./RestaurantHeader";
 import DeliveryDetailsForm from "./DeliveryDetailsForm";
 import './checkout.css'

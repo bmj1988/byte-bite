@@ -1,4 +1,3 @@
-import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import ProfileBars from "./ProfileBars";
 import DeliveryToggle from "./DeliveryToggle";

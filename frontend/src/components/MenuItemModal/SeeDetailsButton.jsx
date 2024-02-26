@@ -1,11 +1,11 @@
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 
 const SeeDetailsButton = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const clicker = () => {
-        // navigate('') this will navigate to order details page
-    }
+    // const clicker = () => {
+    //     navigate('') this will navigate to order details page
+    // }
 
     return (
         <div onClick={() => alert('Feature coming soon')} className="seeDetailsButton">
