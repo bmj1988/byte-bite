@@ -5,6 +5,20 @@ from app.forms import RestaurantForm
 
 restaurant_routes = Blueprint('restaurant', __name__)
 
+@restaurant_routes.route('/')
+def search():
+    searchstring = request.args.get('search')
+    name = f'%{searchstring}%'
+    searched_restaurants = db.session.query(Restaurant).filter(Restaurant.name.ilike(name))
+    lst = list()
+    dic = {"restaurants": lst}
+    for restaurant in searched_restaurants:
+            rest_entry = restaurant.to_dict_main_page()
+            rest_entry['Reviews'] = [review.to_dict() for review in restaurant.reviews]
+            rest_entry['numReviews'] = len(rest_entry['Reviews'])
+            lst.append(rest_entry)
+    print('!!!!!!!!!!!!!!!', dic)
+    return dic
 
 @restaurant_routes.route('/delivery')
 def home():
@@ -75,7 +89,6 @@ def new():
 def get_restaurant_by_id(id):
     restaurant = db.get_or_404(Restaurant, id)
     return restaurant.to_dict()
-
 
 @restaurant_routes.route('/<string:name>')
 def get_restaurant_details(name):

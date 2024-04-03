@@ -85,6 +85,34 @@ def add_item(order_id):
 
     return {"order": order.to_dict(), "items": order.items_array()}
 
+@order_routes.route('/reorder', methods=['POST'])
+@login_required
+def reorder():
+    data = request.json
+    old_order_items = data['items']
+    if not data or not old_order_items:
+        return {"Not found": "There was an error in processing your reorder"}, 404
+    delete_orders = db.session.query(Order).filter_by(user_id=current_user.id, status="Open").all()
+    if delete_orders:
+        for order in delete_orders:
+            db.session.delete(order)
+            db.session.commit()
+
+    order = Order(
+        user_id = current_user.id,
+        restaurant_id = data['restaurant']['id'],
+        status = "Open",
+        driver = data['driver'],
+        price = data['price']
+  )
+    db.session.add(order)
+    db.session.commit()
+    for item in old_order_items:
+        db.session.execute(db.insert(order_items).values(order_id=order.id, menu_item_id=item['id'], quantity=item['quantity']))
+    db.session.commit()
+
+    return {"order": order.to_dict(), "items": order.items_array()}
+
 
 @order_routes.route('/<int:order_id>/remove', methods=['PATCH'])
 @login_required
