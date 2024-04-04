@@ -64,7 +64,7 @@ def seed_categories():
     )
 
 
-    db.session.add_all([pizza, italian, greek, breakfast, ice_cream, vegan, thai, fast_food, mexican, poke, chinese, indian, sushi, wings, alcohol])
+    db.session.add_all([thai, fast_food, mexican, poke, chinese, indian, sushi, wings, alcohol, pizza, italian, greek, breakfast, ice_cream, vegan])
     db.session.commit()
 
 def undo_categories():

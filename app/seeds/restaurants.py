@@ -10,7 +10,7 @@ images = ['https://bmj1988-api-pics.s3.amazonaws.com/foodpics/fastfood3.png', 'h
             'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/iceCream5.png', 'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/pizza3.png', 'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/indian4.png', 
             'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/sushi2.png', 'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/foodpics2.png'] 
 
-def generate_fake_restaurant():
+def generate_fake_restaurant(category_id):
     restaurant = {}
     restaurant['name'] = fake.company()
     restaurant['address'] = fake.street_address()
@@ -20,7 +20,8 @@ def generate_fake_restaurant():
     restaurant['lng'] = fake.longitude()
     restaurant['delivery'] = True
     restaurant['owner_id'] = random.randint(1, 6)
-    restaurant['category_id'] = random.randint(1, 15)
+    # restaurant['category_id'] = random.randint(1, 15)
+    restaurant['category_id'] = category_id
     restaurant['image'] = random.choice(images)
     # restaurant['image'] = f"https://picsum.photos/id/{random.randint(1, 200)}/288/130"
     return restaurant
@@ -69,12 +70,14 @@ def seed_restaurants():
         name="Dave's Food Place", address="1818 Gusikowski Cliff", image='https://bmj1988-api-pics.s3.amazonaws.com/foodpics/foodpics2.png', city="Damonside", state="AR", lat=35, lng=50, delivery=True, owner_id=3, category_id=9
     )
 
-    fake_restaurants = generate_fake_restaurants(100) 
     db.session.add_all([mcdonalds, thaiphoon, fresh_eats, pokebowls, vegan, chinese, breakfast, ice_cream, indian, pizza, sushi, daves])
-    for restaurant_data in fake_restaurants:
-        restaurant = Restaurant(**restaurant_data)
-        db.session.add(restaurant)
+    for category_id in range(1, 16):
+        for _ in range(12):
+            fake_restaurant = generate_fake_restaurant(category_id)
+            restaurant = Restaurant(**fake_restaurant)
+            db.session.add(restaurant)
     db.session.commit()
+
 
 def undo_restaurants():
     if environment == "production":
