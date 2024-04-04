@@ -1,5 +1,35 @@
+from faker import Faker;
 from app.models import db, Restaurant, environment, SCHEMA
 from sqlalchemy.sql import text
+import random
+
+fake = Faker()
+
+images = ['https://bmj1988-api-pics.s3.amazonaws.com/foodpics/fastfood3.png', 'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/foodpics7.png', 'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/foodpics5.png',
+            'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/entree2.png', 'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/chinese1.png', 'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/breakfast2.png',
+            'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/iceCream5.png', 'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/pizza3.png', 'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/indian4.png', 
+            'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/sushi2.png', 'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/foodpics2.png'] 
+
+def generate_fake_restaurant():
+    restaurant = {}
+    restaurant['name'] = fake.company()
+    restaurant['address'] = fake.street_address()
+    restaurant['city'] = fake.city()
+    restaurant['state'] = fake.state()
+    restaurant['lat'] = fake.latitude()
+    restaurant['lng'] = fake.longitude()
+    restaurant['delivery'] = True
+    restaurant['owner_id'] = random.randint(1, 6)
+    restaurant['category_id'] = random.randint(1, 15)
+    restaurant['image'] = random.choice(images)
+    # restaurant['image'] = f"https://picsum.photos/id/{random.randint(1, 200)}/288/130"
+    return restaurant
+
+def generate_fake_restaurants(num_restaurants):
+    restaurants = []
+    for _ in range(num_restaurants):
+        restaurants.append(generate_fake_restaurant())
+    return restaurants
 
 def seed_restaurants():
     mcdonalds = Restaurant(
@@ -39,7 +69,11 @@ def seed_restaurants():
         name="Dave's Food Place", address="1818 Gusikowski Cliff", image='https://bmj1988-api-pics.s3.amazonaws.com/foodpics/foodpics2.png', city="Damonside", state="AR", lat=35, lng=50, delivery=True, owner_id=3, category_id=9
     )
 
+    fake_restaurants = generate_fake_restaurants(100) 
     db.session.add_all([mcdonalds, thaiphoon, fresh_eats, pokebowls, vegan, chinese, breakfast, ice_cream, indian, pizza, sushi, daves])
+    for restaurant_data in fake_restaurants:
+        restaurant = Restaurant(**restaurant_data)
+        db.session.add(restaurant)
     db.session.commit()
 
 def undo_restaurants():
