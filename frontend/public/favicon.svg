@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="120mm"
+   height="120mm"
+   viewBox="0 0 120 120"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="bytebitelogo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.73139029"
+     inkscape:cx="397.18876"
+     inkscape:cy="561.25984"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="3832"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#00ae5a;fill-opacity:1;stroke-width:0.158832"
+       id="rect1"
+       width="118.29354"
+       height="117.93176"
+       x="0.60779572"
+       y="1.4470159"
+       ry="18.09145"
+       rx="16.327843" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.8px;font-family:Rubik;-inkscape-font-specification:Rubik;fill:#000000;stroke-width:0.264583"
+       x="7.3267488"
+       y="55.31551"
+       id="text1"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:47.625px;font-family:Rubik;-inkscape-font-specification:Rubik;fill:#000000;stroke-width:0.264583"
+         x="7.3267488"
+         y="55.31551"
+         id="tspan2">Byte</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.8px;font-family:Rubik;-inkscape-font-specification:Rubik;fill:#000000;stroke-width:0.264583"
+         x="7.3267488"
+         y="118.81551"
+         id="tspan3" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.1737px;font-family:Rubik;-inkscape-font-specification:Rubik;fill:#000000;fill-opacity:1;stroke-width:0.278742"
+       x="7.5201025"
+       y="104.80614"
+       id="text4"
+       transform="scale(1.0535151,0.94920329)"><tspan
+         sodipodi:role="line"
+         id="tspan4"
+         style="font-size:50.1737px;fill:#000000;stroke-width:0.278742"
+         x="7.5201025"
+         y="104.80614">Bite</tspan></text>
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+       id="rect4"
+       width="0.72350788"
+       height="1.4470158"
+       x="-89.353226"
+       y="91.885506"
+       ry="0.36175394" />
+  </g>
+</svg>
