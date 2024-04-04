@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import Restaurant, db
+from app.models import Restaurant, Category, db
 from app.forms import RestaurantForm
 
 restaurant_routes = Blueprint('restaurant', __name__)
@@ -8,8 +8,15 @@ restaurant_routes = Blueprint('restaurant', __name__)
 @restaurant_routes.route('/')
 def search():
     searchstring = request.args.get('search')
+    print(request.data)
     name = f'%{searchstring}%'
-    searched_restaurants = db.session.query(Restaurant).filter(Restaurant.name.ilike(name))
+    searched_restaurants = None
+    if searchstring.isnumeric():
+        print('THIS IS CATEGORY')
+        searched_restaurants = db.session.query(Restaurant).filter(Restaurant.category_id == int(searchstring))
+    else:
+        print("THIS IS NAME")
+        searched_restaurants = db.session.query(Restaurant).filter(Restaurant.name.ilike(name))
     lst = list()
     dic = {"restaurants": lst}
     for restaurant in searched_restaurants:

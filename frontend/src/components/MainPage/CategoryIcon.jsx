@@ -1,12 +1,14 @@
-const CategoryIcon = ({ category }) => {
+import { useNavigate } from 'react-router-dom'
 
+const CategoryIcon = ({ category }) => {
+    const navigate = useNavigate();
     const clicker = () => {
-        alert('Feature coming soon!')
+        navigate(`/search?search=${category.id}`)
     }
 
     return (
         <div className="categoryIcon" onClick={() => clicker()}>
-            <img className="categoryImage" src={category.image}/>
+            <img className="categoryImage" src={category.image} />
             <div className="categoryName">
                 {category.name}
             </div>
