@@ -47,6 +47,20 @@ const addMenuItem = (restaurant) => {
 };
 
 /// THUNKS
+export const thunkSearchRestaurants = (params) => async (dispatch) => {
+    try {
+        const response = await fetch(`api/restaurants${params}`)
+        if (response.ok) {
+            const searchResults = await response.json()
+            dispatch(loadRestaurants(searchResults))
+            return searchResults
+        }
+    }
+    catch (e) {
+        console.log(e)
+        return e
+    }
+}
 export const thunkRestaurantById = (id) => async (dispatch) => {
     const response = await fetch(`/api/restaurants/${id}`);
     if (response.ok) {

@@ -22,7 +22,7 @@ Bytebite is an attempt to build Ubereats as faithfully as possible using a Flask
 
 [API](TBD.url)
 <br/>
-[Deployed](TBD.url)
+[Deployed]([TBD.url](https://byte-bite-img.onrender.com/)https://byte-bite-img.onrender.com/)
 
 ### TECH
 
