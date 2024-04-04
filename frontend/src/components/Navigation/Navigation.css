@@ -188,3 +188,12 @@
 .gap {
   gap: 5px;
 }
+
+.searchBar input {
+  border: none;
+  background-color: inherit;
+  color: inherit;
+  min-width: 200px;
+  max-width: 500px;
+  width: 300px;
+}

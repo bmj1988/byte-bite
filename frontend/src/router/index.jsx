@@ -11,6 +11,7 @@ import CurrentMenuItemsPage from '../components/CurrentMenuItemsPage/CurrentMenu
 import CheckoutPage from '../components/CheckoutPage/CheckoutPage';
 import OrderHistoryPage from '../components/OrderHistory/OrderHistoryPage';
 import Page404 from '../components/PAGE404';
+import SearchPage from '../SearchPage/SearchPage';
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignupFormPage />,
+      },
+      {
+        path: "/search",
+        element: <SearchPage />
       },
       {
         path: '/store/new',
