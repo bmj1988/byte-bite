@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { FaSearch } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
-import { thunkSearchRestaurants } from '../../redux/restaurants';
 
 const SearchBar = () => {
     const navigate = useNavigate();
