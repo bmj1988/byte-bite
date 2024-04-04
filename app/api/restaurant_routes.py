@@ -17,7 +17,6 @@ def search():
             rest_entry['Reviews'] = [review.to_dict() for review in restaurant.reviews]
             rest_entry['numReviews'] = len(rest_entry['Reviews'])
             lst.append(rest_entry)
-    print('!!!!!!!!!!!!!!!', dic)
     return dic
 
 @restaurant_routes.route('/delivery')
