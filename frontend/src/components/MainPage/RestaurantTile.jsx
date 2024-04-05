@@ -8,7 +8,10 @@ const RestaurantTile = ({ restaurantInfo }) => {
     }
 
     const reviews = restaurantInfo?.Reviews
-    const avgStarRating = reviews?.reduce((acc, val) => acc + val.stars, 0, )/parseInt(restaurantInfo?.numReviews)
+    const avgStarRating = reviews?.length > 0 ?
+    Math.round((reviews.reduce((acc, val) => acc + val.stars, 0) / reviews.length) * 10) / 10 :
+    0;
+
 
     return (
         <div className="restaurant_div" onClick={handleClick}>
