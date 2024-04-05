@@ -134,6 +134,10 @@
   min-width: 400px;
 }
 
+.searchBar input:focus {
+  border: none;
+}
+
 .shoppingCart {
   display: flex;
   cursor: pointer;
@@ -196,4 +200,8 @@
   min-width: 200px;
   max-width: 500px;
   width: 300px;
+}
+
+.searchBar input:focus {
+  outline: none;
 }

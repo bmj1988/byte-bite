@@ -14,19 +14,18 @@ const SearchPage = () => {
     const searched = useSelector(restaurantsArray)
 
     return (
-        <div className="textmark">
+        <div className="textmark searchMain">
             <h1>Search results</h1>
-            <div>
-                <div>
-                    {searched.length > 0 && searched.map((rest) => {
-                        return (
-                            <RestaurantTile restaurantInfo={rest} />
-                        )
-                    })}
-                    {searched.length < 1 && <div>
-                        <h3>No restaurants were found that matched your search.</h3>
-                    </div>}
-                </div>
+
+            <div className="main_page_primary">
+                {searched.length > 0 && searched.map((rest) => {
+                    return (
+                        <RestaurantTile restaurantInfo={rest} />
+                    )
+                })}
+                {searched.length < 1 && <div>
+                    <h3>No restaurants were found that matched your search.</h3>
+                </div>}
             </div>
         </div>
     )
