@@ -14,7 +14,7 @@ const SearchBar = () => {
 
     return (<div className='searchBar'>
         <FaSearch style={{ margin: '10px' }} onClick={(e) => searchRestaurants(e)} />
-        <input type='search' placeholder='Food, groceries, drinks, etc' onChange={(e) => setSearch(e.target.value)} onsubmit={(e) => searchRestaurants(e)} />
+        <input type='search' placeholder='Food, groceries, drinks, etc' onChange={(e) => setSearch(e.target.value)} onSubmit={(e) => searchRestaurants(e)} />
     </div>)
 }
 
