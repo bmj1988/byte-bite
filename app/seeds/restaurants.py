@@ -28,7 +28,7 @@ def generate_fake_restaurant(category_id):
 
 def generate_fake_restaurants(num_restaurants):
     restaurants = []
-    for _ in range(num_restaurants):
+    for i in range(num_restaurants):
         restaurants.append(generate_fake_restaurant())
     return restaurants
 
@@ -72,7 +72,7 @@ def seed_restaurants():
 
     db.session.add_all([mcdonalds, thaiphoon, fresh_eats, pokebowls, vegan, chinese, breakfast, ice_cream, indian, pizza, sushi, daves])
     for category_id in range(1, 16):
-        for _ in range(12):
+        for i in range(6):
             fake_restaurant = generate_fake_restaurant(category_id)
             restaurant = Restaurant(**fake_restaurant)
             db.session.add(restaurant)
