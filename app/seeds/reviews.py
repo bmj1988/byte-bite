@@ -28,7 +28,6 @@ def seed_reviews():
                 review=review,
                 restaurant_id=restaurant_id)
             reviews.append(newReview)
-    print(reviews)
     db.session.add_all(reviews)
     db.session.commit()
 
