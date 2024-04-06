@@ -4,6 +4,8 @@ from sqlalchemy.sql import text
 import random
 
 fake = Faker()
+used_names = set()
+used_addresses = set()
 
 images = ['https://bmj1988-api-pics.s3.amazonaws.com/foodpics/fastfood3.png', 'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/foodpics7.png', 'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/foodpics5.png',
             'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/entree2.png', 'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/chinese1.png', 'https://bmj1988-api-pics.s3.amazonaws.com/foodpics/breakfast2.png',
@@ -12,15 +14,21 @@ images = ['https://bmj1988-api-pics.s3.amazonaws.com/foodpics/fastfood3.png', 'h
 
 def generate_fake_restaurant(category_id):
     restaurant = {}
-    restaurant['name'] = fake.company()
-    restaurant['address'] = fake.street_address()
+    while True:
+        name = fake.company()
+        address = fake.street_address()
+        if name not in used_names and address not in used_addresses:
+            used_names.add(name)
+            used_addresses.add(address)
+            break
+    restaurant['name'] = name
+    restaurant['address'] = address
     restaurant['city'] = fake.city()
     restaurant['state'] = fake.state()
     restaurant['lat'] = fake.latitude()
     restaurant['lng'] = fake.longitude()
     restaurant['delivery'] = True
     restaurant['owner_id'] = random.randint(1, 6)
-    # restaurant['category_id'] = random.randint(1, 15)
     restaurant['category_id'] = category_id
     restaurant['image'] = random.choice(images)
     # restaurant['image'] = f"https://picsum.photos/id/{random.randint(1, 200)}/288/130"
