@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { reviewsArray, thunkUsersReviews } from "../../redux/reviews";
 import DeleteReviewModal from "./DeleteReviewModal";
 import OpenModalButton from '../OpenModalButton'
@@ -7,14 +7,12 @@ import CurrentReviewBox from "./CurrentReviewsBox";
 import UpdateReviewModal from "./UpdateReviewModal";
 import Spinner from "../Spinner";
 import './CurrentReviewsPage.css'
-import { thunkAllRestaurants } from "../../redux/restaurants";
 
 const CurrentReviewsPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(thunkUsersReviews())
-    dispatch(thunkAllRestaurants())
   }, [dispatch])
 
   const reviews = useSelector(reviewsArray)
@@ -35,8 +33,8 @@ const CurrentReviewsPage = () => {
                 <CurrentReviewBox review={review} key={review.id} />
                 <div className="review-buttons">
                   < OpenModalButton className="review-modal-button"
-                  modalComponent={<DeleteReviewModal id={review.id}/>}
-                  buttonText="Delete" />
+                    modalComponent={<DeleteReviewModal id={review.id} />}
+                    buttonText="Delete" />
                   < OpenModalButton className="review-modal-button"
                     modalComponent={<UpdateReviewModal restaurant_id={review.restaurant_id} />}
                     buttonText="Update"

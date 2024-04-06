@@ -28,17 +28,17 @@ def search():
 
 @restaurant_routes.route('/delivery')
 def home():
-    all_restaurants = db.session.query(Restaurant).filter(Restaurant.delivery).all()
+    req_page = request.args.get('page')
+    all_restaurants = Restaurant.query.paginate(page=int(req_page), per_page=12, count=True)
     lst = list()
-    dic = {"restaurants": lst}
-    for restaurant in all_restaurants:
+    for restaurant in all_restaurants.items:
         if restaurant.delivery:
             rest_entry = restaurant.to_dict_main_page()
             rest_entry['Reviews'] = [review.to_dict() for review in restaurant.reviews]
             rest_entry['numReviews'] = len(rest_entry['Reviews'])
             lst.append(rest_entry)
 
-    return dic
+    return {"restaurants": lst, "total": all_restaurants.total}
 
 @restaurant_routes.route('/current')
 @login_required

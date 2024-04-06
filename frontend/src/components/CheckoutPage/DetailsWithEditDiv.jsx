@@ -1,4 +1,4 @@
-const DetailsEdit = ({ icon, bold, sub, button, surcharge, clicker, clickWholeDiv }) => {
+const DetailsEdit = ({ icon, bold, sub, button, surcharge, clicker }) => {
 
 
 
