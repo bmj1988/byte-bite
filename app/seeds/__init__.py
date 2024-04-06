@@ -3,7 +3,6 @@ from .users import seed_users, undo_users
 from .categories import seed_categories, undo_categories
 from .restaurants import seed_restaurants, undo_restaurants
 from .menu_items import seed_menu_items, undo_menu_items
-from .orders import seed_orders, undo_orders
 from .reviews import seed_reviews, undo_reviews
 
 from app.models.db import db, environment, SCHEMA
@@ -22,7 +21,6 @@ def seed():
         # the schema name (see comment in users.py undo_users function).
         # Make sure to add all your other model's undo functions below
         undo_reviews()
-        undo_orders()
         undo_menu_items()
         undo_restaurants()
         undo_categories()
@@ -31,7 +29,6 @@ def seed():
     seed_categories()
     seed_restaurants()
     seed_menu_items()
-    seed_orders()
     seed_reviews()
     # Add other seed functions here
 
@@ -40,7 +37,6 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_reviews()
-    undo_orders()
     undo_menu_items()
     undo_restaurants()
     undo_categories()
