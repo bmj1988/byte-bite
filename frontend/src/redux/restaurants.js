@@ -73,15 +73,17 @@ export const thunkRestaurantById = (id) => async (dispatch) => {
     }
 };
 
-export const thunkAllRestaurants = () => async (dispatch) => {
-    const response = await fetch("/api/restaurants/delivery");
+export const thunkAllRestaurants = (page = 1) => async (dispatch) => {
+    const params = new URLSearchParams(`page=${page}`)
+    const response = await fetch(`/api/restaurants/delivery?${params}`);
     if (response.ok) {
-        const allRestaurants = await response.json();
+        const allRestaurants = await response.json()
         dispatch(loadRestaurants(allRestaurants));
-        return allRestaurants;
+        return allRestaurants.total;
     }
     else {
-        const error = response;
+        console.log(response)
+        const error = await response.json();
         return error;
     }
 };

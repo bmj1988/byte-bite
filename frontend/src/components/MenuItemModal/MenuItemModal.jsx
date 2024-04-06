@@ -12,7 +12,7 @@ const MenuItemModal = ({ item }) => {
         setMenuItemId(item.id)
         setPrice(item.price)
         setRestaurantId(item.restaurantId)
-    }, [item])
+    }, [item, setMenuItemId, setPrice, setRestaurantId])
 
 
 

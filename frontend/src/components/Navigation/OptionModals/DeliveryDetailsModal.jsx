@@ -7,7 +7,7 @@ import { useModal } from '../../../context/Modal'
 import DeliveryInput from './DeliveryInput'
 
 const DeliveryDetailModal = () => {
-    const { stAddress, setStAddress, deliveryTime, setDeliveryTime, locality, setLocality, city, setCity } = useCartContext()
+    const { stAddress, setStAddress, deliveryTime, locality, city} = useCartContext()
     const { setModalContent, closeModal } = useModal();
 
     const addressClicker = () => {

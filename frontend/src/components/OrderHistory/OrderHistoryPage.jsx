@@ -1,11 +1,11 @@
-import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import DetailsEdit from "../CheckoutPage/DetailsWithEditDiv";
 import { FaChevronRight } from "react-icons/fa";
 
 const OrderHistoryPage = () => {
     const navigate = useNavigate();
     const orders = useLoaderData();
-    const firstTen = orders.orders.slice(0, 10)
+    const firstTen = orders ? orders.orders.slice(0, 20) : []
 
     // const deleteOrder = async (orderId) => {
     //     const response = await fetch(`/api/orders/${orderId}`, {

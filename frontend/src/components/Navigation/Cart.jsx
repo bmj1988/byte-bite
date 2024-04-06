@@ -12,7 +12,7 @@ const ShoppingCart = () => {
 
     useEffect(() => {
         dispatch(thunkGetCurrentOrder())
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         const reduce = cart.reduce((acc, val) => acc + val.quantity, 0,)
