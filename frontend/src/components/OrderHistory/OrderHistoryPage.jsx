@@ -37,6 +37,7 @@ const OrderHistoryPage = () => {
             {firstTen.map((order) => {
                 return (<DetailsEdit key={order.id} icon={<FaChevronRight />} bold={order.restaurant.name} sub={`$${(order.price).toFixed(2)}`} button={{ text: "Reorder" }} clicker={() => reorder(order)} />)
             })}
+            {!firstTen.length ? <h2 className="textmark">You have no orders in your order history at this time.</h2> : null}
         </div>
     )
 }
