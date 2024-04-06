@@ -23,4 +23,5 @@ class Review(db.Model):
             'user_id': self.user_id,
             'restaurant_id': self.restaurant_id,
             'user': self.user.to_dict(),
+            'restaurant': self.restaurant.name,
         }

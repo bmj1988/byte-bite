@@ -1,4 +1,3 @@
-import { useLocation, useSearchParams } from "react-router-dom"
 import RestaurantTile from "../components/MainPage/RestaurantTile";
 import { useEffect } from "react";
 import { restaurantsArray, thunkSearchRestaurants } from "../redux/restaurants";
@@ -6,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 const SearchPage = () => {
     const dispatch = useDispatch();
-    const url = new URL(window.location.href)
     useEffect(() => {
+        const url = new URL(window.location.href)
         dispatch(thunkSearchRestaurants(url.search))
-    }, [])
+    }, [dispatch])
 
     const searched = useSelector(restaurantsArray)
 
@@ -20,7 +19,7 @@ const SearchPage = () => {
             <div className="main_page_primary">
                 {searched.length > 0 && searched.map((rest) => {
                     return (
-                        <RestaurantTile restaurantInfo={rest} />
+                        <RestaurantTile key={rest.id} restaurantInfo={rest} />
                     )
                 })}
                 {searched.length < 1 && <div>

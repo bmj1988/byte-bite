@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux"
-import { restaurantById } from "../../redux/restaurants";
 import { FaStar } from "react-icons/fa"
 import { useNavigate } from "react-router-dom";
 import icons from '../StorePage/utils/iconsForReviewBox'
@@ -12,9 +10,7 @@ const CurrentReviewBox = ({ review }) => {
   const randomIconIndex = Math.floor(Math.random() * icons.length);
   const randomIcon = icons[randomIconIndex]
   const color = colors[Math.floor(Math.random() * colors.length)]
-
-  const id = review.restaurant_id
-  const reviewedRestaurant = useSelector((state) => restaurantById(state, id))
+  const reviewedRestaurant = review.restaurant
 
   if (!reviewedRestaurant) {
     return (
@@ -26,8 +22,8 @@ const CurrentReviewBox = ({ review }) => {
     <div className="current-reviewBox">
       <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
         <div style={{ display: 'flex', background: color, borderRadius: '50%', justifyContent: 'center', alignItems: 'center', padding: '6px', marginRight: '5px' }}>
-          {randomIcon} 
-          
+          {randomIcon}
+
         </div>
         <button className="currentReviewBoxName" onClick={() => navigate(`/store/${reviewedRestaurant.name}`)}>{reviewedRestaurant.name}</button>
       </div>

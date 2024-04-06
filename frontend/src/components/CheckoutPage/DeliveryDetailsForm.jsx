@@ -22,7 +22,7 @@ const DeliveryDetailsForm = ({ order, items }) => {
                     <h2 className="textmark">{`Delivery estimate`}</h2>
                     <DeliveryOption name="priority" icon={<FaBolt style={{ fontSize: '20px', color: 'green' }} />} bold={'Priority'} sub={`${order?.minTime || "10"}-${order?.maxTime || '25 min • Delivery directly to you'}`} surcharge={order?.prioritySurcharge || 2} clicker={() => alert('Feature coming soon!')} />
                     <DeliveryOption name="standard" icon={<FaShoppingBag className="icon" />} bold={'Standard'} sub={`${order?.minTime || "15"}-${order?.maxTime || '30 min'}`} black={true}/>
-                    <DeliveryOption name="schedule" icon={<FaCalendarDay className="icon" />} bold={'Schedule'} sub={'Select a time'} clickWholeDiv={() => alert('Feature coming soon!')} clicker={() => alert('Feature coming soon!')}/>
+                    <DeliveryOption name="schedule" icon={<FaCalendarDay className="icon" />} bold={'Schedule'} sub={'Select a time'} clicker={() => alert('Feature coming soon!')}/>
                 </div>
             </div>
             <div className="breaker"></div>

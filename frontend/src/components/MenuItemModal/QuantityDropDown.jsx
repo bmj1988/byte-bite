@@ -25,7 +25,7 @@ const QuantityDropdown = ({ menu_item_id }) => {
             setQuantity(1)
             setItemQuantity(1)
         }
-    }, [oldQuantity])
+    }, [oldQuantity, setItemQuantity, setQuantity])
 
     useEffect(() => {
         if (!showQuantityList) return;

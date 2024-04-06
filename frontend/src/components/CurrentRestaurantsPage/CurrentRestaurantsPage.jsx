@@ -48,7 +48,7 @@ const CurrentRestaurantsPage = () => {
           <div className="current_restaurants_container">
             {restaurants.map((restaurant) => {
               return (
-                <div className="my-restaurant-tile">
+                <div className="my-restaurant-tile" key={restaurant.id}>
                   <RestaurantTile restaurantInfo={restaurant} key={restaurant.id} />
                   <div className="my-restaurant-buttons">
                     <button className="restaurant-modal-button">
