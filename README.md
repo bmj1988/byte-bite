@@ -22,9 +22,11 @@ Bytebite is an attempt to build Ubereats as faithfully as possible using a Flask
 
 ### Dockerimage
 
-[API](TBD.url)
+[Dockerhub](https://hub.docker.com/r/bmj1988/bytebiteimg/)
 <br/>
-[Deployed]([TBD.url](https://byte-bite-img.onrender.com/)https://byte-bite-img.onrender.com/)
+Image: docker.io/bmj1988/bytebiteimg:latest
+<br/>
+[Deployed](https://byte-bite-img.onrender.com/)
 
 ### TECH
 
