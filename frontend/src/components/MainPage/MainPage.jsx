@@ -20,32 +20,30 @@ const MainPage = () => {
         dispatch(thunkAllRestaurants(page)).then((total) => setTotal(total)).then(() => setLoaded(true))
     }, [dispatch, page])
 
-    if (!loaded) {
-        return (
-            <Spinner />
-        )
-    }
-    console.log(total)
+
     return (
         <>
             <CategoryScroller />
-            <div className="arrowButtonWrapperDiv">
-                <div className={page > 1 ? "arrowButtons" : "arrowButtonsUnavailable"} onClick={page > 1 ? () => setPage(page - 1) : null}>
-                    <FaArrowUp />
+            {!loaded && <Spinner />}
+            {loaded && <div>
+                <div className="arrowButtonWrapperDiv">
+                    <div className={page > 1 ? "arrowButtons" : "arrowButtonsUnavailable"} onClick={page > 1 ? () => setPage(page - 1) : null}>
+                        <FaArrowUp />
+                    </div>
                 </div>
-            </div>
-            <div className="main_page_primary">
-                {restaurants.map((restaurant) => {
-                    return (
-                        <RestaurantTile restaurantInfo={restaurant} key={restaurant.id} />
-                    )
-                })}
-            </div>
-            <div className="arrowButtonWrapperDiv">
-                <div className={page * 12 < total ? "arrowButtons" : "arrowButtonsUnavailable"} onClick={page * 12 < total ? () => setPage(page + 1) : null}>
-                    <FaArrowDown />
+                <div className="main_page_primary">
+                    {restaurants.map((restaurant) => {
+                        return (
+                            <RestaurantTile restaurantInfo={restaurant} key={restaurant.id} />
+                        )
+                    })}
                 </div>
-            </div>
+                <div className="arrowButtonWrapperDiv">
+                    <div className={page * 12 < total ? "arrowButtons" : "arrowButtonsUnavailable"} onClick={page * 12 < total ? () => setPage(page + 1) : null}>
+                        <FaArrowDown />
+                    </div>
+                </div>
+            </div>}
             <div className="mainBottomBreaker"></div>
             <MainPageBottomDiv />
             <BottomLine />
