@@ -16,6 +16,7 @@ const MainPage = () => {
     const [total, setTotal] = useState(0)
 
     useEffect(() => {
+        setLoaded(false)
         dispatch(thunkAllRestaurants(page)).then((total) => setTotal(total)).then(() => setLoaded(true))
     }, [dispatch, page])
 
